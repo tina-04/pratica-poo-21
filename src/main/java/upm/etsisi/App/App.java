@@ -1,4 +1,4 @@
-package upm.etsisi;
+package upm.etsisi.App;
 
 /**
  * Hello world!

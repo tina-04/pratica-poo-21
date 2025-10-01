@@ -9,14 +9,21 @@ public class Product {
     private int numPositive;
     private Category category;
     private String name;
-    private int price;
+    private double price;
 
-    public Product(String id, int numPositive, Category category, String name, int price) {
+    public Product(String id, int numPositive, Category category, String name, double price) {
         this.id = id;
-        this.numPositive = numPositive;
+        if(numPositive > 0){
+            this.numPositive = numPositive;
+        }
+        if(name.length() < 100 && !name.isEmpty()){
+            this.name = name;
+        }
         this.category = category;
-        this.name = name;
-        this.price = price;
+        if(price > 0){
+            this.price = price;
+        }
+
     }
 
     public int getNumPositive() {
@@ -44,11 +51,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
