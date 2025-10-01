@@ -1,6 +1,8 @@
 package upm.etsisi.Control;
 
 import upm.etsisi.Model.Product;
+import upm.etsisi.Utility.Utility;
+import upm.etsisi.View.ViewProduct;
 import upm.etsisi.View.ViewUtility;
 
 import java.util.ArrayList;
@@ -34,10 +36,11 @@ public class ControlProduct {
 
         return null;
     }
+
     public Product removeProduct(String id) {
         boolean exist = false;
         for (int i = 0; i < productList.size(); i++) {
-            if(productList.get(i).equals(id)){
+            if (productList.get(i).equals(id)) {
                 productList.remove(productList.get(i));
                 numProducts--;
                 exist = true;
@@ -48,12 +51,16 @@ public class ControlProduct {
     }
 
 
-    public String list(){
+    public String list() {
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i = 0; i < productList.size(); i++){
-            if(productList.get(i) != null){
-                stringBuilder.append(productList.get(i).getId()).append(ViewUtility.comma).append(productList.get(i).getName())
-                        .append(productList.get(i).getCategory()).append(productList.get(i).getPrice());
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i) != null) {
+                stringBuilder.append(ViewUtility.bracketLeft).append(ViewProduct.classProduct).append(ViewUtility.comma).
+                        append(ViewProduct.id).append(ViewUtility.colon).append(productList.get(i).getId()).append(ViewUtility.comma).
+                        append(ViewProduct.name).append(ViewUtility.colon).append(productList.get(i).getName()).append(ViewUtility.comma).
+                        append(ViewProduct.category).append(ViewUtility.colon).append(productList.get(i).getCategory()).append(ViewUtility.comma).
+                        append(ViewProduct.price).append(ViewUtility.colon).append(productList.get(i).getPrice()).
+                        append(ViewUtility.bracketRight);
             }
         }
         return stringBuilder.toString();
