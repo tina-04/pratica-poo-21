@@ -34,6 +34,19 @@ public class ControlProduct {
 
         return null;
     }
+    public Product removeProduct(String id) {
+        boolean exist = false;
+        for (int i = 0; i < productList.size(); i++) {
+            if(productList.get(i).equals(id)){
+                productList.remove(productList.get(i));
+                numProducts--;
+                exist = true;
+            }
+        }
+
+        return null;
+    }
+
 
     public String list(){
         StringBuilder stringBuilder = new StringBuilder();
