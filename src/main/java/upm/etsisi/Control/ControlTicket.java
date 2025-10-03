@@ -24,7 +24,8 @@ public class ControlTicket {
         System.out.println("ticket new: ok");
     }
 
-    public void addProduct(Product product, int amount) {
+    public void addProduct(Product product) {
+        if (product.)
         products.add(product);
         calculateTotal();
         printTicket();
