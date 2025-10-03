@@ -79,19 +79,19 @@ public class ControlTicket {
         String category = product.getCategory();
         switch (category) {
             case "MERCH":
-                discount += 0 * product.getPrice();
+                discount = 0 * product.getPrice();
                 break;
             case "PAPELERIA":
-                discount += 0.05 * product.getPrice();
+                discount = 0.05 * product.getPrice();
                 break;
             case "ROPA":
-                discount += 0.07 * product.getPrice();
+                discount = 0.07 * product.getPrice();
                 break;
             case "LIBRO":
-                discount += 0.10 * product.getPrice();
+                discount = 0.10 * product.getPrice();
                 break;
             case "ELECTRONICA":
-                discount += 0.03 * product.getPrice();
+                discount = 0.03 * product.getPrice();
                 break;
         }
         return discount;
