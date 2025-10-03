@@ -26,11 +26,12 @@ public class ControlTicket {
     }
 
     public void addProduct(Product product) {
-        if (product != null) {}
-        products.add(product);
-        calculateTotal();
-        printTicket();
-        System.out.println("ticket added: ok");
+        if (product != null && products.size() < MAX_PRODUCT) {
+            products.add(product);
+            calculateTotal();
+            printTicket();
+            System.out.println("ticket added: ok");
+        }
     }
 
     public void removeProduct(Product product) {
