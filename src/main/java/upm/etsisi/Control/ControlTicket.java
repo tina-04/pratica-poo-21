@@ -76,6 +76,7 @@ public class ControlTicket {
     }
 
     public double calculateDiscount(Product product) {
+
         double discount = 0.0;
         Category category = product.getCategory();
         switch (category) {
