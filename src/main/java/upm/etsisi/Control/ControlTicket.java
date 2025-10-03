@@ -2,6 +2,7 @@ package upm.etsisi.Control;
 
 import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
+import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewProduct;
 import upm.etsisi.View.ViewTicket;
 import upm.etsisi.View.ViewUtility;
@@ -75,21 +76,21 @@ public class ControlTicket {
 
     public double calculateDiscount(Product product) {
         double discount = 0.0;
-        String category = product.getCategory();
+        Category category = product.getCategory();
         switch (category) {
-            case "MERCH":
+            case MERCH:
                 discount += 0 * product.getPrice();
                 break;
-            case "PAPELERIA":
+            case PAPELERIA:
                 discount += 0.05 * product.getPrice();
                 break;
-            case "ROPA":
+            case ROPA:
                 discount += 0.07 * product.getPrice();
                 break;
-            case "LIBRO":
+            case LIBRO:
                 discount += 0.10 * product.getPrice();
                 break;
-            case "ELECTRONICA":
+            case ELECTRONICA:
                 discount += 0.03 * product.getPrice();
                 break;
         }

@@ -7,11 +7,11 @@ public class Product {
 
     private int id;
     private int numPositive;
-    private String category;
+    private Category category;
     private String name;
     private double price;
 
-    public Product(int id, int numPositive, String category, String name, double price) {
+    public Product(int id, int numPositive, Category category, String name, double price) {
         this.id = id;
         if(numPositive > 0){
             this.numPositive = numPositive;
@@ -30,16 +30,16 @@ public class Product {
         return numPositive;
     }
 
-    public void setNumPositive(int numPositive) {
-        this.numPositive = numPositive;
+    public void setNumPositive(int num) {
+        this.numPositive = num;
     }
 
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
