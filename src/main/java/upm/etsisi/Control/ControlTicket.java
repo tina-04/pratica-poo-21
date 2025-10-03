@@ -7,6 +7,7 @@ import upm.etsisi.View.ViewProduct;
 import upm.etsisi.View.ViewTicket;
 import upm.etsisi.View.ViewUtility;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class ControlTicket {
     private Ticket ticket;
 
     public ControlTicket(Ticket ticket) {
+        this.products = new ArrayList<>();
         this.ticket = new Ticket(products);
     }
 

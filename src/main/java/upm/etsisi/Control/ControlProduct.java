@@ -8,10 +8,13 @@ import upm.etsisi.View.ViewUtility;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jdk.internal.org.jline.utils.AttributedStringBuilder.append;
+
 public class ControlProduct {
     private List<Product> productList;
     private int numProducts;
     private final int MAX_PRODUCT = 200;
+    private ViewProduct viewProduct;
 
     public ControlProduct(int size) {
         this.productList = new ArrayList<>(size);
@@ -61,19 +64,8 @@ public class ControlProduct {
     }
 
 
-    public String list() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i) != null) {
-                stringBuilder.append(ViewUtility.bracketLeft).append(ViewProduct.classProduct).append(ViewUtility.comma).
-                        append(ViewProduct.id).append(ViewUtility.colon).append(productList.get(i).getId()).append(ViewUtility.comma).
-                        append(ViewProduct.name).append(ViewUtility.colon).append(productList.get(i).getName()).append(ViewUtility.comma).
-                        append(ViewProduct.category).append(ViewUtility.colon).append(productList.get(i).getCategory()).append(ViewUtility.comma).
-                        append(ViewProduct.price).append(ViewUtility.colon).append(productList.get(i).getPrice()).
-                        append(ViewUtility.bracketRight);
-            }
-        }
-        return stringBuilder.toString();
+    public void list() {
+        viewProduct.listProduct(productList);
     }
 
 
