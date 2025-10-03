@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ControlTicket {
     //private List<Product> products;
-    //private final int MAX_PRODUCT = 100;
+    private final int MAX_PRODUCT = 100;
 
     private Ticket ticket;
 

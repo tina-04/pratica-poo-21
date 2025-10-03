@@ -5,13 +5,13 @@ import upm.etsisi.Utility.Category;
 public class Product {
 
 
-    private String id;
+    private int id;
     private int numPositive;
     private String category;
     private String name;
     private double price;
 
-    public Product(String id, int numPositive, String category, String name, double price) {
+    public Product(int id, int numPositive, String category, String name, double price) {
         this.id = id;
         if(numPositive > 0){
             this.numPositive = numPositive;
@@ -60,11 +60,11 @@ public class Product {
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
