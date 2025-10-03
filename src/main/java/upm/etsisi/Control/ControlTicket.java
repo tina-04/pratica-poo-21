@@ -25,7 +25,6 @@ public class ControlTicket {
     }
 
     public void addProduct(Product product) {
-        if (product.)
         products.add(product);
         calculateTotal();
         printTicket();
