@@ -18,12 +18,11 @@ public class ControlProduct {
         this.numProducts = 0;
     }
 
-    public boolean existProduct(String id, String name, double price, String category) {
+    public boolean existProduct(int id) {
         boolean exist = false;
         for(int i = 0; i < productList.size(); i++) {
             if (productList.get(i) != null) {
-                if (productList.get(i).getId().equalsIgnoreCase(id) && productList.get(i).getName().equalsIgnoreCase(name) &&
-                        productList.get(i).getPrice()==price && productList.get(i).getCategory().equals(category) ){
+                if (productList.get(i).getId() == id  ){
                     exist = true;
                 }
             }
@@ -35,20 +34,23 @@ public class ControlProduct {
     public boolean addId(Product product) {
         boolean result = false;
         if(productList.size() < MAX_PRODUCT){
-            if(!existProduct(product.getId(),product.getName(),product.getPrice(),product.getCategory())){
-                productList.add(product);
-                numProducts++;
-                result = true;
+            if(!existProduct(product.getId())){
+                if(Utility.leerNum(product.getId())){
+                    productList.add(product);
+                    numProducts++;
+                    result = true;
+                }
+
             }
         }
 
         return result;
     }
 
-    public boolean removeProduct(String id) {
+    public boolean removeProduct(int id) {
         boolean resul = false;
         for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getId().equals(id)) {
+            if (productList.get(i).getId()==id) {
                 productList.remove(productList.get(i));
                 numProducts--;
                 resul = true;
