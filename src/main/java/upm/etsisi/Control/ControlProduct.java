@@ -34,7 +34,7 @@ public class ControlProduct {
         return exist;
     }
 
-    public boolean addId(Product product) {
+    public boolean addProduct(Product product) {
         boolean result = false;
         if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
@@ -67,6 +67,5 @@ public class ControlProduct {
     public void list() {
         viewProduct.listProduct(productList);
     }
-
 
 }
