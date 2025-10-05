@@ -8,16 +8,12 @@ public class Product {
 
 
     private int id;
-    private int numPositive;
     private Category category;
     private String name;
     private double price;
 
-    public Product(int id, int numPositive, Category category, String name, double price) {
+    public Product(int id, String name, Category category, double price) {
         this.id = id;
-        if(numPositive > 0){
-            this.numPositive = numPositive;
-        }
         if(name.length() < 100 && !name.isEmpty()){
             this.name = name;
         }
@@ -25,16 +21,8 @@ public class Product {
         if(price > 0){
             this.price = price;
         }
-
     }
 
-    public int getNumPositive() {
-        return numPositive;
-    }
-
-    public void setNumPositive(int num) {
-        this.numPositive = num;
-    }
 
 
     public Category getCategory() {

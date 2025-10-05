@@ -14,6 +14,7 @@ import java.util.Map;
 public class ControlTicket {
     private List<Product> products;
     private final int MAX_PRODUCT = 100;
+    private ViewProduct viewProduct;
 
     private Ticket ticket;
 
@@ -24,26 +25,22 @@ public class ControlTicket {
 
     public void newTicket() {
         this.ticket = new Ticket(products);
-        System.out.println("ticket new: ok");
     }
 
     public void addProduct(Product product) {
         if (product != null && products.size() < MAX_PRODUCT) {
             products.add(product);
-            calculateTotal();
             printTicket();
-            System.out.println("ticket added: ok");
         }
     }
 
     public void removeProduct(Product product) {
         products.remove(product);
-        calculateTotal();
         printTicket();
         System.out.println("ticket removed: ok");
     }
 
-    private String printTicket() {
+    /*private String printTicket() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Product product : products) {
             stringBuilder.append(ViewUtility.bracketLeft).append(ViewProduct.classProduct).append(ViewUtility.comma).
@@ -60,6 +57,20 @@ public class ControlTicket {
                 append(ViewTicket.printed);
 
         return stringBuilder.toString();
+    }*/
+
+    public void printTicket() {
+        for (Product product : products) {
+            if(product != null){
+                System.out.println(("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
+                        product.getCategory()+ "price : " + product.getPrice() + " **discount -" + calculateDiscount(product)));
+            }
+        }
+        calculateTotal();
+
+        System.out.println("Total price: " + ticket.getTotal());
+        System.out.println("Total discount: " + ticket.getDiscount());
+        System.out.println("Final Price: " + ticket.getFinalPrice());
     }
 
     private void calculateTotal() {

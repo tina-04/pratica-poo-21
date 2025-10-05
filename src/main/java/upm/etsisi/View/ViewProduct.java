@@ -14,13 +14,13 @@ public class ViewProduct {
     public static  final String category = " category";
     public static  final String id = " id";
     public static  final String comma = " comma";
+
     public void listProduct(List<Product> productList){
         for(Product product : productList){
             if(product != null){
                 messageOutput("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
                         product.getCategory()+ "price : " + product.getPrice());
             }
-
         }
 
     }
