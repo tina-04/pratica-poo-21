@@ -41,14 +41,12 @@ public class App
 
 
         boolean continuar = true;
-        while (continuar) {  // Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
-            String[] command =sc.nextLine().split(" ");
+        while (continuar) {  // TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
+            String[] command =sc.nextLine().split(" "); // TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
 
             switch (command[0]){
                 case "prod":
-                    Product product = new Product(Integer.parseInt(command[2]), command[3],
-                            Category.valueOf(command[4].toUpperCase()), Double.parseDouble(command[5]));
-                    commandProduct(command, product, controlProduct);
+                    commandProduct(command, controlProduct);
                     break;
 
                 case "ticket":
@@ -61,7 +59,7 @@ public class App
 
                 case "echo":
                     for (String s : command) {
-                        System.out.println(s + " ");
+                        System.out.print(s + " ");
                     }
                     break;
 
@@ -78,10 +76,10 @@ public class App
         }
     }
 
-    private void commandProduct(String[]  command, Product product, ControlProduct controlProduct) {
+    private void commandProduct(String[] command, ControlProduct controlProduct) {
         switch (command[1]) {
             case "add":
-                product = new Product(Integer.parseInt(command[2]), command[3],
+                Product product = new Product(Integer.parseInt(command[2]), command[3],
                         Category.valueOf(command[4].toUpperCase()), Double.parseDouble(command[5]));
                 controlProduct.addProduct(product);
                 break;
@@ -89,15 +87,15 @@ public class App
                 controlProduct.list();
                 break;
             case "update":
-                //controlProduct.update(Product);   No está hecho el metodo
+                controlProduct.updateProduct(Integer.parseInt(command[2]), command[3], command[4]);
                 break;
             case "remove":
-                controlProduct.removeProduct(product.getId());
+                controlProduct.removeProduct(Integer.parseInt(command[2]));
                 break;
         }
     }
 
-    private void commandTicket(String[]  command, ControlTicket controlTicket) {
+    private void commandTicket(String[] command, ControlTicket controlTicket) {
         switch (command[1]) {
             case "new":
                 controlTicket.newTicket();
