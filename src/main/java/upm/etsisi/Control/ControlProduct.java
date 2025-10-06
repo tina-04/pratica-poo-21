@@ -2,9 +2,7 @@ package upm.etsisi.Control;
 
 import upm.etsisi.Model.Product;
 import upm.etsisi.Utility.Category;
-import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewProduct;
-import upm.etsisi.View.ViewUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,7 @@ public class ControlProduct {
         boolean result = false;
         if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
-                if(Utility.leerNum(product.getId())){
+                if(product.getId() > 0 && product.getId() < MAX_PRODUCT){
                     productList.add(product);
                     numProducts++;
                     result = true;

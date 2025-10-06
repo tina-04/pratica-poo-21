@@ -1,8 +1,6 @@
 package upm.etsisi.Model;
 
 import upm.etsisi.Utility.Category;
-import upm.etsisi.View.ViewProduct;
-import upm.etsisi.View.ViewUtility;
 
 public class Product {
 
@@ -58,12 +56,12 @@ public class Product {
         this.id = id;
     }
 
-    public String toString(Product product) {
+    /*public String toString(Product product) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ViewProduct.id).append(ViewUtility.colon).append(product.getId()).append(ViewUtility.comma).
                 append(ViewProduct.name).append(ViewUtility.colon).append(product.getName()).append(ViewUtility.comma).
                 append(ViewProduct.category).append(ViewUtility.colon).append(product.getCategory()).append(ViewUtility.comma).
                 append(ViewProduct.price).append(ViewUtility.colon).append(product.getPrice());
         return stringBuilder.toString();
-    }
+    }*/
 }

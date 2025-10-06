@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ControlTicket {
     private final int MAX_PRODUCT = 100;
-    private ViewProduct viewProduct;
+
 
     private Ticket ticket;
 
