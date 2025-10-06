@@ -5,22 +5,25 @@ import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
+import upm.etsisi.View.ViewApp;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 /**
  * Hello world!
  *
  */
-public class App 
+public class App
+
 {
     public static void main( String[] args )
     {
         App app = new App();
-        app.init();
+        ViewApp.init();
         app.start();
-        app.end();
+        ViewApp.end();
     }
 
     public void start()
@@ -55,7 +58,7 @@ public class App
                     break;
 
                 case "help":
-                    printHelp();
+                    ViewApp.printHelp();
                     break;
 
                 case "echo":
@@ -65,12 +68,12 @@ public class App
                     break;
 
                 case "exit":
-                    System.out.println("Closing application.");
+                    System.out.println(ViewApp.close);
                     continuar = false;
                     break;
 
                 default:
-                    System.out.println("Unknown command. Type 'help' for list of commands.");
+                    System.out.println(ViewApp.error);
                     break;
 
             }
@@ -119,35 +122,6 @@ public class App
                 break;
         }
     }
-
-    private void printHelp() {
-        System.out.println("\nCommands:");
-        System.out.println("  prod add <id> \"<name>\" <category> <price>");
-        System.out.println("  prod list");
-        System.out.println("  prod update <id> NAME|CATEGORY|PRICE <value>");
-        System.out.println("  prod remove <id>");
-        System.out.println("  ticket new");
-        System.out.println("  ticket add <prodId> <quantity>");
-        System.out.println("  ticket remove <prodId>");
-        System.out.println("  ticket print");
-        System.out.println("  echo \"<texto>\"");
-        System.out.println("  help");
-        System.out.println("  exit");
-        System.out.println("\nCategories: MERCH, PAPELERIA, ROPA, LIBRO, ELECTRONICA");
-        System.out.println("Discounts if there are ≥2 units in the category: MERCH 0%, PAPELERIA 5%, ROPA 7%, LIBRO 10%, ELECTRONICA 3%.");
-    }
-
-    public void init()
-    {
-        System.out.println("Welcome to the ticket module App." +
-                "Ticket module. Type 'help' to see commands.");
-    }
-
-    public void end()
-    {
-        System.out.println("Goodbye!");
-    }
-
 
 }
 
