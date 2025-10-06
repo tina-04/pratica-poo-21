@@ -36,7 +36,7 @@ public class App
 
 
         ControlProduct controlProduct = new ControlProduct(100); //No sé cuál es el número que hay que poner de size
-        Ticket ticket = new Ticket(new ArrayList<>());
+        Ticket ticket = new Ticket();
         ControlTicket controlTicket = new ControlTicket(ticket);
 
 

@@ -9,22 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControlTicket {
-    private List<Product> products;
     private final int MAX_PRODUCT = 100;
     private ViewProduct viewProduct;
 
     private Ticket ticket;
 
     public ControlTicket(Ticket ticket) {
-        this.products = new ArrayList<>();
-        this.ticket = new Ticket(products);
+        this.ticket = new Ticket();
     }
 
     public void newTicket() {
-        this.ticket = new Ticket(products);
+        this.ticket = new Ticket();
     }
 
     public void addProduct(Product product) {
+        ArrayList<Product> products = ticket.getProducts();
         if (product != null && products.size() < MAX_PRODUCT) {
             products.add(product);
             printTicket();
@@ -32,6 +31,7 @@ public class ControlTicket {
     }
 
     public void removeProduct(Product product) {
+        ArrayList<Product> products = ticket.getProducts();
         products.remove(product);
         printTicket();
         System.out.println("ticket removed: ok");
@@ -57,20 +57,21 @@ public class ControlTicket {
     }*/
 
     public void printTicket() {
+        ArrayList<Product> products = ticket.getProducts();
         for (Product product : products) {
             if(product != null){
                 System.out.println(("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
                         product.getCategory()+ "price : " + product.getPrice() + " **discount -" + calculateDiscount(product)));
             }
         }
-        calculateTotal();
+        calculateTotal(products);
 
         System.out.println("Total price: " + ticket.getTotal());
         System.out.println("Total discount: " + ticket.getDiscount());
         System.out.println("Final Price: " + ticket.getFinalPrice());
     }
 
-    private void calculateTotal() {
+    private void calculateTotal(ArrayList<Product> products) {
         double total = 0.0;
         double discount = 0.0;
 

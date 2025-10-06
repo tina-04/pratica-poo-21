@@ -1,5 +1,6 @@
 package upm.etsisi.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,19 +8,22 @@ import java.util.Map;
 public class Ticket {
     //private Map<Product, Integer> ticket;
 
-    private List<Product> products;
+    private ArrayList<Product> products;
     private double total;
     private double discount;
     private double finalPrice;
 
-    public Ticket(List<Product> products) {
-        this.products = products;
+    public Ticket() {
+        this.products = new ArrayList<>();
         this.total = 0;
         this.discount = 0;
         this.finalPrice = 0;
     }
 
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
     public void setTotal(double total) {
         this.total = total;
     }
@@ -32,9 +36,7 @@ public class Ticket {
         this.discount = discount;
     }
 
-    public double getDiscount() {
-        return discount;
-    }
+    public double getDiscount() {return discount;}
 
     public void setFinalPrice(double finalPrice) {
         this.finalPrice = finalPrice;
