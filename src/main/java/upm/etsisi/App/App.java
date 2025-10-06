@@ -42,15 +42,16 @@ public class App
 
         boolean continuar = true;
         while (continuar) {  // TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
-            String[] command =sc.nextLine().split(" "); // TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
-
+            String line =sc.nextLine();
+            String[] command = line.split(" "); // TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
             switch (command[0]){
                 case "prod":
-                    commandProduct(command, controlProduct);
+                    String[] name = line.split("\"");
+                    commandProduct(command, name, controlProduct);
                     break;
 
                 case "ticket":
-                    commandTicket(command, controlTicket);
+                    commandTicket(command, controlTicket, controlProduct);
                     break;
 
                 case "help":
@@ -76,18 +77,20 @@ public class App
         }
     }
 
-    private void commandProduct(String[] command, ControlProduct controlProduct) {
+    private void commandProduct(String[] command, String[] name, ControlProduct controlProduct) {
         switch (command[1]) {
             case "add":
-                Product product = new Product(Integer.parseInt(command[2]), command[3],
-                        Category.valueOf(command[4].toUpperCase()), Double.parseDouble(command[5]));
+                Product product = new Product(Integer.parseInt(command[2]), name[1],
+                        Category.valueOf(command[command.length-2].toUpperCase()), Double.parseDouble(command[command.length-1]));
                 controlProduct.addProduct(product);
                 break;
             case "list":
                 controlProduct.list();
                 break;
             case "update":
-                controlProduct.updateProduct(Integer.parseInt(command[2]), command[3], command[4]);
+                if (name.length > 1) {
+                    controlProduct.updateProduct(Integer.parseInt(command[2]), command[3], name[1]);
+                }else controlProduct.updateProduct(Integer.parseInt(command[2]), command[3], command[4]);
                 break;
             case "remove":
                 controlProduct.removeProduct(Integer.parseInt(command[2]));
@@ -95,20 +98,21 @@ public class App
         }
     }
 
-    private void commandTicket(String[] command, ControlTicket controlTicket) {
+    private void commandTicket(String[] command, ControlTicket controlTicket, ControlProduct controlProduct) {
         switch (command[1]) {
             case "new":
                 controlTicket.newTicket();
                 break;
             case "add":
-                Product productA = new Product(Integer.parseInt(command[2]), command[3],
-                        Category.valueOf(command[4].toUpperCase()), Double.parseDouble(command[5]));
-                controlTicket.addProduct(productA);
+                int amount = Integer.parseInt(command[3]);
+                Product productAdd = controlProduct.getProduct(Integer.valueOf(command[2]) -1);
+                for (int i = 0; i < amount; i++) {
+                    controlTicket.addProduct(productAdd);
+                }
                 break;
             case "remove":
-                Product productR = new Product(Integer.parseInt(command[2]), command[3],
-                        Category.valueOf(command[4].toUpperCase()), Double.parseDouble(command[5]));
-                controlTicket.removeProduct(productR);
+                Product productRemove = controlProduct.getProduct(Integer.valueOf(command[2]) -1);
+                controlTicket.removeProduct(productRemove);
                 break;
             case "print":
                 controlTicket.printTicket();
@@ -117,7 +121,7 @@ public class App
     }
 
     private void printHelp() {
-        System.out.println("Commands:");
+        System.out.println("\nCommands:");
         System.out.println("  prod add <id> \"<name>\" <category> <price>");
         System.out.println("  prod list");
         System.out.println("  prod update <id> NAME|CATEGORY|PRICE <value>");

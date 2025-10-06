@@ -20,6 +20,7 @@ public class ControlProduct {
     public ControlProduct(int size) {
         this.productList = new ArrayList<>(size);
         this.numProducts = 0;
+        this.viewProduct = new ViewProduct();
     }
 
     public boolean existProduct(int id) { // TODO: Discutir si cambiar por un searchProduct que usar en los comandos
@@ -33,6 +34,10 @@ public class ControlProduct {
         }
 
         return exist;
+    }
+
+    public Product getProduct(int id) { // TODO: Para usarlo en APP y ticket add, no sé si coge bien por el id o lo toma como index
+        return productList.get(id);
     }
 
     public boolean addProduct(Product product) {

@@ -4,12 +4,9 @@ import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewProduct;
-import upm.etsisi.View.ViewTicket;
-import upm.etsisi.View.ViewUtility;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ControlTicket {
     private List<Product> products;
@@ -96,16 +93,16 @@ public class ControlTicket {
             case MERCH:
                 discount += 0 * product.getPrice();
                 break;
-            case PAPELERIA:
+            case STATIONERY:
                 discount += 0.05 * product.getPrice();
                 break;
-            case ROPA:
+            case CLOTHES:
                 discount += 0.07 * product.getPrice();
                 break;
-            case LIBRO:
+            case BOOK:
                 discount += 0.10 * product.getPrice();
                 break;
-            case ELECTRONICA:
+            case ELECTRONICS:
                 discount += 0.03 * product.getPrice();
                 break;
         }
