@@ -13,7 +13,19 @@ public class ViewProduct {
     public static  final String price = " price";
     public static  final String category = " category";
     public static  final String id = " id";
-    public static  final String comma = " comma";
+    public static  final String comma = " ,";
+    public static  final String colon = " : ";
+    public static  final String classP = " class:Product";
+    public static  final String brackeatsLeft = "{";
+    public static  final String bracketsRight = "}";
+    public String printPoroducto(Product product) {
+        StringBuilder sb = new StringBuilder();
+        if(product != null){
+            sb.append("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
+                    product.getCategory()+ "price : " + product.getPrice());
+        }
+        return sb.toString();
+    }
 
     public void listProduct(List<Product> productList){
         for(Product product : productList){
