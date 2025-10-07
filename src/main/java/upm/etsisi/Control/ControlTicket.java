@@ -26,15 +26,14 @@ public class ControlTicket {
         ArrayList<Product> products = ticket.getProducts();
         if (product != null && products.size() < MAX_PRODUCT) {
             products.add(product);
-            printTicket();
+            calculateTotal(products);
         }
     }
 
     public void removeProduct(Product product) {
         ArrayList<Product> products = ticket.getProducts();
         products.remove(product);
-        printTicket();
-        System.out.println("ticket removed: ok");
+        calculateTotal(products);
     }
 
     /*private String printTicket() {
@@ -64,7 +63,6 @@ public class ControlTicket {
                         product.getCategory()+ "price : " + product.getPrice() + " **discount -" + calculateDiscount(product)));
             }
         }
-        calculateTotal(products);
 
         System.out.println("Total price: " + ticket.getTotal());
         System.out.println("Total discount: " + ticket.getDiscount());
@@ -77,7 +75,8 @@ public class ControlTicket {
 
         for (Product product : products) {
             total += product.getPrice();
-            discount = calculateDiscount(product);
+            if (applyDiscount(products, product.getCategory()) > 1)
+                discount += calculateDiscount(product);
         }
 
         ticket.setDiscount(discount);
@@ -86,8 +85,7 @@ public class ControlTicket {
         ticket.setFinalPrice(total-discount);
     }
 
-    public double calculateDiscount(Product product) {
-
+    private double calculateDiscount(Product product) {
         double discount = 0.0;
         Category category = product.getCategory();
         switch (category) {
@@ -109,4 +107,13 @@ public class ControlTicket {
         }
         return discount;
     }
+
+    private int applyDiscount(ArrayList<Product> products, Category category) {
+        int amount = 0;
+        for (Product product : products) {
+            if (product.getCategory() == category) amount++;
+        }
+        return amount;
+    }
+
 }

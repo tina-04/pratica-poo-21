@@ -46,7 +46,7 @@ public class App
         boolean continuar = true;
         while (continuar) {  // TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
             String line =sc.nextLine();
-            String[] command = line.split(" "); // TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
+            String[] command = line.split(" ");
             switch (command[0]){
                 case "prod":
                     String[] name = line.split("\"");
@@ -111,6 +111,7 @@ public class App
                 Product productAdd = controlProduct.getProduct(Integer.valueOf(command[2]) -1);
                 for (int i = 0; i < amount; i++) {
                     controlTicket.addProduct(productAdd);
+                    controlTicket.printTicket();
                 }
                 break;
             case "remove":

@@ -9,11 +9,11 @@ public class ViewProduct {
         System.out.println(output);
     }
     public static final String  classProduct = " class:Product ";
-    public static  final String name = " name";
-    public static  final String price = " price";
-    public static  final String category = " category";
-    public static  final String id = " id";
-    public static  final String comma = " comma";
+    public static final String name = " name";
+    public static final String price = " price";
+    public static final String category = " category";
+    public static final String id = " id";
+    public static final String comma = " comma";
 
     public void listProduct(List<Product> productList){
         for(Product product : productList){
