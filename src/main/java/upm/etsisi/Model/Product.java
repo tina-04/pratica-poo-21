@@ -1,6 +1,7 @@
 package upm.etsisi.Model;
 
 import upm.etsisi.Utility.Category;
+import upm.etsisi.View.ViewProduct;
 
 public class Product {
 
@@ -9,6 +10,7 @@ public class Product {
     private Category category;
     private String name;
     private double price;
+    private ViewProduct viewProduct;
 
     public Product(int id, String name, Category category, double price) {
         this.id = id;
@@ -56,12 +58,18 @@ public class Product {
         this.id = id;
     }
 
-    /*public String toString(Product product) {
+    public String toString(Product product) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ViewProduct.id).append(ViewUtility.colon).append(product.getId()).append(ViewUtility.comma).
-                append(ViewProduct.name).append(ViewUtility.colon).append(product.getName()).append(ViewUtility.comma).
-                append(ViewProduct.category).append(ViewUtility.colon).append(product.getCategory()).append(ViewUtility.comma).
-                append(ViewProduct.price).append(ViewUtility.colon).append(product.getPrice());
+        stringBuilder.append(ViewProduct.id).append(ViewProduct.colon).append(product.getId()).append(ViewProduct.comma).
+                append(ViewProduct.name).append(ViewProduct.colon).append(product.getName()).append(ViewProduct.comma).
+                append(ViewProduct.category).append(ViewProduct.colon).append(product.getCategory()).append(ViewProduct.comma).
+                append(ViewProduct.price).append(ViewProduct.colon).append(product.getPrice());
         return stringBuilder.toString();
-    }*/
+    }
+    public String toString1(Product product){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(viewProduct.printPoroducto(product));
+        return stringBuilder.toString();
+
+    }
 }
