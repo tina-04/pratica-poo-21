@@ -8,13 +8,13 @@ public class ViewProduct {
     public void messageOutput(String output) {
         System.out.println(output);
     }
-    public String printPoroducto(Product product) {
-        StringBuilder sb = new StringBuilder();
+    public void printPoroducto(Product product) {
+
         if(product != null){
             messageOutput("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+
                     "', category : " + product.getCategory()+ " ，price : " + product.getPrice() + "}");
         }
-        return sb.toString();
+
     }
 
     public void listProduct(List<Product> productList){
