@@ -6,6 +6,7 @@ import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewProduct;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ControlTicket {
@@ -13,27 +14,49 @@ public class ControlTicket {
 
 
     private Ticket ticket;
+    private HashMap<Category, Integer> categoryCounter = new HashMap<>();
 
-    public ControlTicket(Ticket ticket) {
+    public ControlTicket() {
         this.ticket = new Ticket();
     }
 
     public void newTicket() {
         this.ticket = new Ticket();
+        this.categoryCounter = new HashMap<>();
     }
 
     public void addProduct(Product product) {
         ArrayList<Product> products = ticket.getProducts();
         if (product != null && products.size() < MAX_PRODUCT) {
             products.add(product);
-            calculateTotal(products);
+
+            Category cat = product.getCategory();
+            int count = categoryCounter.getOrDefault(cat, 0);
+            categoryCounter.put(cat, count + 1);
+
+            printTicket();
         }
     }
 
     public void removeProduct(Product product) {
         ArrayList<Product> products = ticket.getProducts();
-        products.remove(product);
-        calculateTotal(products);
+        int eliminated = 0;
+        while(products.remove(product)){
+            eliminated++;
+        }
+
+        Category cat = product.getCategory();
+        int count = categoryCounter.getOrDefault(cat, 0);
+        if (eliminated > 0) {
+            if (count > eliminated) {
+                categoryCounter.put(cat, count - eliminated);
+            } else {
+                categoryCounter.remove(cat);
+            }
+        }
+
+        //printTicket(); Este creo que está mal, no piden todos los restantes, sino lo contrario solo el producto borrado, revisar en pruebas
+        System.out.println("ticket removed: ok");
     }
 
     /*private String printTicket() {
@@ -57,12 +80,33 @@ public class ControlTicket {
 
     public void printTicket() {
         ArrayList<Product> products = ticket.getProducts();
+
+        double total = 0;
+        double totalDiscount = 0;
+
         for (Product product : products) {
             if(product != null){
-                System.out.println(("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
-                        product.getCategory()+ "price : " + product.getPrice() + " **discount -" + calculateDiscount(product)));
+                Category cat = product.getCategory();
+                boolean hasDiscount = categoryCounter.getOrDefault(cat, 0) >= 2;
+                double discount = hasDiscount ? calculateDiscount(product) : 0.0;
+                total += product.getPrice();
+                totalDiscount += discount;
+
+                if(hasDiscount){
+                    System.out.println("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
+                            product.getCategory()+ "price : " + product.getPrice() + " **discount -" + calculateDiscount(product));
+                }
+                else{
+                    System.out.println("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
+                            product.getCategory()+ "price : " + product.getPrice());
+                }
+
             }
         }
+        //calculateTotal(products); De momento lo oculto
+        ticket.setTotal(total);
+        ticket.setDiscount(totalDiscount);
+        ticket.setFinalPrice(total - totalDiscount);
 
         System.out.println("Total price: " + ticket.getTotal());
         System.out.println("Total discount: " + ticket.getDiscount());
@@ -75,8 +119,7 @@ public class ControlTicket {
 
         for (Product product : products) {
             total += product.getPrice();
-            if (applyDiscount(products, product.getCategory()) > 1)
-                discount += calculateDiscount(product);
+            discount = calculateDiscount(product);
         }
 
         ticket.setDiscount(discount);
@@ -85,7 +128,8 @@ public class ControlTicket {
         ticket.setFinalPrice(total-discount);
     }
 
-    private double calculateDiscount(Product product) {
+    public double calculateDiscount(Product product) {
+
         double discount = 0.0;
         Category category = product.getCategory();
         switch (category) {
@@ -107,14 +151,4 @@ public class ControlTicket {
         }
         return discount;
     }
-
-    private int applyDiscount(ArrayList<Product> products, Category category) {
-        int amount = 0;
-        for (Product product : products) {
-            if (product.getCategory() == category) amount++;
-        }
-        return amount;
-    }
-
-
 }

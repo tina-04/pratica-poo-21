@@ -38,8 +38,7 @@ public class App
         boolean[] arrayTaskStatus = new boolean[100];*/
 
         ControlProduct controlProduct = new ControlProduct(100); //No sé cuál es el número que hay que poner de size
-        Ticket ticket = new Ticket();
-        ControlTicket controlTicket = new ControlTicket(ticket);
+        ControlTicket controlTicket = new ControlTicket();
 
 
         boolean continuar = true;
@@ -112,6 +111,7 @@ public class App
                     controlTicket.addProduct(productAdd);
                     controlTicket.printTicket();
                 }
+                controlTicket.printTicket();
                 break;
             case "remove":
                 Product productRemove = controlProduct.getProduct(Integer.valueOf(command[2]) -1);
