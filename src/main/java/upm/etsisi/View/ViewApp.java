@@ -1,6 +1,8 @@
 package upm.etsisi.View;
 
 public class ViewApp {
+    public static final String close = "Closing application.";
+    public static final String error = "Unknown command. Type 'help' for list of commands.";
     public static void printHelp() {
         System.out.println("\nCommands:");
         System.out.println("  prod add <id> \"<name>\" <category> <price>");
@@ -28,7 +30,6 @@ public class ViewApp {
     {
         System.out.println("Goodbye!");
     }
-    public static final String close = "Closing application.";
-    public static final String error = "Unknown command. Type 'help' for list of commands.";
+
 
 }

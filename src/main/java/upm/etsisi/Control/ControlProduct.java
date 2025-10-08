@@ -7,8 +7,6 @@ import upm.etsisi.View.ViewProduct;
 import java.util.ArrayList;
 import java.util.List;
 
-//import static jdk.internal.org.jline.utils.AttributedStringBuilder.append;
-
 public class ControlProduct {
     private List<Product> productList;
     private int numProducts;
@@ -40,7 +38,6 @@ public class ControlProduct {
 
     public boolean addProduct(Product product) {
         boolean result = false;
-        StringBuilder stringBuilder = new StringBuilder();
         if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
                 if(product.getId() > 0 && product.getId() < MAX_PRODUCT){
@@ -51,7 +48,6 @@ public class ControlProduct {
                 }
 
             }
-
         }
 
         return result;
@@ -59,7 +55,6 @@ public class ControlProduct {
 
     public boolean removeProduct(int id) {
         boolean result = false;
-        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getId()==id) {
                 printProduct(productList.get(i));
@@ -95,7 +90,6 @@ public class ControlProduct {
         }
         return result;
     }
-
 
     public void list() {
         viewProduct.listProduct(productList);
