@@ -13,16 +13,18 @@ public class ViewProduct {
     public static  final String price = " price";
     public static  final String category = " category";
     public static  final String id = " id";
-    public static  final String comma = " ,";
+    public static  final String comma = ", ";
     public static  final String colon = " : ";
     public static  final String classP = " class:Product";
     public static  final String brackeatsLeft = "{";
     public static  final String bracketsRight = "}";
+    public static  final String nullProduct = "The product is null";
+    public static final String notFound = "Product not found";
     public String printPoroducto(Product product) {
         StringBuilder sb = new StringBuilder();
         if(product != null){
-            sb.append("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
-                    product.getCategory()+ "price : " + product.getPrice());
+            messageOutput("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+
+                    "', category : " + product.getCategory()+ " ，price : " + product.getPrice() + "}");
         }
         return sb.toString();
     }
@@ -31,7 +33,7 @@ public class ViewProduct {
         for(Product product : productList){
             if(product != null){
                 messageOutput("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
-                        product.getCategory()+ "price : " + product.getPrice());
+                        product.getCategory()+ " ，price : " + product.getPrice() + " }");
             }
         }
 

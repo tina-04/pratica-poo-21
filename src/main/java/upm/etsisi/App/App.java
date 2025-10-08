@@ -37,18 +37,22 @@ public class App
         int num_elements = 0;
         boolean[] arrayTaskStatus = new boolean[100];*/
 
+
         ControlProduct controlProduct = new ControlProduct(100); //No sé cuál es el número que hay que poner de size
         ControlTicket controlTicket = new ControlTicket();
 
 
         boolean continuar = true;
-        while (continuar) {  // TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
+        while (continuar) {
+            System.out.print("\ntUPM>");// TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
             String line =sc.nextLine();
             String[] command = line.split(" ");
+            System.out.println(line);// TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
             switch (command[0]){
                 case "prod":
                     String[] name = line.split("\"");
                     commandProduct(command, name, controlProduct);
+                    System.out.println(command[0] + " " + command[1] + ": ok");
                     break;
 
                 case "ticket":
@@ -63,6 +67,7 @@ public class App
                     for (String s : command) {
                         System.out.print(s + " ");
                     }
+                    System.out.println( "\n");
                     break;
 
                 case "exit":
@@ -97,6 +102,7 @@ public class App
                 controlProduct.removeProduct(Integer.parseInt(command[2]));
                 break;
         }
+
     }
 
     private void commandTicket(String[] command, ControlTicket controlTicket, ControlProduct controlProduct) {
@@ -109,7 +115,6 @@ public class App
                 Product productAdd = controlProduct.getProduct(Integer.valueOf(command[2]) -1);
                 for (int i = 0; i < amount; i++) {
                     controlTicket.addProduct(productAdd);
-                    controlTicket.printTicket();
                 }
                 controlTicket.printTicket();
                 break;
