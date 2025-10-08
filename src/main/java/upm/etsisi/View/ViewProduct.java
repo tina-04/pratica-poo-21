@@ -8,7 +8,7 @@ public class ViewProduct {
     public void messageOutput(String output) {
         System.out.println(output);
     }
-    public void printPoroducto(Product product) {
+    public void printProduct(Product product) {
 
         if(product != null){
             messageOutput("{class:Product: id: " + product.getId()+ ", name : '" + product.getName()+

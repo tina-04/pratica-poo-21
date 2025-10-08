@@ -111,6 +111,6 @@ public class ControlProduct {
         viewProduct.listProduct(productList);
     }
     public void printProduct(Product product) {
-        viewProduct.printPoroducto(product);
+        viewProduct.printProduct(product);
     }
 }
