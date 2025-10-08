@@ -52,6 +52,7 @@ public class App
                 case "prod":
                     String[] name = line.split("\"");
                     commandProduct(command, name, controlProduct);
+                    System.out.println(command[0] + " " + command[1] + ": ok");
                     break;
 
                 case "ticket":
@@ -101,6 +102,7 @@ public class App
                 controlProduct.removeProduct(Integer.parseInt(command[2]));
                 break;
         }
+
     }
 
     private void commandTicket(String[] command, ControlTicket controlTicket, ControlProduct controlProduct) {
