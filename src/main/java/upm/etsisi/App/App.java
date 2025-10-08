@@ -43,9 +43,11 @@ public class App
 
 
         boolean continuar = true;
-        while (continuar) {  // TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
+        while (continuar) {
+            System.out.print("\ntUPM>");// TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
             String line =sc.nextLine();
-            String[] command = line.split(" "); // TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
+            String[] command = line.split(" ");
+            System.out.println(line);// TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
             switch (command[0]){
                 case "prod":
                     String[] name = line.split("\"");
@@ -64,6 +66,7 @@ public class App
                     for (String s : command) {
                         System.out.print(s + " ");
                     }
+                    System.out.println( "\n");
                     break;
 
                 case "exit":

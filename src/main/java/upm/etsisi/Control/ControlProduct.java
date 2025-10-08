@@ -40,15 +40,18 @@ public class ControlProduct {
 
     public boolean addProduct(Product product) {
         boolean result = false;
+        StringBuilder stringBuilder = new StringBuilder();
         if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
                 if(product.getId() > 0 && product.getId() < MAX_PRODUCT){
                     productList.add(product);
                     numProducts++;
                     result = true;
+                    printProduct(product);
                 }
 
             }
+
         }
 
         return result;
@@ -56,11 +59,14 @@ public class ControlProduct {
 
     public boolean removeProduct(int id) {
         boolean result = false;
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getId()==id) {
+                printProduct(productList.get(i));
                 productList.remove(productList.get(i));
                 numProducts--;
                 result = true;
+
             }
         }
 
@@ -83,6 +89,8 @@ public class ControlProduct {
                         break; // Yo revisaría este caso con alguna prueba por si acaso
                 }
                 result = true;
+                printProduct(productList.get(i));
+
             }
         }
         return result;
@@ -91,5 +99,8 @@ public class ControlProduct {
 
     public void list() {
         viewProduct.listProduct(productList);
+    }
+    public void printProduct(Product product) {
+        viewProduct.printPoroducto(product);
     }
 }

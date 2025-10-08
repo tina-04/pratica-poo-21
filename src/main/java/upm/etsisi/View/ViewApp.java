@@ -21,7 +21,7 @@ public class ViewApp {
     public static void init()
     {
         System.out.println("Welcome to the ticket module App." +
-                "Ticket module. Type 'help' to see commands.");
+                "\nTicket module. Type 'help' to see commands.");
     }
 
     public static void end()
