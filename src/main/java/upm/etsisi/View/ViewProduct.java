@@ -11,8 +11,8 @@ public class ViewProduct {
     public void printPoroducto(Product product) {
 
         if(product != null){
-            messageOutput("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+
-                    "', category : " + product.getCategory()+ " ，price : " + product.getPrice() + "}");
+            messageOutput("{class:Product: id: " + product.getId()+ ", name : '" + product.getName()+
+                    "', category : " + product.getCategory()+ ", price : " + product.getPrice() + "}");
         }
 
     }
@@ -20,8 +20,8 @@ public class ViewProduct {
     public void listProduct(List<Product> productList){
         for(Product product : productList){
             if(product != null){
-                messageOutput("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
-                        product.getCategory()+ " ，price : " + product.getPrice() + " }");
+                messageOutput("{class:Product: id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
+                        product.getCategory()+ ", price : " + product.getPrice() + " }");
             }
         }
 

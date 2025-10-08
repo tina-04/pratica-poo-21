@@ -31,9 +31,25 @@ public class ControlProduct {
 
         return exist;
     }
+    public Product searchProduct(int id) {
+        Product product = null;
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getId() == id) {
+                product = productList.get(i);
+            }
+        }
+        return product;
+    }
 
-    public Product getProduct(int id) { // TODO: Para usarlo en APP y ticket add, no sé si coge bien por el id o lo toma como index
-        return productList.get(id);
+
+    public Product getProduct(int id) {// TODO: Para usarlo en APP y ticket add, no sé si coge bien por el id o lo toma como index
+       Product product = null;
+        for(int i =0 ; i < productList.size(); i++) {
+            if (productList.get(i).getId() == id) {
+                product = productList.get(i);
+            }
+        }
+        return product;
     }
 
     public boolean addProduct(Product product) {

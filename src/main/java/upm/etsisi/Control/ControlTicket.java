@@ -12,36 +12,40 @@ import java.util.List;
 public class ControlTicket {
     private final int MAX_PRODUCT = 100;
 
-
     private Ticket ticket;
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
 
     public ControlTicket() {
         this.ticket = new Ticket();
+
     }
+
+
 
     public void newTicket() {
         this.ticket = new Ticket();
         this.categoryCounter = new HashMap<>();
     }
 
-    public void addProduct(Product product) {
-        ArrayList<Product> products = ticket.getProducts();
+
+
+    public void addProduct(Product product, int amount) {
+        List<Product> products = ticket.getProducts();
         if (product != null && products.size() < MAX_PRODUCT) {
-            products.add(product);
-
-            Category cat = product.getCategory();
-            int count = categoryCounter.getOrDefault(cat, 0);
-            categoryCounter.put(cat, count + 1);
-
-            printTicket();
+            for (int i = 1; i <= amount; i++) {
+                products.add(product);
+                Category cat = product.getCategory();
+                int count = categoryCounter.getOrDefault(cat, 0);
+                categoryCounter.put(cat, count + 1);
+            }
         }
+        printTicket();
     }
 
     public void removeProduct(Product product) {
-        ArrayList<Product> products = ticket.getProducts();
+        List<Product> products = ticket.getProducts();
         int eliminated = 0;
-        while(products.remove(product)){
+        while (products.remove(product)) {
             eliminated++;
         }
 
@@ -79,26 +83,25 @@ public class ControlTicket {
     }*/
 
     public void printTicket() {
-        ArrayList<Product> products = ticket.getProducts();
+        List<Product> products = ticket.getProducts();
 
         double total = 0;
         double totalDiscount = 0;
 
         for (Product product : products) {
-            if(product != null){
+            if (product != null) {
                 Category cat = product.getCategory();
                 boolean hasDiscount = categoryCounter.getOrDefault(cat, 0) >= 2;
                 double discount = hasDiscount ? calculateDiscount(product) : 0.0;
                 total += product.getPrice();
                 totalDiscount += discount;
 
-                if(hasDiscount){
-                    System.out.println("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
-                            product.getCategory()+ "price : " + product.getPrice() + " **discount -" + calculateDiscount(product));
-                }
-                else{
-                    System.out.println("{class:Product，id: " + product.getId()+ "name : '" + product.getName()+ "', category : " +
-                            product.getCategory()+ "price : " + product.getPrice());
+                if (hasDiscount) {
+                    System.out.println("{class:Product: id: " + product.getId() + ", name : '" + product.getName() + "', category : " +
+                            product.getCategory() + ", price : " + product.getPrice() + " **discount -" + calculateDiscount(product));
+                } else {
+                    System.out.println("{class:Product: id: " + product.getId() + "name : '" + product.getName() + "', category : " +
+                            product.getCategory() + ", price : " + product.getPrice());
                 }
 
             }
@@ -125,7 +128,7 @@ public class ControlTicket {
         ticket.setDiscount(discount);
         ticket.setTotal(total);
 
-        ticket.setFinalPrice(total-discount);
+        ticket.setFinalPrice(total - discount);
     }
 
     public double calculateDiscount(Product product) {

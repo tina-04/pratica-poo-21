@@ -57,6 +57,7 @@ public class App
 
                 case "ticket":
                     commandTicket(command, controlTicket, controlProduct);
+                    System.out.println(command[0] + " " + command[1] + ": ok");
                     break;
 
                 case "help":
@@ -111,15 +112,12 @@ public class App
                 controlTicket.newTicket();
                 break;
             case "add":
+                Product producAdd = controlProduct.searchProduct(Integer.parseInt(command[2]));
                 int amount = Integer.parseInt(command[3]);
-                Product productAdd = controlProduct.getProduct(Integer.valueOf(command[2]) -1);
-                for (int i = 0; i < amount; i++) {
-                    controlTicket.addProduct(productAdd);
-                }
-                controlTicket.printTicket();
+                controlTicket.addProduct(producAdd, amount);
                 break;
             case "remove":
-                Product productRemove = controlProduct.getProduct(Integer.valueOf(command[2]) -1);
+                Product productRemove = controlProduct.searchProduct(Integer.parseInt(command[2]));
                 controlTicket.removeProduct(productRemove);
                 break;
             case "print":
