@@ -8,20 +8,20 @@ import java.util.Map;
 public class Ticket {
     //private Map<Product, Integer> ticket;
 
-    private ArrayList<Product> products;
+    private List<Product> products;
     private double total;
     private double discount;
     private double finalPrice;
 
     public Ticket() {
-        this.products = new ArrayList<>();
+        this.products = new ArrayList<Product>();
         this.total = 0;
         this.discount = 0;
         this.finalPrice = 0;
     }
 
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
     public void setTotal(double total) {
