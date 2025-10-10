@@ -50,33 +50,19 @@ public class ControlTicket {
             eliminated++;
         }
 
+
         Category cat = product.getCategory();
         int count = categoryCounter.getOrDefault(cat, 0);
         if (eliminated > 0) {
             if (count > eliminated) {
                 categoryCounter.put(cat, count - eliminated);
             } else {
-                categoryCounter.remove(cat);
+                categoryCounter.remove(cat,0);
             }
         }
 
         // Este creo que está mal, no piden todos los restantes, sino lo contrario solo el producto borrado, revisar en pruebas
 
-    }
-
-    public boolean removeProduct1() {
-        boolean result = false;
-        List<Product> productList = ticket.getProducts();
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i) != null) {
-                productList.remove(productList.get(i));
-                result = true;
-                printTicket();
-
-            }
-        }
-
-        return result;
     }
 
 
