@@ -24,12 +24,10 @@ public class ControlTicket {
     }
 
 
-
     public void newTicket() {
         this.ticket = new Ticket();
         this.categoryCounter = new HashMap<>();
     }
-
 
 
     public void addProduct(Product product, int amount) {
@@ -70,7 +68,7 @@ public class ControlTicket {
         boolean result = false;
         List<Product> productList = ticket.getProducts();
         for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i)!=null) {
+            if (productList.get(i) != null) {
                 productList.remove(productList.get(i));
                 result = true;
                 printTicket();
@@ -82,24 +80,24 @@ public class ControlTicket {
     }
 
 
-
     public void printTicket() {
         List<Product> products = ticket.getProducts();
 
-       // double total = 0;
-       // double totalDiscount = 0;
+         double total = 0;
+        double totalDiscount = 0;
+
 
         for (Product product : products) {
             if (product != null) {
                 Category cat = product.getCategory();
                 boolean hasDiscount = categoryCounter.getOrDefault(cat, 0) >= 2;
-                //double discount = hasDiscount ? calculateDiscount(product) : 0.0;
-                //total += product.getPrice();
-                //totalDiscount += discount;
+                double discount = hasDiscount ? calculateDiscount(product) : 0.0;
+                total += product.getPrice();
+                totalDiscount += discount;
 
                 if (hasDiscount) {
                     double discountProduct = calculateDiscount(product);
-                    viewTicket.printProductDiscount(product,discountProduct);
+                    viewTicket.printProductDiscount(product, discountProduct);
                 } else {
 
                     viewTicket.printProduct(product);
@@ -107,19 +105,18 @@ public class ControlTicket {
 
             }
         }
-        calculateTotal(products);
-        /*ticket.setTotal(total);
+        //calculateTotal(products);
+        ticket.setTotal(total);
         ticket.setDiscount(totalDiscount);
         ticket.setFinalPrice(total - totalDiscount);
 
 
-        viewTicket.totalPrice(ticket);
-        viewTicket.discountPrice(ticket);
-        viewTicket.finalPrice(ticket);*/
+        viewTicket.prices(ticket);
+
 
     }
 
-    private void calculateTotal(List<Product> products) {
+    public void calculateTotal(List<Product> products) {
         double total = 0.0;
         double discount = 0.0;
 
@@ -132,9 +129,7 @@ public class ControlTicket {
         ticket.setTotal(total);
         ticket.setFinalPrice(total - discount);
 
-        viewTicket.totalPrice(ticket);
-        viewTicket.discountPrice(ticket);
-        viewTicket.finalPrice(ticket);
+        viewTicket.prices(ticket);
     }
 
     public double calculateDiscount(Product product) {

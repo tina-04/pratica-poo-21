@@ -26,14 +26,11 @@ public class ViewTicket {
 
     }
 
-    public void totalPrice(Ticket  ticket) {
+    public void prices(Ticket  ticket) {
         messageOutput("Total price: " + ticket.getTotal());
-    }
-    public void discountPrice(Ticket  ticket) {
         messageOutput("Discount price: " + ticket.getDiscount());
-    }
-    public void finalPrice(Ticket  ticket) {
         messageOutput("Final price: " + ticket.getFinalPrice());
     }
+
 
 }
