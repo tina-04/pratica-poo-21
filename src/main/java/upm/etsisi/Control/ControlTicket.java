@@ -3,10 +3,8 @@ package upm.etsisi.Control;
 import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
-import upm.etsisi.View.ViewProduct;
 import upm.etsisi.View.ViewTicket;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,35 +48,16 @@ public class ControlTicket {
             eliminated++;
         }
 
-        Category cat = product.getCategory();
-        int count = categoryCounter.getOrDefault(cat, 0);
+        Category category = product.getCategory();
+        int count = categoryCounter.getOrDefault(category, 0);
         if (eliminated > 0) {
             if (count > eliminated) {
-                categoryCounter.put(cat, count - eliminated);
+                categoryCounter.put(category, count - eliminated);
             } else {
-                categoryCounter.remove(cat);
+                categoryCounter.put(category, 0);
             }
         }
-
-        // Este creo que está mal, no piden todos los restantes, sino lo contrario solo el producto borrado, revisar en pruebas
-
     }
-
-    public boolean removeProduct1() {
-        boolean result = false;
-        List<Product> productList = ticket.getProducts();
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i) != null) {
-                productList.remove(productList.get(i));
-                result = true;
-                printTicket();
-
-            }
-        }
-
-        return result;
-    }
-
 
     public void printTicket() {
         List<Product> products = ticket.getProducts();
@@ -89,8 +68,8 @@ public class ControlTicket {
 
         for (Product product : products) {
             if (product != null) {
-                Category cat = product.getCategory();
-                boolean hasDiscount = categoryCounter.getOrDefault(cat, 0) >= 2;
+                Category category = product.getCategory();
+                boolean hasDiscount = categoryCounter.getOrDefault(category, 0) >= 2;
                 double discount = hasDiscount ? calculateDiscount(product) : 0.0;
                 total += product.getPrice();
                 totalDiscount += discount;
@@ -138,19 +117,19 @@ public class ControlTicket {
         Category category = product.getCategory();
         switch (category) {
             case MERCH:
-                discount += 0 * product.getPrice();
+                discount = 0 * product.getPrice();
                 break;
             case STATIONERY:
-                discount += 0.05 * product.getPrice();
+                discount = 0.05 * product.getPrice();
                 break;
             case CLOTHES:
-                discount += 0.07 * product.getPrice();
+                discount = 0.07 * product.getPrice();
                 break;
             case BOOK:
-                discount += 0.10 * product.getPrice();
+                discount = 0.10 * product.getPrice();
                 break;
             case ELECTRONICS:
-                discount += 0.03 * product.getPrice();
+                discount = 0.03 * product.getPrice();
                 break;
         }
         return discount;

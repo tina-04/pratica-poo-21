@@ -3,11 +3,9 @@ package upm.etsisi.App;
 import upm.etsisi.Control.ControlProduct;
 import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Model.Product;
-import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewApp;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -44,7 +42,7 @@ public class App
 
         boolean continuar = true;
         while (continuar) {
-            System.out.print("\ntUPM>");// TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
+            System.out.print("\ntUPM> ");// TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
             String line =sc.nextLine();
             String[] command = line.split(" ");
             System.out.println(line);// TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
