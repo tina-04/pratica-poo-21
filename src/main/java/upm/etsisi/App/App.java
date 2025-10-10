@@ -42,7 +42,7 @@ public class App
 
         boolean continuar = true;
         while (continuar) {
-            System.out.print("\ntUPM> ");// TODO: Falta imprimir <<"nombre comando" : ok>> después de cada ejecución
+            System.out.print("\ntUPM> ");
             String line =sc.nextLine();
             String[] command = line.split(" ");
             System.out.println(line);// TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio

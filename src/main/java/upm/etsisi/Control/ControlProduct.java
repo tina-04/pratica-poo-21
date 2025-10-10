@@ -19,7 +19,7 @@ public class ControlProduct {
         this.viewProduct = new ViewProduct();
     }
 
-    public boolean existProduct(int id) { // TODO: Discutir si cambiar por un searchProduct que usar en los comandos
+    public boolean existProduct(int id) {
         boolean exist = false;
         for(int i = 0; i < productList.size(); i++) {
             if (productList.get(i) != null) {
@@ -44,7 +44,7 @@ public class ControlProduct {
 
     public boolean addProduct(Product product) {
         boolean result = false;
-        if(productList.size() < MAX_PRODUCT){
+        if(numProducts < MAX_PRODUCT){
             if(!existProduct(product.getId())){
                 if(product.getId() > 0 && product.getId() < MAX_PRODUCT){
                     productList.add(product);
@@ -61,7 +61,7 @@ public class ControlProduct {
 
     public boolean removeProduct(int id) {
         boolean result = false;
-        for (int i = 0; i < productList.size(); i++) {
+        for (int i = 0; i < numProducts; i++) {
             if (productList.get(i).getId()==id) {
                 printProduct(productList.get(i));
                 productList.remove(productList.get(i));
