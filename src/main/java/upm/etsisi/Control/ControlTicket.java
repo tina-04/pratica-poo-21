@@ -5,6 +5,8 @@ import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewTicket;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +40,9 @@ public class ControlTicket {
                 categoryCounter.put(category, count + 1);
             }
         }
+        Collections.reverse(products);
         printTicket();
+        Collections.reverse(products);
     }
 
     public void removeProduct(Product product) {

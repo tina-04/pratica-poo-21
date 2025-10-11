@@ -54,10 +54,7 @@ public class App
                     break;
 
                 case "echo":
-                    for (String s : command) {
-                        System.out.print(s + " ");
-                    }
-                    System.out.println();
+                    System.out.println(line + "\n");
                     break;
 
                 case "exit":
