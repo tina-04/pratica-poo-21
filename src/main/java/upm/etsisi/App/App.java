@@ -28,24 +28,15 @@ public class App
     {
         Scanner sc = new Scanner(System.in);
 
-        /* ES COMO LO HIZO ÉL EN UNA DE LAS PRÁCTICAS,
-        NO SÉ SI HACE FALTA PARA PONER UN LÍMITE DE EJECUCIÓN DE COMANDOS O ALGO
-
-        String[] arrayTask = new String[100];
-        int num_elements = 0;
-        boolean[] arrayTaskStatus = new boolean[100];*/
-
-
-        ControlProduct controlProduct = new ControlProduct(100); //No sé cuál es el número que hay que poner de size
+        ControlProduct controlProduct = new ControlProduct(100);
         ControlTicket controlTicket = new ControlTicket();
-
 
         boolean continuar = true;
         while (continuar) {
             System.out.print("\ntUPM> ");
             String line =sc.nextLine();
             String[] command = line.split(" ");
-            System.out.println(line);// TODO Arreglar el parser, tal como está cosas como "Libro POO" en el nombre de un producto hace que no parsee bien por el espacio
+            System.out.println(line);
             switch (command[0]){
                 case "prod":
                     String[] name = line.split("\"");
@@ -63,10 +54,7 @@ public class App
                     break;
 
                 case "echo":
-                    for (String s : command) {
-                        System.out.print(s + " ");
-                    }
-                    System.out.println( "\n");
+                    System.out.println(line + "\n");
                     break;
 
                 case "exit":
