@@ -14,23 +14,21 @@ public class ViewTicket {
     public void printProduct(Product product) {
 
         if(product != null){
-            messageOutput("{class:Product: id: " + product.getId()+ ", name : '" + product.getName()+
-                    "', category : " + product.getCategory()+ ", price : " + product.getPrice() + "}");
+            messageOutput("{class:Product, id:" + product.getId()+ ", name:'" + product.getName()+
+                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
         }
 
     }
     public void printProductDiscount(Product product, double discount) {
 
-        messageOutput("{class:Product: id: " + product.getId() + ", name : '" + product.getName() + "', category : " +
-                product.getCategory() + ", price : " + product.getPrice() + " **discount -" + discount);
+        messageOutput("{class:Product, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
+                product.getCategory() + ", price:" + product.getPrice() + "} **discount -" + discount);
 
     }
 
     public void prices(Ticket  ticket) {
         messageOutput("Total price: " + ticket.getTotal());
-        messageOutput("Discount price: " + ticket.getDiscount());
-        messageOutput("Final price: " + ticket.getFinalPrice());
+        messageOutput("Total discount: " + ticket.getDiscount());
+        messageOutput("Final Price: " + ticket.getFinalPrice());
     }
-
-
 }

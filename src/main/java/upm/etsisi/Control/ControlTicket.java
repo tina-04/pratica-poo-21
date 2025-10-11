@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ControlTicket {
-    private final int MAX_PRODUCT = 100;
+    private final int MAX_PRODUCT = 200;
 
     private Ticket ticket;
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
@@ -33,9 +33,9 @@ public class ControlTicket {
         if (product != null && products.size() < MAX_PRODUCT) {
             for (int i = 1; i <= amount; i++) {
                 products.add(product);
-                Category cat = product.getCategory();
-                int count = categoryCounter.getOrDefault(cat, 0);
-                categoryCounter.put(cat, count + 1);
+                Category category = product.getCategory();
+                int count = categoryCounter.getOrDefault(category, 0);
+                categoryCounter.put(category, count + 1);
             }
         }
         printTicket();
@@ -118,19 +118,19 @@ public class ControlTicket {
         Category category = product.getCategory();
         switch (category) {
             case MERCH:
-                discount += 0 * product.getPrice();
+                discount = 0 * product.getPrice();
                 break;
             case STATIONERY:
-                discount += 0.05 * product.getPrice();
+                discount = 0.05 * product.getPrice();
                 break;
             case CLOTHES:
-                discount += 0.07 * product.getPrice();
+                discount = 0.07 * product.getPrice();
                 break;
             case BOOK:
-                discount += 0.10 * product.getPrice();
+                discount = 0.10 * product.getPrice();
                 break;
             case ELECTRONICS:
-                discount += 0.03 * product.getPrice();
+                discount = 0.03 * product.getPrice();
                 break;
         }
         return discount;

@@ -4,7 +4,7 @@ public class ViewApp {
     public static final String close = "Closing application.";
     public static final String error = "Unknown command. Type 'help' for list of commands.";
     public static void printHelp() {
-        System.out.println("\nCommands:");
+        System.out.println("Commands:");
         System.out.println("  prod add <id> \"<name>\" <category> <price>");
         System.out.println("  prod list");
         System.out.println("  prod update <id> NAME|CATEGORY|PRICE <value>");
