@@ -16,7 +16,7 @@ public class ViewApp {
         System.out.println("  echo \"<texto>\"");
         System.out.println("  help");
         System.out.println("  exit");
-        System.out.println("\nCategories: MERCH, PAPELERIA, ROPA, LIBRO, ELECTRONICA");
+        System.out.println("\nCategories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS");
         System.out.println("Discounts if there are ≥2 units in the category: MERCH 0%, PAPELERIA 5%, ROPA 7%, LIBRO 10%, ELECTRONICA 3%.");
     }
 
