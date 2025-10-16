@@ -44,7 +44,8 @@ public class ControlProduct {
 
     public boolean addProduct(Product product) {
         boolean result = false;
-        if(numProducts < MAX_PRODUCT){
+
+        if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
                 if(product.getId() > 0 && product.getId() < MAX_PRODUCT){
                     productList.add(product);
@@ -85,9 +86,9 @@ public class ControlProduct {
                     case "PRICE":
                         productList.get(i).setPrice(Double.parseDouble(newValue));
                         break;
-                    case "CATEGORY": // TODO: Preguntar si hace falta esta, se me hace poco lógico cambiar la categoría de un producto y no hay ejemplos que lo usen
+                    case "CATEGORY":
                         productList.get(i).setCategory(Category.valueOf(newValue.toUpperCase()));
-                        break; // Yo revisaría este caso con alguna prueba por si acaso
+                        break;
                 }
                 result = true;
                 printProduct(productList.get(i));

@@ -19,10 +19,10 @@ public class ViewProduct {
     public void listProduct(List<Product> productList){
         messageOutput("Catalog:");
         for(Product product : productList){
-            if(product != null){
-                messageOutput(" {class:Product, id:" + product.getId()+ ", name: '" + product.getName()+
-                        "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
+            if(product != null) {
+                printProduct(product);
             }
+
         }
 
     }

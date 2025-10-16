@@ -46,21 +46,24 @@ public class ControlTicket {
     }
 
     public void removeProduct(Product product) {
-        List<Product> products = ticket.getProducts();
-        int eliminated = 0;
-        while (products.remove(product)) {
-            eliminated++;
-        }
+        if(product!=null){
+            List<Product> products = ticket.getProducts();
+            int eliminated = 0;
+            while (products.remove(product)) {
+                eliminated++;
+            }
 
-        Category category = product.getCategory();
-        int count = categoryCounter.getOrDefault(category, 0);
-        if (eliminated > 0) {
-            if (count > eliminated) {
-                categoryCounter.put(category, count - eliminated);
-            } else {
-                categoryCounter.put(category, 0);
+            Category category = product.getCategory();
+            int count = categoryCounter.getOrDefault(category, 0);
+            if (eliminated > 0) {
+                if (count > eliminated) {
+                    categoryCounter.put(category, count - eliminated);
+                } else {
+                    categoryCounter.put(category, 0);
+                }
             }
         }
+
     }
 
 
