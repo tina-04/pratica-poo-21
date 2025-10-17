@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ControlTicket {
-    private final int MAX_PRODUCT = 200;
+    private final int MAX_PRODUCT = 100;
 
     private Ticket ticket;
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
@@ -34,10 +34,13 @@ public class ControlTicket {
         List<Product> products = ticket.getProducts();
         if (product != null && products.size() < MAX_PRODUCT) {
             for (int i = 1; i <= amount; i++) {
-                products.add(product);
-                Category category = product.getCategory();
-                int count = categoryCounter.getOrDefault(category, 0);
-                categoryCounter.put(category, count + 1);
+                if(products.size() < MAX_PRODUCT){
+                    products.add(product);
+                    Category category = product.getCategory();
+                    int count = categoryCounter.getOrDefault(category, 0);
+                    categoryCounter.put(category, count + 1);
+                }
+
             }
         }
         Collections.reverse(products);

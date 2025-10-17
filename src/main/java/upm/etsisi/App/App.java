@@ -79,9 +79,7 @@ public class App {
                 } else {
                     try {
                         int id = Integer.parseInt(command[2]);
-
-                        String name1 = name[1].trim();
-
+                        String name1 = name[1];
                         Category category = Category.valueOf(command[command.length - 2].toUpperCase());
                         double price = Double.parseDouble(command[command.length - 1]);
                         Product product = new Product(id, name1, category, price);
@@ -89,7 +87,9 @@ public class App {
 
                     } catch (NumberFormatException e1) {
                         System.out.println(e1.getMessage());
-                    }catch (Exception e) {
+                    } catch (IllegalArgumentException e3){
+                        System.out.println(e3.getMessage());
+                    } catch (Exception e) {
                          System.out.println(e.getMessage());
                     }
                 }
