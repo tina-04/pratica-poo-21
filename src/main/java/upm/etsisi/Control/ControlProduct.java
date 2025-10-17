@@ -44,7 +44,6 @@ public class ControlProduct {
 
     public boolean addProduct(Product product) {
         boolean result = false;
-
         if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
                 if(product.getId() > 0 && product.getId() < MAX_PRODUCT){

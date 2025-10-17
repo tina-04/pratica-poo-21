@@ -38,12 +38,7 @@ public class App {
             switch (command[0]) {
                 case "prod":
                     String[] name = line.split("\"");
-                    if (name.length >= 2) {
-                        commandProduct(command, name, controlProduct);
-
-                    } else {
-                        System.out.println("Error");
-                    }
+                    commandProduct(command, name, controlProduct);
                     System.out.println(command[0] + " " + command[1] + ": ok");
                     break;
 
@@ -76,9 +71,7 @@ public class App {
     private void commandProduct(String[] command, String[] name, ControlProduct controlProduct) {
         if (command == null || command.length < 2) {
             System.out.println("Error: invalid command.");
-            return;
         }
-
         switch (command[1]) {
             case "add":
                 if (command.length < 5) {
@@ -86,21 +79,18 @@ public class App {
                 } else {
                     try {
                         int id = Integer.parseInt(command[2]);
+
                         String name1 = name[1].trim();
+
                         Category category = Category.valueOf(command[command.length - 2].toUpperCase());
-                        if(id <200 ){
-                            Product product = new Product(id, name1, category, Double.parseDouble(command[command.length - 1]));
-                            controlProduct.addProduct(product);
-                        }else{
-                            System.out.println("You can not add more than 200 products");
-                        }
+                        double price = Double.parseDouble(command[command.length - 1]);
+                        Product product = new Product(id, name1, category, price);
+                        controlProduct.addProduct(product);
 
                     } catch (NumberFormatException e1) {
                         System.out.println(e1.getMessage());
-                    } catch (IllegalArgumentException e2) {
-                        System.out.println(e2.getMessage());
-                    } catch (NullPointerException e3) {
-                        System.out.println(e3.getMessage());
+                    }catch (Exception e) {
+                         System.out.println(e.getMessage());
                     }
                 }
 
