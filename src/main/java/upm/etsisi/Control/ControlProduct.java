@@ -5,6 +5,7 @@ import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewProduct;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ControlProduct {
@@ -12,12 +13,19 @@ public class ControlProduct {
     private int numProducts;
     private final int MAX_PRODUCT = 200;
     private ViewProduct viewProduct;
-
-    public ControlProduct(int size) {
-        this.productList = new ArrayList<>(size);
+    private static ControlProduct instance;
+    public static ControlProduct getInstancia() {
+        if (instance == null) {
+            instance = new ControlProduct();
+        }
+        return instance;
+    }
+    private ControlProduct() {
+        this.productList = new ArrayList<>();
         this.numProducts = 0;
         this.viewProduct = new ViewProduct();
     }
+
 
     public boolean existProduct(int id) {
         boolean exist = false;
@@ -57,6 +65,13 @@ public class ControlProduct {
         }
 
         return result;
+    }
+
+    public void addFoor(int id, String name, double price, Date expiration, int max_people){
+
+    }
+    public void addMeeting(int id, String name, double price,Date expiration){
+
     }
 
     public boolean removeProduct(int id) {

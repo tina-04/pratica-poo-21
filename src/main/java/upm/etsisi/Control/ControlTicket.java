@@ -5,10 +5,7 @@ import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewTicket;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ControlTicket {
     private final int MAX_PRODUCT = 100;
@@ -16,12 +13,18 @@ public class ControlTicket {
     private Ticket ticket;
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private ViewTicket viewTicket;
-
-    public ControlTicket() {
+    private static ControlTicket instance;
+    public static ControlTicket getInstance() {
+        if (instance == null) {
+            instance = new ControlTicket();
+        }
+        return instance;
+    }
+    private ControlTicket() {
         this.ticket = new Ticket();
         this.viewTicket = new ViewTicket();
-
     }
+
 
 
     public void newTicket() {

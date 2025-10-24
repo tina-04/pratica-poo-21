@@ -26,9 +26,6 @@ public class App {
     public void start() {
         Scanner sc = new Scanner(System.in);
 
-        ControlProduct controlProduct = new ControlProduct(100);
-        ControlTicket controlTicket = new ControlTicket();
-
         boolean continuar = true;
         while (continuar) {
             System.out.print("\ntUPM> ");
@@ -38,12 +35,12 @@ public class App {
             switch (command[0]) {
                 case "prod":
                     String[] name = line.split("\"");
-                    commandProduct(command, name, controlProduct);
+                    commandProduct(command, name);
                     System.out.println(command[0] + " " + command[1] + ": ok");
                     break;
 
                 case "ticket":
-                    commandTicket(command, controlTicket, controlProduct);
+                    commandTicket(command);
                     System.out.println(command[0] + " " + command[1] + ": ok");
                     break;
 
@@ -68,7 +65,7 @@ public class App {
         }
     }
 
-    private void commandProduct(String[] command, String[] name, ControlProduct controlProduct) {
+    private void commandProduct(String[] command, String[] name) {
         if (command == null || command.length < 2) {
             System.out.println("Error: invalid command.");
         }
@@ -83,7 +80,7 @@ public class App {
                         Category category = Category.valueOf(command[command.length - 2].toUpperCase());
                         double price = Double.parseDouble(command[command.length - 1]);
                         Product product = new Product(id, name1, category, price);
-                        controlProduct.addProduct(product);
+                        ControlProduct.getInstancia().addProduct(product);
 
                     } catch (NumberFormatException e1) {
                         System.out.println(e1.getMessage());
@@ -96,36 +93,36 @@ public class App {
 
                 break;
             case "list":
-                controlProduct.list();
+                ControlProduct.getInstancia().list();
                 break;
             case "update":
                 if (name.length > 1) {
-                    controlProduct.updateProduct(Integer.parseInt(command[2]), command[3], name[1]);
-                } else controlProduct.updateProduct(Integer.parseInt(command[2]), command[3], command[4]);
+                    ControlProduct.getInstancia().updateProduct(Integer.parseInt(command[2]), command[3], name[1]);
+                } else ControlProduct.getInstancia().updateProduct(Integer.parseInt(command[2]), command[3], command[4]);
                 break;
             case "remove":
-                controlProduct.removeProduct(Integer.parseInt(command[2]));
+                ControlProduct.getInstancia().removeProduct(Integer.parseInt(command[2]));
                 break;
         }
 
     }
 
-    private void commandTicket(String[] command, ControlTicket controlTicket, ControlProduct controlProduct) {
+    private void commandTicket(String[] command) {
         switch (command[1]) {
             case "new":
-                controlTicket.newTicket();
+                ControlTicket.getInstance().newTicket();
                 break;
             case "add":
-                Product producAdd = controlProduct.searchProduct(Integer.parseInt(command[2]));
+                Product producAdd = ControlProduct.getInstancia().searchProduct(Integer.parseInt(command[2]));
                 int amount = Integer.parseInt(command[3]);
-                controlTicket.addProduct(producAdd, amount);
+                ControlTicket.getInstance().addProduct(producAdd, amount);
                 break;
             case "remove":
-                Product productRemove = controlProduct.searchProduct(Integer.parseInt(command[2]));
-                controlTicket.removeProduct(productRemove);
+                Product productRemove = ControlProduct.getInstancia().searchProduct(Integer.parseInt(command[2]));
+                ControlTicket.getInstance().removeProduct(productRemove);
                 break;
             case "print":
-                controlTicket.printTicket();
+                ControlTicket.getInstance().printTicket();
                 break;
         }
     }
