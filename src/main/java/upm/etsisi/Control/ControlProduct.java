@@ -14,7 +14,8 @@ public class ControlProduct {
     private final int MAX_PRODUCT = 200;
     private ViewProduct viewProduct;
     private static ControlProduct instance;
-    public static ControlProduct getInstancia() {
+
+    public static ControlProduct getInstance() {
         if (instance == null) {
             instance = new ControlProduct();
         }

@@ -10,15 +10,12 @@ public class Product {
     private double price;
 
     public Product(int id, String name, Category category, double price) {
-
-            this.id = id;
-
+        this.id = id;
         if(name.length() < 100 && !name.isEmpty()){
             this.name = name;
         }else{
             this.name = null;
         }
-
         this.category = category;
         if(price > 0){
             this.price = price;

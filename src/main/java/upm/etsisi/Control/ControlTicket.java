@@ -14,21 +14,21 @@ public class ControlTicket {
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private ViewTicket viewTicket;
     private static ControlTicket instance;
+
     public static ControlTicket getInstance() {
         if (instance == null) {
-            instance = new ControlTicket();
+            instance = new ControlTicket(null,null); //TODO: Mirar los null, no se puede pedir los ids cada vez
         }
         return instance;
     }
-    private ControlTicket() {
-        this.ticket = new Ticket();
+
+    private ControlTicket(String cashierId, String userId) {
+        this.ticket = new Ticket(cashierId, userId);
         this.viewTicket = new ViewTicket();
     }
 
-
-
-    public void newTicket() {
-        this.ticket = new Ticket();
+    public void newTicket(String cashierId, String userId) {
+        this.ticket = new Ticket(cashierId, userId);
         this.categoryCounter = new HashMap<>();
     }
 
@@ -51,7 +51,7 @@ public class ControlTicket {
         Collections.reverse(products);
     }
 
-    public void removeProduct(Product product) {
+    public void removeProduct(Product product, String ticketId, String cashierId) {
         if(product!=null){
             List<Product> products = ticket.getProducts();
             int eliminated = 0;
