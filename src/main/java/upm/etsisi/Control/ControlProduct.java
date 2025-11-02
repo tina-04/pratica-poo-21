@@ -82,7 +82,6 @@ public class ControlProduct {
                 productList.remove(productList.get(i));
                 numProducts--;
                 result = true;
-
             }
         }
 

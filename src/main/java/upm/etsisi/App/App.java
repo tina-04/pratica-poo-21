@@ -76,10 +76,13 @@ public class App {
                 } else {
                     try {
                         int id = Integer.parseInt(command[2]);
-                        String name1 = name[1];
+                        StringBuilder stringName = new StringBuilder(name[1]);
+                        for (int i = 2; i < name.length-1; i++) {
+                            stringName.append("\""+name[i]);
+                        }
                         Category category = Category.valueOf(command[command.length - 2].toUpperCase());
                         double price = Double.parseDouble(command[command.length - 1]);
-                        Product product = new Product(id, name1, category, price);
+                        Product product = new Product(id, stringName.toString(), category, price);
                         ControlProduct.getInstancia().addProduct(product);
 
                     } catch (NumberFormatException e1) {
@@ -113,9 +116,9 @@ public class App {
                 ControlTicket.getInstance().newTicket();
                 break;
             case "add":
-                Product producAdd = ControlProduct.getInstancia().searchProduct(Integer.parseInt(command[2]));
+                Product productAdd = ControlProduct.getInstancia().searchProduct(Integer.parseInt(command[2]));
                 int amount = Integer.parseInt(command[3]);
-                ControlTicket.getInstance().addProduct(producAdd, amount);
+                ControlTicket.getInstance().addProduct(productAdd, amount);
                 break;
             case "remove":
                 Product productRemove = ControlProduct.getInstancia().searchProduct(Integer.parseInt(command[2]));
