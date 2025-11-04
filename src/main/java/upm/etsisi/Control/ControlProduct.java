@@ -14,8 +14,7 @@ public class ControlProduct {
     private final int MAX_PRODUCT = 200;
     private ViewProduct viewProduct;
     private static ControlProduct instance;
-
-    public static ControlProduct getInstance() {
+    public static ControlProduct getInstancia() {
         if (instance == null) {
             instance = new ControlProduct();
         }
@@ -59,7 +58,8 @@ public class ControlProduct {
                     productList.add(product);
                     numProducts++;
                     result = true;
-                    printProduct(product);
+                    viewProduct.printProduct(product);
+                    viewProduct.createOK();
                 }
 
             }
@@ -79,10 +79,12 @@ public class ControlProduct {
         boolean result = false;
         for (int i = 0; i < numProducts; i++) {
             if (productList.get(i).getId()==id) {
-                printProduct(productList.get(i));
+                viewProduct.printProduct(productList.get(i));
                 productList.remove(productList.get(i));
                 numProducts--;
                 result = true;
+                viewProduct.removeOK();
+
             }
         }
 
@@ -105,7 +107,7 @@ public class ControlProduct {
                         break;
                 }
                 result = true;
-                printProduct(productList.get(i));
+                viewProduct.printProduct(productList.get(i));
 
             }
         }
@@ -114,8 +116,7 @@ public class ControlProduct {
 
     public void list() {
         viewProduct.listProduct(productList);
+        viewProduct.listOK();
     }
-    public void printProduct(Product product) {
-        viewProduct.printProduct(product);
-    }
+
 }

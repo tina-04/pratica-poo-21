@@ -16,6 +16,8 @@ import java.util.Scanner;
  *
  */
 public class App {
+    private ViewApp viewApp;
+
     public static void main(String[] args) {
         App app = new App();
         ViewApp.init();
@@ -25,7 +27,7 @@ public class App {
 
     public void start() {
         Scanner sc = new Scanner(System.in);
-
+        this.viewApp = new ViewApp();
         boolean continuar = true;
         while (continuar) {
             System.out.print("\ntUPM> ");
@@ -35,13 +37,18 @@ public class App {
             System.out.println(line);
             switch (command[0]) {
                 case "prod":
-                    commandProduct(command, name);
-                    System.out.println(command[0] + " " + command[1] + ": ok");
+                    commandProduct(command, name,viewApp);
+                    break;
+                case "ticket":
+                    commandTicket(command,viewApp);
                     break;
 
-                case "ticket":
-                    commandTicket(command);
-                    System.out.println(command[0] + " " + command[1] + ": ok");
+                case "client":
+                    commandClient(command,viewApp);
+                    break;
+
+                case "cash":
+                    commandCahsier(command,viewApp);
                     break;
 
                 case "client":
@@ -63,26 +70,26 @@ public class App {
                     break;
 
                 case "exit":
-                    System.out.println(ViewApp.close);
+                    viewApp.close();
                     continuar = false;
                     break;
 
                 default:
-                    System.out.println(ViewApp.error);
+                    viewApp.error();
                     break;
 
             }
         }
     }
 
-    private void commandProduct(String[] command, String[] name) {
+    private void commandProduct(String[] command, String[] name, ViewApp viewApp) {
         if (command == null || command.length < 2) {
-            System.out.println("Error: invalid command.");
+            viewApp.errorCommand();
         }
         switch (command[1]) {
             case "add":
                 if (command.length < 5) {
-                    System.out.println("Error: we need more information");
+                   viewApp.errorInfo();
                 } else {
                     try {
                         int id = Integer.parseInt(command[2]);
@@ -120,7 +127,7 @@ public class App {
 
     }
 
-    private void commandTicket(String[] command) {
+    private void commandTicket(String[] command, ViewApp viewApp) {
         switch (command[1]) {
             case "new":
                 ControlTicket.getInstance().newTicket(command[2], command[3]);
@@ -174,6 +181,13 @@ public class App {
                 break;
         }
     }
+    private void commandClient(String [] command, ViewApp viewApp) {
+
+    }
+    private void commandCahsier( String [] command, ViewApp viewApp) {
+
+    }
+
 
 }
 

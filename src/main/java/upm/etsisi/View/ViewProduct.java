@@ -2,9 +2,10 @@ package upm.etsisi.View;
 
 import upm.etsisi.Model.Product;
 
+import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ViewProduct {
+public class ViewProduct implements View{
     public void messageOutput(String output) {
         System.out.println(output);
     }
@@ -25,5 +26,14 @@ public class ViewProduct {
 
         }
 
+    }
+    public void createOK(){
+        messageOutput("prod add: ok");
+    }
+    public void removeOK(){
+        messageOutput("prod remove: ok");
+    }
+    public void listOK(){
+        messageOutput("prod list: ok");
     }
 }

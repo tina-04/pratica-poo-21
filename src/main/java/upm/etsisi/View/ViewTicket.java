@@ -7,7 +7,7 @@ import upm.etsisi.Utility.Category;
 
 import java.util.List;
 
-public class ViewTicket {
+public class ViewTicket  implements View{
     public void messageOutput(String output) {
         System.out.println(output);
     }
@@ -30,5 +30,14 @@ public class ViewTicket {
         messageOutput("Total price: " + ticket.getTotal());
         messageOutput("Total discount: " + ticket.getDiscount());
         messageOutput("Final Price: " + ticket.getFinalPrice());
+    }
+    public void createOK(){
+        messageOutput("ticket add: ok");
+    }
+    public void removeOK(){
+        messageOutput("ticket remove: ok");
+    }
+    public void listOK(){
+        messageOutput("ticket list: ok");
     }
 }

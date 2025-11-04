@@ -42,6 +42,7 @@ public class ControlTicket {
                     Category category = product.getCategory();
                     int count = categoryCounter.getOrDefault(category, 0);
                     categoryCounter.put(category, count + 1);
+
                 }
 
             }
@@ -49,6 +50,7 @@ public class ControlTicket {
         Collections.reverse(products);
         printTicket();
         Collections.reverse(products);
+        viewTicket.createOK();
     }
 
     public void removeProduct(Product product, String ticketId, String cashierId) {
@@ -64,6 +66,7 @@ public class ControlTicket {
             if (eliminated > 0) {
                 if (count > eliminated) {
                     categoryCounter.put(category, count - eliminated);
+                    viewTicket.removeOK();
                 } else {
                     categoryCounter.put(category, 0);
                 }
@@ -105,6 +108,7 @@ public class ControlTicket {
 
 
         viewTicket.prices(ticket);
+        viewTicket.listOK();
 
 
     }

@@ -1,33 +1,35 @@
 package upm.etsisi.Control;
 
-import upm.etsisi.Model.Cashier;
 import upm.etsisi.Model.Client;
 import upm.etsisi.Model.Ticket;
-import upm.etsisi.Model.User;
 import upm.etsisi.View.ViewClient;
+import upm.etsisi.View.ViewTicket;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControlUser {
-
+public class ControlClient {
     private List<Client> clientsList;
-    private List<Cashier> cashiers;
-    private List<Ticket> tickes;
-    private ViewClient viewUser;
-    private static ControlUser instance;
-    public static ControlUser getInstance() {
+    private ViewClient viewClient;
+    private static ControlClient instance;
+    public static ControlClient getInstance() {
         if (instance == null) {
-            instance = new ControlUser();
+            instance = new ControlClient();
         }
         return instance;
     }
-    private ControlUser() {
+    private ControlClient() {
         this.clientsList = new ArrayList<>();
-        this.cashiers = new ArrayList<>();
-        this.viewUser = new ViewClient();
+        this.viewClient = new ViewClient();
     }
+
     public void addClient(String name,String DNI,String email, String cashierId ) {
+        if(!existClient(DNI)){
+            Client client = new Client(name,DNI,email);
+            clientsList.add(client);
+            viewClient.printInfo(client);
+            viewClient.createOK();
+        }
 
 
     }
@@ -40,34 +42,25 @@ public class ControlUser {
         return result;
     }
     public Client searchClient(String DNI) {
-        for(Client c : clientsList) {
-            if(c.getDNI().equals(DNI)) {
-                return c;
+        Client client = null;
+        for(int i =0;i<clientsList.size();i++) {
+            if(clientsList.get(i).getDNI().equals(DNI)) {
+                client = clientsList.get(i);
             }
 
         }
-        return null;
+        return client;
     }
     public void removeClient(String DNI){
         if(existClient(DNI)){
             Client client = searchClient(DNI);
             clientsList.remove(client);
+            viewClient.removeOK();
         }
 
     }
     public void clientList(){
-
+        viewClient.listClient( clientsList);
+        viewClient.listOK();
     }
-    public void addCashier(int id, String name, String email) {
-
-    }
-    public void cashiedList(){
-
-    }
-
-    public void cashTikcet(int id){
-
-    }
-
-
 }
