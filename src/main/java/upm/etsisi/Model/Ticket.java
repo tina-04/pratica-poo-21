@@ -14,6 +14,11 @@ public class Ticket {
     private String cashierId;
     private String userId;
 
+
+
+    private Client client;
+    private Cashier cashier;
+
     public Ticket(String cashierId, String userId) {
         this.products = new ArrayList<Product>();
         this.total = 0;
@@ -55,4 +60,20 @@ public class Ticket {
     public void setUserId(String userId) {this.userId = userId;}
 
     public String getUserId() {return userId;}
+
+    public Cashier getCashier() {
+        return cashier;
+    }
+
+    public void setCashier(Cashier cashier) {
+        this.cashier = cashier;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }

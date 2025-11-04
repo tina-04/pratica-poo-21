@@ -2,6 +2,7 @@ package upm.etsisi.Control;
 
 import upm.etsisi.Model.Cashier;
 import upm.etsisi.Model.Client;
+import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewCashier;
 import upm.etsisi.View.ViewClient;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ControlCashier {
 
     private List<Cashier> cashierList;
+    private List<Ticket> ticketList;
     private ViewCashier viewCashier;
     private static ControlCashier instance;
     public static ControlCashier getInstance() {
@@ -62,8 +64,14 @@ public class ControlCashier {
         return result;
     }
 
-    public void cashTikcet(String id){
-
+    public List<Ticket> cashTikcet(String id){
+        List<Ticket> ticket = null;
+        for(int i =0; i<ticketList.size();i++){
+            if(ticketList.get(i).getCashier().getId().equals(id)){
+                ticket.add(ticketList.get(i));
+            }
+        }
+        return ticket;
     }
     public void cashiedList(){
 
