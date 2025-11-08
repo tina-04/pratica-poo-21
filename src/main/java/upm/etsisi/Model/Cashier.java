@@ -15,19 +15,19 @@ public class Cashier  extends User{
         this.cashierId = cashierId;
     }
 
-    public String getName() {
+    public String getNameCashier() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setNameCashier(String name) {
         this.name = name;
     }
 
-    public String getEmail() {
+    public String getEmailCashier() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmailCashier(String email) {
         this.email = email;
     }
 

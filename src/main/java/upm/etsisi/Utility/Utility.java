@@ -3,6 +3,12 @@ package upm.etsisi.Utility;
 import java.util.Random;
 
 public class Utility {
+    public static String ticketId(){
+        StringBuilder ticketId = new StringBuilder();
+        Random random = new Random();
+
+        return  ticketId.toString();
+    }
     public static String cashierId() {
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
@@ -34,16 +40,14 @@ public class Utility {
         }
        return string;
     }
-    public static String idProduct() {
-        StringBuilder stringBuilder = new StringBuilder();
-        Random random = new Random();
-        stringBuilder.append("UP");
-        for (int i = 0; i < 7; i++) {
-            int digito = random.nextInt(10);
-            stringBuilder.append(digito);
+    public static boolean idProduct(String id) {
+       boolean result = false;
+       if(id.matches("[0-9]+")){
+           result = true;
         }
-        return stringBuilder.toString();
+        return result;
     }
+
     public static boolean correctDNI(String DNI){//do -while app
         boolean resul = true;
         String num = DNI.substring(0, 8);

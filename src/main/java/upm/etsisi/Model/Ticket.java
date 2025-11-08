@@ -1,5 +1,7 @@
 package upm.etsisi.Model;
 
+import upm.etsisi.Utility.Status;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,10 @@ public class Ticket {
     private double finalPrice;
     private String cashierId;
     private String userId;
+    private String id;
+
+
+    private Status  status;
 
 
 
@@ -26,8 +32,25 @@ public class Ticket {
         this.finalPrice = 0;
         this.cashierId = cashierId;
         this.userId = userId;
+        this.status=Status.VACIO;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public List<Product> getProducts() {return products;}
 

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ViewProduct implements View{
+    public String exceptionArguments = "The number of people is maximum";
     public void messageOutput(String output) {
         System.out.println(output);
     }
@@ -35,5 +36,11 @@ public class ViewProduct implements View{
     }
     public void listOK(){
         messageOutput("prod list: ok");
+    }
+    public void addFoodOk(){
+        messageOutput("prod addFood: ok");
+    }
+    public void addMeetingOk(){
+        messageOutput("prod addMeeting: ok");
     }
 }

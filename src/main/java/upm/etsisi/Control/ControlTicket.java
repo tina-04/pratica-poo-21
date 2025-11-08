@@ -3,6 +3,7 @@ package upm.etsisi.Control;
 import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.Status;
 import upm.etsisi.View.ViewTicket;
 
 import java.util.*;
@@ -105,12 +106,18 @@ public class ControlTicket {
         ticket.setTotal(total);
         ticket.setDiscount(totalDiscount);
         ticket.setFinalPrice(total - totalDiscount);
+        ticket.setStatus(Status.CERRADO);
 
 
         viewTicket.prices(ticket);
         viewTicket.listOK();
 
 
+    }
+    public void closeTicket(Ticket ticket) {
+        if(ticket.getStatus() == Status.CERRADO){
+
+        }
     }
 
     public void calculateTotal(List<Product> products) {

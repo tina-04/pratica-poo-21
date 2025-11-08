@@ -2,6 +2,7 @@ package upm.etsisi.Control;
 
 import upm.etsisi.Model.Product;
 import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewProduct;
 
 import java.util.ArrayList;
@@ -12,9 +13,11 @@ public class ControlProduct {
     private List<Product> productList;
     private int numProducts;
     private final int MAX_PRODUCT = 200;
+    private final int MAX_PEOPLE = 100;
+    private final int MAX_TEXT =100;
     private ViewProduct viewProduct;
     private static ControlProduct instance;
-    public static ControlProduct getInstancia() {
+    public static ControlProduct getInstance() {
         if (instance == null) {
             instance = new ControlProduct();
         }
@@ -67,8 +70,30 @@ public class ControlProduct {
 
         return result;
     }
+    public boolean addProduct2(String id, String name, Category category, int price, Integer max_people) {
+        boolean result = false;
+        if(max_people==null){
+            if(Utility.idProduct(id)){
+                Product product = new Product(Integer.valueOf(id),name,category,price);
+                productList.add(product);
+                result = true;
+                viewProduct.printProduct(product);
+                viewProduct.createOK();
+            }
 
-    public void addFoor(int id, String name, double price, Date expiration, int max_people){
+        }else{
+
+        }
+        return result;
+    }
+
+    public void addFood(int id, String name, double price, Date expiration, int max_people){
+        if(max_people < MAX_PEOPLE){
+
+            throw new IllegalArgumentException(viewProduct.exceptionArguments);
+        }else{
+
+        }
 
     }
     public void addMeeting(int id, String name, double price,Date expiration){

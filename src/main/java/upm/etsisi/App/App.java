@@ -51,15 +51,6 @@ public class App {
                     commandCahsier(command,viewApp);
                     break;
 
-                case "client":
-                    commandClient(command, name);
-                    System.out.println(command[0] + " " + command[1] + ": ok");
-                    break;
-
-                case "cash":
-                    commandCash(command, name);
-                    System.out.println(command[0] + " " + command[1] + ": ok");
-                    break;
 
                 case "help":
                     ViewApp.printHelp();
@@ -171,10 +162,9 @@ public class App {
                 String id = command[2];
                 String nameClient = name[1];
                 String email = command[3];
-                ControlUser.getInstance().addCashier(id, nameClient, email);
+
                 break;
             case "remove":
-                ControlUser.getInstance().removeCashier(command[2]);
                 break;
             case "list":
                 ControlUser.getInstance().clientList();

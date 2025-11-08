@@ -31,6 +31,7 @@ public class ControlCashier {
             Cashier cashier = new Cashier(id, name, email);
             cashierList.add(cashier);
         }
+        viewCashier.addOk();
     }
     public boolean existCashie(String id){
         boolean exist = false;
@@ -60,6 +61,7 @@ public class ControlCashier {
 
             }
         }
+        viewCashier.removeOk();
 
         return result;
     }
@@ -71,10 +73,13 @@ public class ControlCashier {
                 ticket.add(ticketList.get(i));
             }
         }
+
         return ticket;
     }
-    public void cashiedList(){
-
+    public void cashiedList(String id){
+        List<Ticket> ticket = cashTikcet(id);
+        viewCashier.listTicket(ticket);
+        viewCashier.listOk();
     }
 
 
