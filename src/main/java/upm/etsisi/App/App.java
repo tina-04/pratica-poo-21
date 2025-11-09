@@ -1,5 +1,7 @@
 package upm.etsisi.App;
 
+import upm.etsisi.Control.Commands.HelpCommand;
+import upm.etsisi.Control.Commands.IComando;
 import upm.etsisi.Control.ControlProduct;
 import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Control.ControlUser;
@@ -8,7 +10,9 @@ import upm.etsisi.Model.User;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewApp;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 
 /**
@@ -17,17 +21,26 @@ import java.util.Scanner;
  */
 public class App {
     private ViewApp viewApp;
+    private Map<String, IComando> comandos;
 
     public static void main(String[] args) {
         App app = new App();
         ViewApp.init();
         app.start();
+
+        // ----------- Instanciación de comandos -------------------
+        app.registrarComando("help", new HelpCommand(app.comandos)); // Funciona (quizá)
+        // ---------------------------------------------------------
+
+
+
         ViewApp.end();
     }
 
     public void start() {
         Scanner sc = new Scanner(System.in);
         this.viewApp = new ViewApp();
+        this.comandos = new TreeMap<>();
         boolean continuar = true;
         while (continuar) {
             System.out.print("\ntUPM> ");
@@ -177,6 +190,21 @@ public class App {
     private void commandCahsier( String [] command, ViewApp viewApp) {
 
     }
+
+
+
+
+    // Creación de comandos, zona de Alex, de momento la mayoría de cosas son pruebas
+
+
+
+    public void registrarComando(String alias, IComando comando) {
+        if (alias != null && !alias.trim().isEmpty() && comando != null) {
+            comandos.put(alias.toLowerCase(), comando);
+        } else throw new RuntimeException("Se deben introducir argumentos validos al registrar un comando.");
+    }
+
+
 
 
 }
