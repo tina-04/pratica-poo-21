@@ -9,7 +9,7 @@ public class ViewClient implements View{
         System.out.println(output);
     }
     public void printInfo(Client client){
-        messageOutput("User:" + client.getDNI() + ",  Name:" + client.getNameClient() + ", Email:" + client.getEmailClient());
+        messageOutput("User:" + client.getDNI() + ",  Name:" + client.getName() + ", Email:" + client.getEmail());
 
     }
     public void listClient(List<Client> clientList){

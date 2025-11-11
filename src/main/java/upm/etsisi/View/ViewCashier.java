@@ -13,7 +13,8 @@ public class ViewCashier  implements View{
         System.out.println(output);
     }
     public void printCashier(Cashier cashier){
-        messageOutput("class:Cashier id:"+cashier.getCashierId()+", name:"+ cashier.getNameCashier() + ", email:" +cashier.getEmailCashier());
+        messageOutput("class:Cashier id:"+cashier.getCashierId()+", name:"+ cashier.getName() + ", email:" +cashier.getEmail());
+
     }
     public void listTicket(List<Ticket> ticket){
         Collections.sort(ticket, (t1, t2) -> t1.getId().compareToIgnoreCase(t2.getId()));

@@ -1,12 +1,11 @@
 package upm.etsisi.App;
 
-import upm.etsisi.Control.Commands.HelpCommand;
-import upm.etsisi.Control.Commands.IComando;
+import upm.etsisi.Commands.HelpCommand;
+import upm.etsisi.Commands.IComando;
 import upm.etsisi.Control.ControlProduct;
 import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Control.ControlUser;
 import upm.etsisi.Model.Product;
-import upm.etsisi.Model.User;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewApp;
 

@@ -1,4 +1,4 @@
-package upm.etsisi.Control.Commands;
+package upm.etsisi.Commands;
 
 public interface IComando {
 

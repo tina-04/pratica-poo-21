@@ -69,7 +69,7 @@ public class ControlCashier {
     public List<Ticket> cashTikcet(String id){
         List<Ticket> ticket = null;
         for(int i =0; i<ticketList.size();i++){
-            if(ticketList.get(i).getCashier().getId().equals(id)){
+            if(ticketList.get(i).getCashier().getCashierId().equals(id)){
                 ticket.add(ticketList.get(i));
             }
         }
