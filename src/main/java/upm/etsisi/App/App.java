@@ -32,7 +32,7 @@ public class App {
         app.start();
 
         // ----------- Instanciación de comandos -------------------
-        app.registrarComando("help", new HelpCommand(app.comandos)); // Funciona (quizá)
+        //app.registrarComando("help", new HelpCommand(app.comandos)); // Funciona (quizá)
         // ---------------------------------------------------------
 
 
@@ -41,7 +41,6 @@ public class App {
     }
 
     public void start() {
-
 
         List<Command> list = new ArrayList<Command>();
         list.add(new TicketCommand("ticket"));
