@@ -5,7 +5,7 @@ import upm.etsisi.Control.ControlClient;
 
 public class ClientCommandAdd extends Command {
 
-    public ClientCommandAdd(ControlClient controlClient) {
+    public ClientCommandAdd() {
 
         super("add");
     }
