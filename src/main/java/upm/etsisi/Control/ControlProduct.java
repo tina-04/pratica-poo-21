@@ -5,6 +5,8 @@ import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewProduct;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +55,7 @@ public class ControlProduct {
     }
 
 
-    public boolean addProduct(Product product) {
+   /* public boolean addProduct(Product product) {
         boolean result = false;
         if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
@@ -69,34 +71,58 @@ public class ControlProduct {
         }
 
         return result;
-    }
-    public boolean addProduct2(String id, String name, Category category, int price, Integer max_people) {
+    }*/
+    public boolean addProduct2(String id, String name, Category category, double price, Integer max_people) {
         boolean result = false;
         if(max_people==null){
-            if(Utility.idProduct(id)){
-                Product product = new Product(Integer.valueOf(id),name,category,price);
-                productList.add(product);
-                result = true;
-                viewProduct.printProduct(product);
-                viewProduct.createOK();
+            if(productList.size() < MAX_PRODUCT){
+                if(!existProduct(Integer.valueOf(id))){
+                    int idProduct = Integer.valueOf(id);
+                    Product product = new Product(idProduct,name,category,price);
+                    productList.add(product);
+                    numProducts++;
+                    result = true;
+                    viewProduct.printProduct(product);
+                    viewProduct.createOK();
+
+                }
             }
 
         }else{
+
+
 
         }
         return result;
     }
 
-    public void addFood(int id, String name, double price, Date expiration, int max_people){
-        if(max_people < MAX_PEOPLE){
-
-            throw new IllegalArgumentException(viewProduct.exceptionArguments);
-        }else{
-
+    public void addFood(String id, String name, double price, LocalDateTime expiration, String max_people){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime twelve = now.minusHours(12);
+        if(expiration.isBefore(twelve)){
+            if(max_people.length() < MAX_PEOPLE){
+                Product product = new Product(id,name,price,max_people);
+                productList.add(product);
+                viewProduct.addFoodOk();
+            }else{
+                throw new IllegalArgumentException(viewProduct.exceptionArguments);
+            }
         }
 
+
     }
-    public void addMeeting(int id, String name, double price,Date expiration){
+    public void addMeeting(String id, String name, double price,LocalDateTime expiration, String max_people){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime twelve = now.minusDays(3);
+        if(expiration.isBefore(twelve)){
+            if(max_people.length() < MAX_PEOPLE){
+                Product product = new Product(id,name,price,max_people);
+                productList.add(product);
+                viewProduct.addFoodOk();
+            }else{
+                throw new IllegalArgumentException(viewProduct.exceptionArguments);
+            }
+        }
 
     }
 

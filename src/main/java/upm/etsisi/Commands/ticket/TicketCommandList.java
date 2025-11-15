@@ -1,6 +1,12 @@
 package upm.etsisi.Commands.ticket;
 
-public class TicketCommandList extends TicketCommand{
+import upm.etsisi.Commands.Command;
+
+
+public class TicketCommandList extends Command {
+    public  TicketCommandList() {
+        super("list");
+    }
     @Override
     public boolean apply(String[] args) {
         return false;

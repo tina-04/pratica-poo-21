@@ -6,11 +6,13 @@ import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.Status;
 import upm.etsisi.View.ViewTicket;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ControlTicket {
     private final int MAX_PRODUCT = 100;
 
+    private List<Ticket> ticketList;
     private Ticket ticket;
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private ViewTicket viewTicket;
@@ -18,20 +20,43 @@ public class ControlTicket {
 
     public static ControlTicket getInstance() {
         if (instance == null) {
-            instance = new ControlTicket(null,null); //TODO: Mirar los null, no se puede pedir los ids cada vez
+            instance = new ControlTicket(null,null);
         }
         return instance;
     }
+    public boolean existTikcet(String id) {
+        boolean exist = false;
+        for(int i = 0; i < ticketList.size(); i++) {
+            if (ticketList.get(i) != null) {
+                if (ticketList.get(i).getId() == id  ){
+                    exist = true;
+                }
+            }
+        }
+
+        return exist;
+    }
+    public Ticket searchTicket(String id) {
+        Ticket ticket = null;
+        for (int i = 0; i < ticketList.size(); i++) {
+            if (ticketList.get(i).getId() == id) {
+                ticket = ticketList.get(i);
+            }
+        }
+        return ticket;
+    }
+
 
     private ControlTicket(String cashierId, String userId) {
-        this.ticket = new Ticket(cashierId, userId);
+        this.ticketList = new ArrayList<>();
         this.viewTicket = new ViewTicket();
     }
 
     public void newTicket(String cashierId, String userId) {
-        this.ticket = new Ticket(cashierId, userId);
+        this.ticketList = new ArrayList<>();
         this.categoryCounter = new HashMap<>();
     }
+
 
 
     public void addProduct(Product product, int amount) {
@@ -53,6 +78,7 @@ public class ControlTicket {
         Collections.reverse(products);
         viewTicket.createOK();
     }
+    public void add(String id, String cashierId, int productId, int amount) {}
 
     public void removeProduct(Product product, String ticketId, String cashierId) {
         if(product!=null){
@@ -111,6 +137,11 @@ public class ControlTicket {
 
         viewTicket.prices(ticket);
         viewTicket.listOK();
+
+        LocalDateTime close = LocalDateTime.now();
+        StringBuilder s1 = new StringBuilder();
+        s1.append(ticket.getId()).append("-").append(close.toString());
+        ticket.setId(s1.toString());
 
 
     }

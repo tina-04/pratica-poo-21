@@ -3,9 +3,9 @@ package upm.etsisi.Commands.product;
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlClient;
 
-public class ProductCommandList extends Command {
-    public ProductCommandList() {
-        super("list");
+public class ProductCommandAddFood extends Command {
+    public ProductCommandAddFood() {
+        super("addFood");
     }
 
     @Override

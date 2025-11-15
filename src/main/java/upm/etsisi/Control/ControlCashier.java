@@ -42,10 +42,10 @@ public class ControlCashier {
         }
         return exist;
     }
-    public Cashier searchCashier(String DNI) {
+    public Cashier searchCashier(String id) {
         Cashier cashier = null;
         for(int i =0;i<cashierList.size();i++) {
-            if(cashierList.get(i).getDNI().equals(DNI)) {
+            if(cashierList.get(i).getCashierId().equals(id)) {
                 cashier = cashierList.get(i);
             }
 

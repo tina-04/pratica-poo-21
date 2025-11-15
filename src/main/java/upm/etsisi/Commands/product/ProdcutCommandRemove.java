@@ -1,6 +1,11 @@
 package upm.etsisi.Commands.product;
 
-public class ProdcutCommandRemove extends ProductCommand{
+import upm.etsisi.Commands.Command;
+
+public class ProdcutCommandRemove extends Command {
+    public ProdcutCommandRemove() {
+        super("remove");
+    }
     @Override
     public boolean apply(String[] args) {
         return false;

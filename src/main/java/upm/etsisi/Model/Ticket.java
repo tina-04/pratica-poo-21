@@ -1,27 +1,24 @@
 package upm.etsisi.Model;
 
 import upm.etsisi.Utility.Status;
+import upm.etsisi.Utility.Utility;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Ticket {
-
     private List<Product> products;
     private double total;
     private double discount;
     private double finalPrice;
+
+    private String id;
     private String cashierId;
     private String userId;
-    private String id;
-
-
     private Status  status;
-
-
-
     private Client client;
     private Cashier cashier;
 
@@ -33,6 +30,10 @@ public class Ticket {
         this.cashierId = cashierId;
         this.userId = userId;
         this.status=Status.VACIO;
+
+        StringBuilder s1 = new StringBuilder();
+        s1.append(LocalDateTime.now().toString()).append("-").append(Utility.ticketId());
+        this.id =s1.toString();
     }
 
     public Status getStatus() {

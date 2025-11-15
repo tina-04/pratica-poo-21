@@ -6,6 +6,7 @@ public class Utility {
     public static String ticketId(){
         StringBuilder ticketId = new StringBuilder();
         Random random = new Random();
+        int num = 10000 + random.nextInt(90000);
 
         return  ticketId.toString();
     }

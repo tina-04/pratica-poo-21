@@ -31,6 +31,12 @@ public class ViewProduct implements View{
     public void createOK(){
         messageOutput("prod add: ok");
     }
+    public void addFood(){
+        messageOutput("prod addFood: ok");
+    }
+    public void addMeeting(){
+        messageOutput("prod addMeeting: ok");
+    }
     public void removeOK(){
         messageOutput("prod remove: ok");
     }

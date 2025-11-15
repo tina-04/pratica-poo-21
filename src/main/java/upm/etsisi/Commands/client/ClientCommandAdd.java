@@ -1,8 +1,14 @@
 package upm.etsisi.Commands.client;
 
 import upm.etsisi.Commands.Command;
+import upm.etsisi.Control.ControlClient;
 
-public class ClientCommandAdd extends ClientCommand {
+public class ClientCommandAdd extends Command {
+
+    public ClientCommandAdd(ControlClient controlClient) {
+
+        super("add");
+    }
     @Override
     public boolean apply(String[] args) {
         return false;

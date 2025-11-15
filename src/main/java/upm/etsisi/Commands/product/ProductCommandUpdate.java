@@ -1,4 +1,15 @@
 package upm.etsisi.Commands.product;
 
-public class ProductCommandUpdate {
+import upm.etsisi.Control.ControlClient;
+
+public class ProductCommandUpdate extends Command{
+
+    public ProductCommandUpdate(String name) {
+        super(name);
+    }
+    @Override
+    public boolean apply(String[] args)
+    {
+        return false;
+    }
 }

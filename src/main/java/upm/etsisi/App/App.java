@@ -1,7 +1,13 @@
 package upm.etsisi.App;
 
+import upm.etsisi.Commands.Command;
 import upm.etsisi.Commands.HelpCommand;
 import upm.etsisi.Commands.IComando;
+import upm.etsisi.Commands.cashier.CashierCommand;
+import upm.etsisi.Commands.client.ClientCommand;
+import upm.etsisi.Commands.product.ProductCommand;
+import upm.etsisi.Commands.ticket.TicketCommand;
+import upm.etsisi.Commands.ticket.TicketCommandAdd;
 import upm.etsisi.Control.ControlProduct;
 import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Control.ControlUser;
@@ -9,9 +15,7 @@ import upm.etsisi.Model.Product;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.View.ViewApp;
 
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 
 /**
@@ -37,6 +41,13 @@ public class App {
     }
 
     public void start() {
+
+
+        List<Command> list = new ArrayList<Command>();
+        list.add(new TicketCommand("ticket"));
+        list.add(new CashierCommand("cashier"));
+        list.add(new ClientCommand("client"));
+        list.add(new ProductCommand("product"));
         Scanner sc = new Scanner(System.in);
         this.viewApp = new ViewApp();
         this.comandos = new TreeMap<>();
@@ -103,7 +114,7 @@ public class App {
                         Category category = Category.valueOf(command[command.length - 2].toUpperCase());
                         double price = Double.parseDouble(command[command.length - 1]);
                         Product product = new Product(id, stringName.toString(), category, price);
-                        ControlProduct.getInstance().addProduct(product);
+                        //ControlProduct.getInstance().addProduct(product);
 
                     } catch (Exception e) {
                          System.out.println(e.getMessage());
@@ -197,11 +208,11 @@ public class App {
 
 
 
-    public void registrarComando(String alias, IComando comando) {
+    /*public void registrarComando(String alias, IComando comando) {
         if (alias != null && !alias.trim().isEmpty() && comando != null) {
             comandos.put(alias.toLowerCase(), comando);
         } else throw new RuntimeException("Se deben introducir argumentos validos al registrar un comando.");
-    }
+    }*/
 
 
 
