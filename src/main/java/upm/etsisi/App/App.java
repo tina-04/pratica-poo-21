@@ -1,13 +1,10 @@
 package upm.etsisi.App;
 
 import upm.etsisi.Commands.Command;
-import upm.etsisi.Commands.HelpCommand;
-import upm.etsisi.Commands.IComando;
 import upm.etsisi.Commands.cashier.CashierCommand;
 import upm.etsisi.Commands.client.ClientCommand;
 import upm.etsisi.Commands.product.ProductCommand;
 import upm.etsisi.Commands.ticket.TicketCommand;
-import upm.etsisi.Commands.ticket.TicketCommandAdd;
 import upm.etsisi.Control.ControlProduct;
 import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Control.ControlUser;
@@ -24,7 +21,7 @@ import java.util.*;
  */
 public class App {
     private ViewApp viewApp;
-    private Map<String, IComando> comandos;
+    private Map<String, Command> comandos;
 
     public static void main(String[] args) {
         App app = new App();
@@ -70,7 +67,7 @@ public class App {
                     break;
 
                 case "cash":
-                    commandCahsier(command,viewApp);
+                    commandCashier(command,viewApp);
                     break;
 
 
@@ -196,26 +193,9 @@ public class App {
     private void commandClient(String [] command, ViewApp viewApp) {
 
     }
-    private void commandCahsier( String [] command, ViewApp viewApp) {
+    private void commandCashier( String [] command, ViewApp viewApp) {
 
     }
-
-
-
-
-    // Creación de comandos, zona de Alex, de momento la mayoría de cosas son pruebas
-
-
-
-    /*public void registrarComando(String alias, IComando comando) {
-        if (alias != null && !alias.trim().isEmpty() && comando != null) {
-            comandos.put(alias.toLowerCase(), comando);
-        } else throw new RuntimeException("Se deben introducir argumentos validos al registrar un comando.");
-    }*/
-
-
-
-
 }
 
 

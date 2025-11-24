@@ -27,13 +27,13 @@ public class ControlCashier {
         this.viewCashier = new ViewCashier();
     }
     public void addCashier(String id, String name, String email) {
-        if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashie(id)){
+        if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashier(id)){
             Cashier cashier = new Cashier(id, name, email);
             cashierList.add(cashier);
         }
         viewCashier.addOk();
     }
-    public boolean existCashie(String id){
+    public boolean existCashier(String id){
         boolean exist = false;
         for(int i =0; i<cashierList.size();i++){
             if(cashierList.get(i).getCashierId().equals(id)){
