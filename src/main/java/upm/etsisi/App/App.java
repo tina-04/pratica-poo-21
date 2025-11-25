@@ -1,9 +1,8 @@
 package upm.etsisi.App;
 
 import upm.etsisi.Commands.Command;
+import upm.etsisi.Commands.HelpCommand;
 import upm.etsisi.Commands.IComando;
-import upm.etsisi.Commands.app.EchoCommand;
-import upm.etsisi.Commands.app.HelpCommand;
 import upm.etsisi.Commands.cashier.CashierCommand;
 import upm.etsisi.Commands.client.ClientCommand;
 import upm.etsisi.Commands.product.ProductCommand;
@@ -59,7 +58,7 @@ public class App {
             System.out.print("\ntUPM> ");
             String line = sc.nextLine();
             String[] command = line.split(" ");
-            //String[] name = line.split("\"");
+            String[] name = line.split("\"");
             System.out.println(line);
             boolean  found = false;
             for(int i = 0; i < command.length; i++){
@@ -109,7 +108,7 @@ public class App {
         }
     }
 
-   /* private void commandProduct(String[] command, String[] name, ViewApp viewApp) {
+    private void commandProduct(String[] command, String[] name, ViewApp viewApp) {
         if (command == null || command.length < 2) {
             viewApp.errorCommand();
         }
