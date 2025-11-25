@@ -11,7 +11,7 @@ public class ViewClient implements View{
     public void printClient(Client client){
         if(client != null){
             messageOutput("Client{identifier=‘" + client.getDNI()+ "’, name=''" + client.getName()+
-                    "', email=‘" + client.getEmail()+ "', cash=" + client.getCashier() + "}");
+                    "', email=‘" + client.getEmail()+ "', cash=" + client.getEmail() + "}");
         }
 
     }

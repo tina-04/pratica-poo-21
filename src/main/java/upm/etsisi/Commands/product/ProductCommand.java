@@ -22,6 +22,14 @@ public class ProductCommand extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+
+        if(args[0].equals("prod") && args.length >=2){
+            for(int i = 0; i < listcommands.size(); i++){
+                result = result || listcommands.get(i).apply(args);
+            }
+        }
+
+        return result ;
     }
 }

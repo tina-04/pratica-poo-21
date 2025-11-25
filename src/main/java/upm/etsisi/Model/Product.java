@@ -8,7 +8,9 @@ public class Product {
     private Category category;
     private String name;
     private double price;
-    private String textPersonal;
+
+
+    private int maxPersonal;
 
     public Product(int id, String name, Category category, double price) {
         this.id = id;
@@ -22,11 +24,12 @@ public class Product {
             this.price = price;
         }
     }
-    public Product(String id, String name, double price, String max_people) {
+    public Product(Integer id, String name,Category category ,double price, int maxPersonal) {
         this.id=Integer.valueOf(id);
         this.name=name;
         this.price=price;
-        this.textPersonal=max_people;
+        this.category = category;
+        this.maxPersonal=maxPersonal;
     }
 
     public Category getCategory() {
@@ -53,5 +56,13 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
+    public int getMaxPersonal() {
+        return maxPersonal;
+    }
+
+    public void setMaxPersonal(int maxPersonal) {
+        this.maxPersonal = maxPersonal;
+    }
+
 
 }

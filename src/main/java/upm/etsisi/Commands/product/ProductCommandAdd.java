@@ -2,14 +2,55 @@ package upm.etsisi.Commands.product;
 
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlClient;
+import upm.etsisi.Control.ControlProduct;
+import upm.etsisi.Model.Product;
+import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.Utility;
+import upm.etsisi.View.ViewApp;
+
+import java.util.Arrays;
 
 public class ProductCommandAdd extends Command {
+    private ViewApp viewApp;
+
     public ProductCommandAdd() {
+
         super("add");
+        this.viewApp = new ViewApp();
     }
 
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+        if (args[1].equals("add") && args.length > 5) {
+            try {
+                int id = Integer.parseInt(args[2]);
+
+                String rest = String.join(" ", Arrays.copyOfRange(args, 3, args.length ));
+                int firstQuote = rest.indexOf('"');
+                int lastQuote = rest.lastIndexOf('"');
+                if (firstQuote < 0 || lastQuote <= firstQuote) {
+                    viewApp.errorInfo();
+                    return true;
+                }
+                String name = rest.substring(firstQuote + 1, lastQuote);
+                String afterName = rest.substring(lastQuote + 1).trim();
+                String[] parts = afterName.split(" ");
+
+                Category category = Category.valueOf(parts[0]);
+                double price= Double.parseDouble(parts[1]);
+
+
+                int max_people = (args.length > 5) ? Integer.parseInt(args[args.length - 1]) : 0;
+
+                ControlProduct.getInstance().addProduct2(id,name,category,price,max_people);
+                result = true;
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return result;
     }
 }

@@ -17,6 +17,13 @@ public class ViewProduct implements View{
         }
 
     }
+    public void printProductP(Product product) {
+        if(product != null){
+            messageOutput("{class:Product, id:" + product.getId()+ ", name: '" + product.getName()+
+                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() +" ,maxpersonal:"+ product.getMaxPersonal()+ "}");
+        }
+
+    }
     public void printProductFood(Product product) {
         if(product != null){
             messageOutput("{class:Food, id:" + product.getId()+ ", name: '" + product.getName()+

@@ -2,6 +2,7 @@ package upm.etsisi.Commands.product;
 
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlClient;
+import upm.etsisi.Control.ControlProduct;
 
 public class ProductCommandList extends Command {
     public ProductCommandList() {
@@ -10,6 +11,11 @@ public class ProductCommandList extends Command {
 
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+        if(args.length == 2 && args[1].equals("list")){
+            ControlProduct.getInstance().list();
+            result = true;
+        }
+        return result;
     }
 }

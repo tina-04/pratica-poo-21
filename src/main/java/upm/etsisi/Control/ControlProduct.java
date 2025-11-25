@@ -55,7 +55,7 @@ public class ControlProduct {
     }
 
 
-   /* public boolean addProduct(Product product) {
+    public boolean addProduct(Product product) {
         boolean result = false;
         if(productList.size() < MAX_PRODUCT){
             if(!existProduct(product.getId())){
@@ -71,28 +71,35 @@ public class ControlProduct {
         }
 
         return result;
-    }*/
-    public boolean addProduct2(String id, String name, Category category, double price, Integer max_people) {//TODO
+    }
+    public boolean addProduct2(Integer id, String name, Category category, double price, Integer max_people) {//TODO
         boolean result = false;
         if(max_people==null){
             if(productList.size() < MAX_PRODUCT){
-                if(!existProduct(Integer.valueOf(id))){
-                    int idProduct = Integer.valueOf(id);
-                    Product product = new Product(idProduct,name,category,price);
+                if(!existProduct(Integer.valueOf(id))) {
+                    Product product = new Product(id, name, category, price);
                     productList.add(product);
                     numProducts++;
                     result = true;
                     viewProduct.printProduct(product);
                     viewProduct.createOK();
-
                 }
             }
+        } else{
+                if(productList.size() < MAX_PRODUCT) {
+                    if (!existProduct(Integer.valueOf(id))) {
+                        Product product = new Product(id, name, category, price, max_people);
+                        productList.add(product);
+                        numProducts++;
+                        result = true;
+                        viewProduct.printProductP(product);
+                        viewProduct.createOK();
+                    }
+                }
 
-        }else{
+            }
 
 
-
-        }
         return result;
     }
 
@@ -101,8 +108,8 @@ public class ControlProduct {
         LocalDateTime twelve = now.minusHours(12);
         if(expiration.isBefore(twelve)){
             if(max_people.length() < MAX_PEOPLE){
-                Product product = new Product(id,name,price,max_people);
-                productList.add(product);
+               // Product product = new Product(id,name,price,max_people);
+                //productList.add(product);
                 viewProduct.addFoodOk();
             }else{
                 throw new IllegalArgumentException(viewProduct.exceptionArguments);
@@ -116,8 +123,8 @@ public class ControlProduct {
         LocalDateTime twelve = now.minusDays(3);
         if(expiration.isBefore(twelve)){
             if(max_people.length() < MAX_PEOPLE){
-                Product product = new Product(id,name,price,max_people);
-                productList.add(product);
+                //Product product = new Product(id,name,price,max_people);
+               // productList.add(product);
                 viewProduct.addMeetingOk();
             }else{
                 throw new IllegalArgumentException(viewProduct.exceptionArguments);
