@@ -30,7 +30,7 @@ public class ControlClient {
         if (!existClient(DNI)) {
             Client client = new Client(name, DNI, email);
             clientsList.add(client);
-            viewClient.printInfo(client);
+            viewClient.printClient(client);
             viewClient.createOK();
             resul = true;
         }
