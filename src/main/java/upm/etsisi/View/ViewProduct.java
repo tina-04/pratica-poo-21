@@ -27,14 +27,16 @@ public class ViewProduct implements View{
     public void printProductFood(Product product) {
         if(product != null){
             messageOutput("{class:Food, id:" + product.getId()+ ", name: '" + product.getName()+
-                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
+                   ", price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
+                    ",max people allowed:"+product.getMaxPersonal()+"}");
         }
 
     }
     public void printProductMeeting(Product product) {
         if(product != null){
             messageOutput("{class:Meeting, id:" + product.getId()+ ", name: '" + product.getName()+
-                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
+                    ", price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
+                    ",max people allowed:"+product.getMaxPersonal()+"}");
         }
 
     }
@@ -48,6 +50,12 @@ public class ViewProduct implements View{
 
         }
 
+    }
+    public void addFoodError(){
+        messageOutput("Error processing ->prod addFood ->Error adding product");
+    }
+    public void addMeetingError(){
+        messageOutput("Error processing ->prod addMeeting ->Error adding product");
     }
     public void createOK(){
         messageOutput("prod add: ok");

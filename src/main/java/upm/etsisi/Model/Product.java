@@ -2,6 +2,9 @@ package upm.etsisi.Model;
 
 import upm.etsisi.Utility.Category;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 public class Product {
     private int id;
@@ -9,10 +12,14 @@ public class Product {
     private String name;
     private double price;
 
-
+    private LocalDate expiration;
     private int maxPersonal;
 
-    public Product(int id, String name, Category category, double price) {
+
+
+
+
+    public Product(Integer id, String name, Category category, double price) {
         this.id = id;
         if(name.length() < 100 && !name.isEmpty()){
             this.name = name;
@@ -24,6 +31,19 @@ public class Product {
             this.price = price;
         }
     }
+    public Product(Integer id, String name, double price, LocalDate expiration , int maxPersonal) {
+        this.id = id;
+        if(name.length() < 100 && !name.isEmpty()){
+            this.name = name;
+        }else{
+            this.name = null;
+        }
+        if(price > 0){
+            this.price = price;
+        }
+        this.expiration = expiration;
+        this.maxPersonal = maxPersonal;
+    }
     public Product(Integer id, String name,Category category ,double price, int maxPersonal) {
         this.id=Integer.valueOf(id);
         this.name=name;
@@ -31,7 +51,13 @@ public class Product {
         this.category = category;
         this.maxPersonal=maxPersonal;
     }
+    public LocalDate getExpiration() {
+        return expiration;
+    }
 
+    public void setExpiration(LocalDate expiration) {
+        this.expiration = expiration;
+    }
     public Category getCategory() {
         return category;
     }

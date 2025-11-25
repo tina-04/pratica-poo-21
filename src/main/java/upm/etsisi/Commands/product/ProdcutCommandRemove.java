@@ -1,6 +1,7 @@
 package upm.etsisi.Commands.product;
 
 import upm.etsisi.Commands.Command;
+import upm.etsisi.Control.ControlProduct;
 
 public class ProdcutCommandRemove extends Command {
     public ProdcutCommandRemove() {
@@ -8,6 +9,11 @@ public class ProdcutCommandRemove extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result=false;
+        if (args[1].equals("remove")) {
+            ControlProduct.getInstance().removeProduct(Integer.parseInt(args[2]));
+            result=true;
+        }
+        return result;
     }
 }
