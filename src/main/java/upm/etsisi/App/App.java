@@ -2,6 +2,7 @@ package upm.etsisi.App;
 
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Commands.app.EchoCommand;
+import upm.etsisi.Commands.app.ExitCommand;
 import upm.etsisi.Commands.app.HelpCommand;
 import upm.etsisi.Commands.cashier.CashierCommand;
 import upm.etsisi.Commands.client.ClientCommand;
@@ -29,13 +30,6 @@ public class App {
         App app = new App();
         ViewApp.init();
         app.start();
-
-        // ----------- Instanciación de comandos -------------------
-        //app.registrarComando("help", new HelpCommand(app.comandos)); // Funciona (quizá)
-        // ---------------------------------------------------------
-
-
-
         ViewApp.end();
     }
 
@@ -48,6 +42,7 @@ public class App {
         list.add(new TicketCommand("ticket"));
         list.add(new CashierCommand("cashier"));
         list.add(new ClientCommand("client"));
+        list.add(new ExitCommand("exit"));
 
         Scanner sc = new Scanner(System.in);
         this.viewApp = new ViewApp();
@@ -61,6 +56,11 @@ public class App {
             boolean  found = false;
             for(int i = 0; i < list.size(); i++){
                 found = found || list.get(i).apply(command);
+                if(found){
+                    if(command[0].equals("exit")){
+                        continuar = false;
+                    }
+                }
 
             }
 
