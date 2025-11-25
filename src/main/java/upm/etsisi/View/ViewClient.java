@@ -8,13 +8,16 @@ public class ViewClient implements View{
     public void messageOutput(String output) {
         System.out.println(output);
     }
-    public void printInfo(Client client){
-        messageOutput("User:" + client.getDNI() + ",  Name:" + client.getName() + ", Email:" + client.getEmail());
+    public void printClient(Client client){
+        if(client != null){
+            messageOutput("Client{identifier=‘" + client.getDNI()+ "’, name=''" + client.getName()+
+                    "', email=‘" + client.getEmail()+ "', cash=" + client.getCashier() + "}");
+        }
 
     }
     public void listClient(List<Client> clientList){
         for(Client c : clientList){
-           printInfo(c);
+           printClient(c);
         }
     }
     public void createOK(){
@@ -26,6 +29,8 @@ public class ViewClient implements View{
     public void listOK(){
         messageOutput("client list: ok");
     }
+
+
 
 
 }

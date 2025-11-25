@@ -72,7 +72,7 @@ public class ControlProduct {
 
         return result;
     }*/
-    public boolean addProduct2(String id, String name, Category category, double price, Integer max_people) {
+    public boolean addProduct2(String id, String name, Category category, double price, Integer max_people) {//TODO
         boolean result = false;
         if(max_people==null){
             if(productList.size() < MAX_PRODUCT){
@@ -96,7 +96,7 @@ public class ControlProduct {
         return result;
     }
 
-    public void addFood(String id, String name, double price, LocalDateTime expiration, String max_people){
+    public void addFood(String id, String name, double price, LocalDateTime expiration, String max_people){//TODO
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime twelve = now.minusHours(12);
         if(expiration.isBefore(twelve)){
@@ -111,14 +111,14 @@ public class ControlProduct {
 
 
     }
-    public void addMeeting(String id, String name, double price,LocalDateTime expiration, String max_people){
+    public void addMeeting(String id, String name, double price,LocalDateTime expiration, String max_people){//TODO
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime twelve = now.minusDays(3);
         if(expiration.isBefore(twelve)){
             if(max_people.length() < MAX_PEOPLE){
                 Product product = new Product(id,name,price,max_people);
                 productList.add(product);
-                viewProduct.addFoodOk();
+                viewProduct.addMeetingOk();
             }else{
                 throw new IllegalArgumentException(viewProduct.exceptionArguments);
             }

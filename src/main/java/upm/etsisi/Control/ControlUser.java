@@ -55,19 +55,6 @@ public class ControlUser {
         }
 
     }
-    public void clientList(){
-
-    }
-    public void addCashier(int id, String name, String email) {
-
-    }
-    public void cashiedList(){
-
-    }
-
-    public void cashTikcet(int id){
-
-    }
 
 
 }

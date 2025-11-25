@@ -12,55 +12,65 @@ public class ControlClient {
     private List<Client> clientsList;
     private ViewClient viewClient;
     private static ControlClient instance;
+
     public static ControlClient getInstance() {
         if (instance == null) {
             instance = new ControlClient();
         }
         return instance;
     }
+
     private ControlClient() {
         this.clientsList = new ArrayList<>();
         this.viewClient = new ViewClient();
     }
 
-    public void addClient(String name,String DNI,String email, String cashierId ) {
-        if(!existClient(DNI)){
-            Client client = new Client(name,DNI,email);
+    public boolean addClient(String name, String DNI, String email) {
+        boolean resul = false;
+        if (!existClient(DNI)) {
+            Client client = new Client(name, DNI, email);
             clientsList.add(client);
             viewClient.printInfo(client);
             viewClient.createOK();
+            resul = true;
         }
 
-
+        return resul;
     }
+
     public boolean existClient(String DNI) {
         boolean result = false;
-        for(Client c : clientsList) {
-            if(c.getDNI().equals(DNI))
+        for (Client c : clientsList) {
+            if (c.getDNI().equals(DNI))
                 result = true;
         }
         return result;
     }
+
     public Client searchClient(String DNI) {
         Client client = null;
-        for(int i =0;i<clientsList.size();i++) {
-            if(clientsList.get(i).getDNI().equals(DNI)) {
+        for (int i = 0; i < clientsList.size(); i++) {
+            if (clientsList.get(i).getDNI().equals(DNI)) {
                 client = clientsList.get(i);
             }
 
         }
         return client;
     }
-    public void removeClient(String DNI){
-        if(existClient(DNI)){
+
+    public boolean removeClient(String DNI) {
+        boolean result = false;
+        if (existClient(DNI)) {
             Client client = searchClient(DNI);
             clientsList.remove(client);
             viewClient.removeOK();
+            result = true;
         }
-
+        return result;
     }
-    public void clientList(){
-        viewClient.listClient( clientsList);
+
+    public void clientList() {
+        viewClient.listClient(clientsList);
         viewClient.listOK();
     }
 }

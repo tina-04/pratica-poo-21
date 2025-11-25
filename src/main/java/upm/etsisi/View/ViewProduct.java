@@ -17,6 +17,20 @@ public class ViewProduct implements View{
         }
 
     }
+    public void printProductFood(Product product) {
+        if(product != null){
+            messageOutput("{class:Food, id:" + product.getId()+ ", name: '" + product.getName()+
+                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
+        }
+
+    }
+    public void printProductMeeting(Product product) {
+        if(product != null){
+            messageOutput("{class:Meeting, id:" + product.getId()+ ", name: '" + product.getName()+
+                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
+        }
+
+    }
 
     public void listProduct(List<Product> productList){
         messageOutput("Catalog:");
@@ -31,12 +45,7 @@ public class ViewProduct implements View{
     public void createOK(){
         messageOutput("prod add: ok");
     }
-    public void addFood(){
-        messageOutput("prod addFood: ok");
-    }
-    public void addMeeting(){
-        messageOutput("prod addMeeting: ok");
-    }
+
     public void removeOK(){
         messageOutput("prod remove: ok");
     }

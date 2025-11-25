@@ -10,6 +10,9 @@ public class ViewApp  implements View {
     public void close(){
         messageOutput("Closing application.");
     }
+    public void print(String output){
+        messageOutput(output);
+    }
 
    public void error(){
         messageOutput("Unknown command. Type 'help' for list of commands.");

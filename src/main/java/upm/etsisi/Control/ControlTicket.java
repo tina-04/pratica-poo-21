@@ -24,6 +24,17 @@ public class ControlTicket {
         }
         return instance;
     }
+    private ControlTicket(String cashierId, String userId) {
+        this.ticketList = new ArrayList<>();
+        this.viewTicket = new ViewTicket();
+    }
+
+    public void newTicket(String cashierId, String userId) {
+        this.ticketList = new ArrayList<>();
+        this.categoryCounter = new HashMap<>();
+    }
+
+
     public boolean existTikcet(String id) {
         boolean exist = false;
         for(int i = 0; i < ticketList.size(); i++) {
@@ -47,19 +58,9 @@ public class ControlTicket {
     }
 
 
-    private ControlTicket(String cashierId, String userId) {
-        this.ticketList = new ArrayList<>();
-        this.viewTicket = new ViewTicket();
-    }
-
-    public void newTicket(String cashierId, String userId) {
-        this.ticketList = new ArrayList<>();
-        this.categoryCounter = new HashMap<>();
-    }
 
 
-
-    public void addProduct(Product product, int amount) {
+    public void addProduct(Product product, int amount) {//TODO
         List<Product> products = ticket.getProducts();
         if (product != null && products.size() < MAX_PRODUCT) {
             for (int i = 1; i <= amount; i++) {
@@ -103,7 +104,7 @@ public class ControlTicket {
     }
 
 
-    public void printTicket() {
+    public void printTicket() {//TODO
         List<Product> products = ticket.getProducts();
 
          double total = 0;

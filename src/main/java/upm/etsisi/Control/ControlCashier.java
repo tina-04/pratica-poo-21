@@ -26,14 +26,17 @@ public class ControlCashier {
         this.cashierList = new ArrayList<>();
         this.viewCashier = new ViewCashier();
     }
-    public void addCashier(String id, String name, String email) {
-        if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashie(id)){
+    public boolean addCashier(String id, String name, String email) {
+        boolean result = false;
+        if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashier(id)){
             Cashier cashier = new Cashier(id, name, email);
             cashierList.add(cashier);
+            result = true;
         }
         viewCashier.addOk();
+        return result;
     }
-    public boolean existCashie(String id){
+    public boolean existCashier(String id){
         boolean exist = false;
         for(int i =0; i<cashierList.size();i++){
             if(cashierList.get(i).getCashierId().equals(id)){
@@ -66,7 +69,7 @@ public class ControlCashier {
         return result;
     }
 
-    public List<Ticket> cashTikcet(String id){
+    public List<Ticket> cashTikcet(String id){//TODO
         List<Ticket> ticket = null;
         for(int i =0; i<ticketList.size();i++){
             if(ticketList.get(i).getCashier().getCashierId().equals(id)){
@@ -76,10 +79,8 @@ public class ControlCashier {
 
         return ticket;
     }
-    public void cashiedList(String id){
-        List<Ticket> ticket = cashTikcet(id);
-        viewCashier.listTicket(ticket);
-        viewCashier.listOk();
+    public void cashierList(String id){
+      viewCashier.listCashier(cashierList);
     }
 
 
