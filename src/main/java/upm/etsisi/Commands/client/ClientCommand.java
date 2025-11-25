@@ -1,19 +1,18 @@
 package upm.etsisi.Commands.client;
 
 import upm.etsisi.Commands.Command;
-import upm.etsisi.Control.ControlClient;
 
 import java.util.LinkedList;
 
 public class ClientCommand extends Command {
-    private final LinkedList<Command> listcommands;
+    private final LinkedList<Command> listCommands;
 
     public ClientCommand(String name) {
         super(name);
-        listcommands = new LinkedList<Command>();
-        listcommands.add(new ClientCommandAdd());
-        listcommands.add(new ClientCommandRemove());
-        listcommands.add(new ClientCommandList());
+        listCommands = new LinkedList<Command>();
+        listCommands.add(new ClientCommandAdd());
+        listCommands.add(new ClientCommandRemove());
+        listCommands.add(new ClientCommandList());
     }
     @Override
     public boolean apply(String[] args) {

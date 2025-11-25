@@ -1,22 +1,20 @@
 package upm.etsisi.Commands.ticket;
 
 import upm.etsisi.Commands.Command;
-import upm.etsisi.Commands.product.ProductCommandUpdate;
-import upm.etsisi.Control.ControlTicket;
 
 import java.util.LinkedList;
 
 public class TicketCommand extends Command {
-    private final LinkedList<Command> listacomandos;
+    private final LinkedList<Command> listCommands;
 
     public TicketCommand(String name) {
         super(name);
-        listacomandos = new LinkedList<Command>();
-        listacomandos.add(new TicketCommandAdd());
-        listacomandos.add(new TicketCommandRemove());
-        listacomandos.add(new TicketCommandPrint());
-        listacomandos.add(new TicketCommandNew());
-        listacomandos.add(new TicketCommandList());
+        listCommands = new LinkedList<Command>();
+        listCommands.add(new TicketCommandAdd());
+        listCommands.add(new TicketCommandRemove());
+        listCommands.add(new TicketCommandPrint());
+        listCommands.add(new TicketCommandNew());
+        listCommands.add(new TicketCommandList());
     }
     @Override
     public boolean apply(String[] args) {

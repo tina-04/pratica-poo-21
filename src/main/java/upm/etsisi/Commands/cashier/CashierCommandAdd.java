@@ -2,7 +2,12 @@ package upm.etsisi.Commands.cashier;
 
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlCashier;
+import upm.etsisi.Control.ControlProduct;
 import upm.etsisi.Model.Cashier;
+import upm.etsisi.Model.User;
+
+import java.time.LocalDate;
+import java.util.Arrays;
 
 public class CashierCommandAdd extends Command {
     public CashierCommandAdd() {
@@ -10,6 +15,23 @@ public class CashierCommandAdd extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+        if (args[1].equals("add")) {
+            try{
+                if (args.length == 5) {
+                    String id = args[2];
+                    String username = args[3];
+                    String email = args[4];
+                    ControlCashier.getInstance().addCashier(id, username, email);
+                } else if (args.length == 4) {
+                    String username = args[3];
+                    String email = args[4];
+                    ControlCashier.getInstance().addCashier(username, email);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
     }
 }

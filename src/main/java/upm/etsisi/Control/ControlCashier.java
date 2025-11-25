@@ -1,11 +1,9 @@
 package upm.etsisi.Control;
 
 import upm.etsisi.Model.Cashier;
-import upm.etsisi.Model.Client;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewCashier;
-import upm.etsisi.View.ViewClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +24,7 @@ public class ControlCashier {
         this.cashierList = new ArrayList<>();
         this.viewCashier = new ViewCashier();
     }
+
     public boolean addCashier(String id, String name, String email) {
         boolean result = false;
         if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashier(id)){
@@ -36,6 +35,23 @@ public class ControlCashier {
         viewCashier.addOk();
         return result;
     }
+
+    public boolean addCashier(String name, String email) {
+        boolean result = false;
+        String id = generateId();
+        if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashier(id)){
+            Cashier cashier = new Cashier(id, name, email);
+            cashierList.add(cashier);
+            result = true;
+        }
+        viewCashier.addOk();
+        return result;
+    }
+
+    private String generateId() {
+        return null;
+    }
+
     public boolean existCashier(String id){
         boolean exist = false;
         for(int i =0; i<cashierList.size();i++){
@@ -69,17 +85,16 @@ public class ControlCashier {
         return result;
     }
 
-    public List<Ticket> cashTikcet(String id){//TODO
+    public boolean cashTicket(String id){//TODO
         List<Ticket> ticket = null;
         for(int i =0; i<ticketList.size();i++){
             if(ticketList.get(i).getCashier().getCashierId().equals(id)){
                 ticket.add(ticketList.get(i));
             }
         }
-
-        return ticket;
+        return false;
     }
-    public void cashierList(String id){
+    public void cashierList(){
       viewCashier.listCashier(cashierList);
     }
 
