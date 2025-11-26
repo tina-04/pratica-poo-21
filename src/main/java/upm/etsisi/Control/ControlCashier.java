@@ -6,6 +6,7 @@ import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewCashier;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ControlCashier {
@@ -37,19 +38,12 @@ public class ControlCashier {
     }
 
     public boolean addCashier(String name, String email) {
-        boolean result = false;
-        String id = generateId();
-        if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashier(id)){
-            Cashier cashier = new Cashier(id, name, email);
-            cashierList.add(cashier);
-            result = true;
-        }
-        viewCashier.addOk();
-        return result;
-    }
+        String id;
+        do {
+            id = Utility.generateCashierId();
+        } while (!existCashier(id));
 
-    private String generateId() {
-        return null;
+        return addCashier(id, name, email);
     }
 
     public boolean existCashier(String id){
@@ -74,7 +68,7 @@ public class ControlCashier {
     public boolean removeCashier(String id) {
         boolean result = false;
         for (int i = 0; i < cashierList.size(); i++) {
-            if (cashierList.get(i).getCashierId()==id) {
+            if (cashierList.get(i).getCashierId().equals(id)) {
                 cashierList.remove(cashierList.get(i));
                 result = true;
 
@@ -92,8 +86,10 @@ public class ControlCashier {
                 ticket.add(ticketList.get(i));
             }
         }
+        ticket.sort(Comparator.comparing(Ticket::getId));
         return false;
     }
+
     public void cashierList(){
       viewCashier.listCashier(cashierList);
     }

@@ -10,7 +10,7 @@ public class Utility {
 
         return  ticketId.toString();
     }
-    public static String cashierId() {
+    public static String generateCashierId() {
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
         stringBuilder.append("UW");
