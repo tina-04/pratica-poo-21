@@ -3,7 +3,6 @@ package upm.etsisi.Control;
 import upm.etsisi.Model.Cashier;
 import upm.etsisi.Model.Client;
 import upm.etsisi.Model.Ticket;
-import upm.etsisi.Model.User;
 import upm.etsisi.View.ViewClient;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class ControlUser {
 
     private List<Client> clientsList;
     private List<Cashier> cashiers;
-    private List<Ticket> tickes;
+    private List<Ticket> tickets;
     private ViewClient viewUser;
     private static ControlUser instance;
     public static ControlUser getInstance() {
