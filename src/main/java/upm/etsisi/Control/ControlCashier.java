@@ -24,6 +24,7 @@ public class ControlCashier {
     private ControlCashier() {
         this.cashierList = new ArrayList<>();
         this.viewCashier = new ViewCashier();
+        this.ticketList = new ArrayList<>();
     }
 
     public boolean addCashier(String id, String name, String email) {
@@ -80,13 +81,12 @@ public class ControlCashier {
     }
 
     public boolean cashTicket(String id){//TODO
-        List<Ticket> ticket = null;
         for(int i =0; i<ticketList.size();i++){
             if(ticketList.get(i).getCashier().getCashierId().equals(id)){
-                ticket.add(ticketList.get(i));
+                ticketList.add(ticketList.get(i));
             }
         }
-        ticket.sort(Comparator.comparing(Ticket::getId));
+        ticketList.sort(Comparator.comparing(Ticket::getId));
         return false;
     }
 

@@ -6,9 +6,6 @@ import java.util.List;
 
 public class Client  {
     private String DNI;
-
-
-
     private String email;
     private String name;
     private List<Ticket> ticketList;
