@@ -54,7 +54,7 @@ public class App {
             String line = sc.nextLine();
             //String[] command = Utility.parseCommand(line); //ESTE PARA COLOCAR LOS ARGUMENTOS CADA UNO EN SU SITIO, INCLUSO CON ESPACIOS EN EL NOMBRE
             String[] command = line.split(" "); // Este es el antiguo que dejo de momento hasta ver que pasaba con los Add Product sin que explote el codigo
-            //System.out.println(line);
+            System.out.println(line);
             boolean  found = false;
             for(int i = 0; i < list.size(); i++){
                 found = found || list.get(i).apply(command);

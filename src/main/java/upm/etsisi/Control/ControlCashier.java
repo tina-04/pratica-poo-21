@@ -41,7 +41,7 @@ public class ControlCashier {
         String id;
         do {
             id = Utility.generateCashierId();
-        } while (!existCashier(id));
+        } while (existCashier(id));
 
         return addCashier(id, name, email);
     }
