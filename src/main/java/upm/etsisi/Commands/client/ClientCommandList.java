@@ -9,6 +9,11 @@ public class ClientCommandList extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+        if (args[1].equals("list")) {
+            ControlClient.getInstance().clientList();
+            result = true;
+        }
+        return result;
     }
 }

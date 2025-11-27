@@ -16,6 +16,12 @@ public class ClientCommand extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+        if (args[0].equals("client")&&args.length>=2) {
+            for (int i = 0; i < listCommands.size(); i++) {
+                result=result || listCommands.get(i).apply(args);
+            }
+        }
+        return result;
     }
 }

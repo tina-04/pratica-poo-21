@@ -11,6 +11,18 @@ public class ClientCommandAdd extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+        if (args[1].equals("add")&& args.length==6) {
+            try {
+                String name = args[2];
+                String DNI = args[3];
+                String email = args[4];
+                String cashierId = args[5];
+                result = ControlClient.getInstance().addClient(name,DNI,email);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
     }
 }
