@@ -9,10 +9,10 @@ public class Cashier  {
 
     private String cashierId;
 
-    public Cashier(String name, String email, String cashierId) {
+    public Cashier(String cashierId, String name, String email) {
+        this.cashierId = cashierId;
         this.name = name;
         this.email = email;
-        this.cashierId = cashierId;
     }
     public String getName() {
         return name;
