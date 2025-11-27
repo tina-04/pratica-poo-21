@@ -2,6 +2,7 @@ package upm.etsisi.View;
 
 import upm.etsisi.Model.Client;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class ViewClient implements View{
@@ -16,6 +17,7 @@ public class ViewClient implements View{
 
     }
     public void listClient(List<Client> clientList){
+        clientList.sort(Comparator.comparing(Client::getName));
         for(Client c : clientList){
            printClient(c);
         }

@@ -25,10 +25,10 @@ public class ControlClient {
         this.viewClient = new ViewClient();
     }
 
-    public boolean addClient(String name, String DNI, String email) {
+    public boolean addClient(String name, String DNI, String email, String cashierId) {
         boolean resul = false;
-        if (!existClient(DNI)) {
-            Client client = new Client(name, DNI, email);
+        if (!existClient(DNI) && ControlCashier.getInstance().existCashier(cashierId)) {
+            Client client = new Client(name, DNI, email, cashierId);
             clientsList.add(client);
             viewClient.printClient(client);
             viewClient.createOK();

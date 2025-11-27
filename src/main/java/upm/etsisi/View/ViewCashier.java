@@ -18,20 +18,21 @@ public class ViewCashier  implements View{
 
     }
     public void listCashier(List<Cashier> cashiers){
+        cashiers.sort(Comparator.comparing(Cashier::getName));
         for(Cashier cashier : cashiers){
             printCashier(cashier);
         }
     }
+
     public void listTicket(List<Ticket> ticket){
+        messageOutput("Tickets: ");
         Collections.sort(ticket, (t1, t2) -> t1.getId().compareToIgnoreCase(t2.getId()));
         for(int i = 0; i < ticket.size(); i++){
             messageOutput("ticket id: " + ticket.get(i).getId() + ", status: " + ticket.get(i).getStatus());
         }
 
     }
-    public void addOk(){
-        messageOutput("cash add:ok");
-    }
+    public void addOk() { messageOutput("cash add:ok"); }
     public void removeOk(){
         messageOutput("cash remove:ok");
     }

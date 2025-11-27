@@ -32,6 +32,7 @@ public class ControlCashier {
         if(Utility.correctEmail(email) && Utility.correctCashierId(id) && !existCashier(id)){
             Cashier cashier = new Cashier(id, name, email);
             cashierList.add(cashier);
+            viewCashier.printCashier(cashier);
             result = true;
         }
         viewCashier.addOk();
@@ -81,17 +82,23 @@ public class ControlCashier {
     }
 
     public boolean cashTicket(String id){//TODO
-        for(int i =0; i<ticketList.size();i++){
-            if(ticketList.get(i).getCashier().getCashierId().equals(id)){
-                ticketList.add(ticketList.get(i));
+        if (existCashier(id)){
+            ArrayList<Ticket> tickets = new ArrayList<>();
+            for (Ticket ticket : ticketList) {
+                if (ticket.getCashierId().equals(id)) {
+                    tickets.add(ticket);
+                }
             }
+            tickets.sort(Comparator.comparing(Ticket::getId));
+            viewCashier.listTicket(tickets);
         }
-        ticketList.sort(Comparator.comparing(Ticket::getId));
+        viewCashier.tickestOk();
         return false;
     }
 
     public void cashierList(){
       viewCashier.listCashier(cashierList);
+      viewCashier.listOk();
     }
 
 

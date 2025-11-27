@@ -178,7 +178,7 @@ public class ControlProduct {
                 }
                 result = true;
                 viewProduct.printProduct(productList.get(i));
-
+                viewProduct.updateOk();
             }
         }
         return result;

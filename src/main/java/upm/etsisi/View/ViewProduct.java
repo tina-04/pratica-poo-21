@@ -73,4 +73,5 @@ public class ViewProduct implements View{
     public void addMeetingOk(){
         messageOutput("prod addMeeting: ok");
     }
+    public void updateOk() {messageOutput("prod update: ok");}
 }
