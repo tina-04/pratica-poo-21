@@ -19,7 +19,7 @@ public class ClientCommand extends Command {
         boolean result = false;
         if (args[0].equals("client")&&args.length>=2) {
             for (int i = 0; i < listCommands.size(); i++) {
-                result=result || listCommands.get(i).apply(args);
+                result = result || listCommands.get(i).apply(args);
             }
         }
         return result;

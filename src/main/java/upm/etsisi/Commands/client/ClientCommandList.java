@@ -12,7 +12,7 @@ public class ClientCommandList extends Command {
         boolean result = false;
         if (args[1].equals("list")) {
             ControlClient.getInstance().clientList();
-            result = true;
+            result =true;
         }
         return result;
     }

@@ -11,7 +11,7 @@ public class ClientCommandAdd extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        boolean result = false;
+        boolean result =false;
         if (args[1].equals("add")&& args.length==6) {
             try {
                 String name = args[2];

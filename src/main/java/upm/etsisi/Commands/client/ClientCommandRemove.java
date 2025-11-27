@@ -13,7 +13,7 @@ public class ClientCommandRemove extends Command {
         boolean result = false;
         if (args[1].equals("remove")) {
             ControlProduct.getInstance().removeProduct(Integer.parseInt(args[4]));
-            result=true;
+            result= true;
         }
         return result;
     }
