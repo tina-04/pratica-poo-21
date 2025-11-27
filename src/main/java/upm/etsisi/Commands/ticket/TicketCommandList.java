@@ -1,6 +1,8 @@
 package upm.etsisi.Commands.ticket;
 
 import upm.etsisi.Commands.Command;
+import upm.etsisi.Control.ControlProduct;
+import upm.etsisi.Control.ControlTicket;
 
 
 public class TicketCommandList extends Command {
@@ -9,6 +11,11 @@ public class TicketCommandList extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+        if( args[1].equals("list") && args.length == 2){
+            //ControlTicket.getInstance().orderedList(); //TODO falta el método de enlistar
+            result = true;
+        }
+        return result;
     }
 }

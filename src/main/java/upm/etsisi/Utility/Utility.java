@@ -79,4 +79,26 @@ public class Utility {
         return resul;
     }
 
+    public static String[] parseCommand(String line){
+        String[] separatedArgs = new String[100];
+        int iterator = 0;
+        boolean quoting = false;
+        String current = "";
+
+        for(int i = 0; i < line.length(); i++){
+            char actualCharacter = line.charAt(i);
+            if(actualCharacter == '"'){
+                quoting = !quoting;
+                current += actualCharacter;
+            } else if (actualCharacter == ' ' && !quoting) {
+                if (!current.isEmpty()) {
+                    separatedArgs[iterator] = current;
+                    iterator++;
+                    current = "";
+                }
+            }
+            else current += actualCharacter;
+        }
+        return separatedArgs;
+    }
 }

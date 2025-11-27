@@ -18,6 +18,13 @@ public class TicketCommand extends Command {
     }
     @Override
     public boolean apply(String[] args) {
-        return false;
+        boolean result = false;
+
+        if(args[0].equals("ticket") && args.length >= 2){
+            for(int i = 0; i < listCommands.size(); i++){
+                result = result || listCommands.get(i).apply(args);
+            }
+        }
+        return result;
     }
 }

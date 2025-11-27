@@ -8,6 +8,10 @@ public class TicketCommandAdd extends Command {
     }
     @Override
     public boolean apply(String[] args) {
+        boolean result = false;
+        if (args[1].equals("add")){
+
+        }
         return false;
     }
 }

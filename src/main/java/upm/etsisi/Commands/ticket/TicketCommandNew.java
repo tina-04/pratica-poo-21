@@ -8,6 +8,12 @@ public class TicketCommandNew extends Command {
     }
     @Override
     public boolean apply(String[] args) {
+        boolean result = false;
+        if (args[1].equals("new")){
+            if (args.length == 4){
+
+            }
+        }
         return false;
     }
 }

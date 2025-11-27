@@ -14,6 +14,7 @@ import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Control.ControlUser;
 import upm.etsisi.Model.Product;
 import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewApp;
 
 import java.util.*;
@@ -51,8 +52,9 @@ public class App {
         while (continuar) {
             System.out.print("\ntUPM> ");
             String line = sc.nextLine();
-            String[] command = line.split(" ");
-            System.out.println(line);
+            //String[] command = Utility.parseCommand(line); //ESTE PARA COLOCAR LOS ARGUMENTOS CADA UNO EN SU SITIO, INCLUSO CON ESPACIOS EN EL NOMBRE
+            String[] command = line.split(" "); // Este es el antiguo que dejo de momento hasta ver que pasaba con los Add Product sin que explote el codigo
+            //System.out.println(line);
             boolean  found = false;
             for(int i = 0; i < list.size(); i++){
                 found = found || list.get(i).apply(command);
