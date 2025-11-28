@@ -26,10 +26,10 @@ public class ProductCommandUpdate extends Command {
                     int firstQuote = rest.indexOf('"');
                     int lastQuote = rest.lastIndexOf('"');
                     value = rest.substring(firstQuote + 1, lastQuote);
-                    ControlProduct.getInstance().updateProduct(id, type, value);
+                    result = ControlProduct.getInstance().updateProduct(id, type, value);
                 }else{
                      value = args[4];
-                    ControlProduct.getInstance().updateProduct(id, type, value);
+                    result = ControlProduct.getInstance().updateProduct(id, type, value);
                 }
 
 

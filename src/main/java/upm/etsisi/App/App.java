@@ -11,6 +11,8 @@ import upm.etsisi.Commands.ticket.TicketCommand;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewApp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -22,6 +24,7 @@ public class App {
     private ViewApp viewApp;
 
     public static void main(String[] args) {
+
         App app = new App();
         ViewApp.init();
         app.start();

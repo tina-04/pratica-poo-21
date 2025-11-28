@@ -1,5 +1,8 @@
 package upm.etsisi.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cashier  {
 
     private String name;
@@ -7,11 +10,23 @@ public class Cashier  {
 
     private String cashierId;
 
+
+    private List<Ticket> tikcetList;
+
     public Cashier(String cashierId, String name, String email) {
         this.cashierId = cashierId;
         this.name = name;
         this.email = email;
+        this.tikcetList= new ArrayList<>();
     }
+    public List<Ticket> getTikcetList() {
+        return tikcetList;
+    }
+
+    public void setTikcetList(List<Ticket> tikcetList) {
+        this.tikcetList = tikcetList;
+    }
+
     public String getName() {
         return name;
     }

@@ -44,9 +44,7 @@ public class ViewProduct implements View{
     public void listProduct(List<Product> productList){
         messageOutput("Catalog:");
         for(Product product : productList){
-            if(product != null) {
-                printProduct(product);
-            }
+
 
         }
 

@@ -42,9 +42,8 @@ public class ProductCommandAddFood extends Command {
                 LocalDate expiration = LocalDate.parse(rest[1]);
                 int max_people = Integer.parseInt(rest[2]);
 
-                ControlProduct.getInstance().addFood(id, name, price, expiration, max_people);
+                result= ControlProduct.getInstance().addFood(id, name, price, expiration, max_people);
 
-             result=true;
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());

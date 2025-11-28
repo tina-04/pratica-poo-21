@@ -41,9 +41,7 @@ public class ProdcutCommandAddMeeting extends Command {
                 LocalDate expiration = LocalDate.parse(rest[1]);
                 int max_people = Integer.parseInt(rest[2]);
 
-                ControlProduct.getInstance().addMeeting(id, name, price, expiration, max_people);
-
-                result=true;
+                result=ControlProduct.getInstance().addMeeting(id, name, price, expiration, max_people);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());

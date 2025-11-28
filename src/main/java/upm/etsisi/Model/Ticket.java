@@ -24,18 +24,15 @@ public class Ticket {
     private Client client;
     private Cashier cashier;
 
-    public Ticket(String cashierId, String clientId) {
+    public Ticket(String id, String cashierId, String clientId) {
         this.products = new ArrayList<Product>();
         this.total = 0;
         this.discount = 0;
         this.finalPrice = 0;
         this.cashierId = cashierId;
         this.clientId = clientId;
-        this.status=Status.VACIO;
-
-        StringBuilder s1 = new StringBuilder();
-        s1.append(LocalDateTime.now().toString()).append("-").append(Utility.ticketId());
-        this.id =s1.toString();
+        this.status=Status.EMPTY;
+        this.id =id;
     }
 
     public Status getStatus() {

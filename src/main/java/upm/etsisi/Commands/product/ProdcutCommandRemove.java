@@ -11,8 +11,8 @@ public class ProdcutCommandRemove extends Command {
     public boolean apply(String[] args) {
         boolean result=false;
         if (args[1].equals("remove")) {
-            ControlProduct.getInstance().removeProduct(Integer.parseInt(args[2]));
-            result=true;
+            result=ControlProduct.getInstance().removeProduct(Integer.parseInt(args[2]));
+
         }
         return result;
     }

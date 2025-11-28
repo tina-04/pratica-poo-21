@@ -35,8 +35,6 @@ public class ControlProduct {
         this.numProducts = 0;
         this.viewProduct = new ViewProduct();
     }
-
-
     public boolean existProduct(int id) {
         boolean exist = false;
         for (int i = 0; i < productList.size(); i++) {
@@ -60,26 +58,7 @@ public class ControlProduct {
         return product;
     }
 
-
-    public boolean addProduct(Product product) {
-        boolean result = false;
-        if (productList.size() < MAX_PRODUCT) {
-            if (!existProduct(product.getId())) {
-                if (product.getId() > 0 && product.getId() < MAX_PRODUCT) {
-                    productList.add(product);
-                    numProducts++;
-                    result = true;
-                    viewProduct.printProduct(product);
-                    viewProduct.createOK();
-                }
-
-            }
-        }
-
-        return result;
-    }
-
-    public boolean addProduct2(Integer id, String name, Category category, double price, Integer max_people) {//TODO
+    public boolean addProduct2(Integer id, String name, Category category, double price, Integer max_people) {
         boolean result = false;
         if (max_people == null) {
             if (productList.size() < MAX_PRODUCT) {
@@ -95,7 +74,7 @@ public class ControlProduct {
         } else {
             if (productList.size() < MAX_PRODUCT) {
                 if (!existProduct(Integer.valueOf(id))) {
-                    Product product = new Product(id, name, category, price, max_people);
+                    Product product = new Product(id, name, category, price, max_people,null);
                     productList.add(product);
                     numProducts++;
                     result = true;
@@ -110,39 +89,45 @@ public class ControlProduct {
         return result;
     }
 
-    public void addFood(Integer id, String name, double price, LocalDate expiration, int max_people) {//TODO
+    public boolean addFood(Integer id, String name, double price, LocalDate expiration, int max_people) {
+        boolean resul = false;
         LocalDate now = LocalDate.now();
         LocalDate twelve =now.plusDays(3);
         if (expiration.isBefore(twelve)) {
             if (max_people <= MAX_PEOPLE) {
-                Product product = new Product(id, name, price, expiration, max_people);
+                double newPrice = max_people*price;
+                Product product = new Product(id, name, newPrice, expiration, max_people);
                 viewProduct.printProductFood(product);
                 productList.add(product);
                 viewProduct.addFoodOk();
+                resul = true;
             }else{
                 viewProduct.addFoodError();
             }
 
         }
-
+        return resul;
 
     }
 
-    public void addMeeting(Integer id, String name, double price, LocalDate expiration, int max_people) {//TODO
+    public boolean addMeeting(Integer id, String name, double price, LocalDate expiration, int max_people) {
+        boolean resul = false;
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime twelve = now.plusHours(12);
         if (expiration.isBefore(ChronoLocalDate.from(twelve))) {
             if (max_people <= MAX_PEOPLE) {
-                Product product = new Product(id, name, price, expiration, max_people);
+                double newPrice = max_people*price;
+                Product product = new Product(id, name, newPrice, expiration, max_people);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);
                 viewProduct.addMeetingOk();
+                resul = true;
             }else{
                 viewProduct.addMeetingError();
             }
 
         }
-
+        return resul;
     }
 
     public boolean removeProduct(int id) {

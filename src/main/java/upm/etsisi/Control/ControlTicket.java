@@ -4,9 +4,11 @@ import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.Status;
+import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewTicket;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ControlTicket {
@@ -29,12 +31,21 @@ public class ControlTicket {
         this.viewTicket = new ViewTicket();
     }
 
-    public void newTicket(String cashierId, String userId) {
-        this.ticketList = new ArrayList<>();
-        this.categoryCounter = new HashMap<>(); //TODO
-    }
-    public void newTicket(String id, String cashierId, String userId){
-        //TODO
+
+    public boolean newTicket(String id, String cashierId, String userId){
+        boolean resul =false;
+       if(!existTikcet(id)){
+           Ticket ticket = new Ticket(id, cashierId,userId);
+           viewTicket.printTicket(ticket);
+           viewTicket.prices(ticket);
+           ticketList.add(ticket);
+           viewTicket.newOk();
+           ControlCashier.getInstance().addTicket(cashierId, ticket);
+           resul=true;
+       }
+
+
+        return resul;
     }
 
 
@@ -53,11 +64,20 @@ public class ControlTicket {
     public Ticket searchTicket(String id) {
         Ticket ticket = null;
         for (int i = 0; i < ticketList.size(); i++) {
-            if (ticketList.get(i).getId() == id) {
+            if (ticketList.get(i).getId().equals(id)) {
                 ticket = ticketList.get(i);
             }
         }
         return ticket;
+    }
+    public void removeTicker(List<Ticket> ticket){
+        for(int i=0; i<ticket.size(); i++){
+            if(existTikcet(ticket.get(i).getId())){
+                ticketList.remove(ticket.get(i));
+
+            }
+        }
+
     }
 
 
@@ -85,9 +105,11 @@ public class ControlTicket {
     }
 
      */
-    public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizations) {
-        // Mi sugerencia es que el comando mande el String[] tanto si hay como si no, y si está vacio simplemente no procesarlo
-    }
+  /*  public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizations) {
+       Ticket ticket = searchTicket(ticketId);
+
+
+    }*/
 
     public void removeProduct(String ticketId, String cashierId, String productId) {
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
@@ -115,18 +137,47 @@ public class ControlTicket {
 
 
     public void printTicket(String ticketId, String cashId) {
-
         Ticket ticket = searchTicket(ticketId);
+        if (ticket.getStatus() == Status.OPEN) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
+            String date =LocalDateTime.now().format(formatter).toString();
+            StringBuilder s1 = new StringBuilder();
+            s1.append(ticket.getId()).append("-").append(date);
+            ticket.setId(s1.toString());
+            ticket.setStatus(Status.CLOSE);
+        }
+        viewTicket.printTicket(ticket);
         List<Product> products = ticket.getProducts();
+        products.sort(Comparator.comparing(p -> p.getName().toLowerCase()));
+        double total = 0;
+        double totalDiscount = 0;
+
+        for (Product product : products) {
+            if(product !=null){
+                Category category = product.getCategory();
+                int count = categoryCounter.getOrDefault(category, 0);
+                boolean hasDiscount = count >= 2;
+
+                double price = product.getPrice();
+                double discount = hasDiscount ? calculateDiscount(product) : 0.0;
+
+                total += price;
+                totalDiscount += discount;
+
+                if (hasDiscount) {
+                    double discountProduct = calculateDiscount(product);
+                    viewTicket.printProductDiscount(product, discountProduct);
+                } else {
+                    viewTicket.printProduct(product);
+                }
+            }
+
+        }
+        /*List<Product> products = ticket.getProducts();
         Map<Category, Integer> categoryCounterACT = ticket.getCategoryCounter();
         // Getter del mapa que se va a crear en cada Ticket y se hace con eso igual
 
-        if (ticket.getStatus() != Status.CERRADO) {
-            StringBuilder s1 = new StringBuilder();
-            s1.append(ticket.getId()).append("-").append(LocalDateTime.now());
-            ticket.setId(s1.toString());
-            ticket.setStatus(Status.CERRADO);
-        }
+
 
         double total = 0;
         double totalDiscount = 0;
@@ -149,8 +200,8 @@ public class ControlTicket {
                 }
 
             }
-        }
-        //calculateTotal(products);
+        }*/
+
         ticket.setTotal(total);
         ticket.setDiscount(totalDiscount);
         ticket.setFinalPrice(total - totalDiscount);
@@ -188,7 +239,7 @@ public class ControlTicket {
         return discount;
     }
 
-    public void calculateTotal(List<Product> products) {
+    /*public void calculateTotal(List<Product> products) {
         double total = 0.0;
         double discount = 0.0;
 
@@ -202,5 +253,5 @@ public class ControlTicket {
         //ticket.setFinalPrice(total - discount);
 
         //viewTicket.prices(ticket);
-    }
+    }*/
 }

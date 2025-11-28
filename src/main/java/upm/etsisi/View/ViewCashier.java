@@ -26,7 +26,7 @@ public class ViewCashier  implements View{
 
     public void listTicket(List<Ticket> ticket){
         messageOutput("Tickets: ");
-        Collections.sort(ticket, (t1, t2) -> t1.getId().compareToIgnoreCase(t2.getId()));
+        Collections.sort(ticket, (t1, t2) -> Integer.parseInt(t1.getId()));
         for(int i = 0; i < ticket.size(); i++){
             messageOutput("ticket id: " + ticket.get(i).getId() + ", status: " + ticket.get(i).getStatus());
         }

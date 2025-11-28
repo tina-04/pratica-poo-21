@@ -69,18 +69,27 @@ public class ControlCashier {
     }
     public boolean removeCashier(String id) {
         boolean result = false;
-        for (int i = 0; i < cashierList.size(); i++) {
-            if (cashierList.get(i).getCashierId().equals(id)) {
-                cashierList.remove(cashierList.get(i));
-                result = true;
-
-            }
+        Cashier cash = searchCashier(id);
+        if(cash !=null){
+            ControlTicket.getInstance().removeTicker(ticketList);
+            cashierList.remove(cash);
+            ticketList.clear();
         }
         viewCashier.removeOk();
 
         return result;
     }
-
+    public boolean addTicket(String cashId,Ticket ticket){
+        boolean resul =false;
+        if(existCashier(cashId)){
+           for(int i =0; i<cashierList.size(); i++){
+               if(cashierList.get(i).getCashierId().equals(cashId)){
+                  ticketList.add(ticket);
+               }
+            }
+        }
+        return  resul;
+    }
     public boolean cashTicket(String id){//TODO
         if (existCashier(id)){
             ArrayList<Ticket> tickets = new ArrayList<>();
@@ -91,7 +100,6 @@ public class ControlCashier {
             }
             tickets.sort(Comparator.comparing(Ticket::getId));
             viewCashier.listTicket(tickets);
-
         }
         viewCashier.tickestOk();
         return false;
@@ -101,6 +109,7 @@ public class ControlCashier {
       viewCashier.listCashier(cashierList);
       viewCashier.listOk();
     }
+
 
 
 }

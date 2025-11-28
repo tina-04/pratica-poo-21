@@ -17,6 +17,10 @@ public class Product {
 
 
 
+    private String personalizationList;
+
+
+
 
 
     public Product(Integer id, String name, Category category, double price) {
@@ -44,12 +48,34 @@ public class Product {
         this.expiration = expiration;
         this.maxPersonal = maxPersonal;
     }
+    public Product(Integer id, String name,  Category category , double price, int maxPersonal, String personalizationList ) {
+        this.id = id;
+        if(name.length() < 100 && !name.isEmpty()){
+            this.name = name;
+        }else{
+            this.name = null;
+        }
+        if(price > 0){
+            this.price = price;
+        }
+        this.category =category;
+        this.maxPersonal = maxPersonal;
+        this.personalizationList=personalizationList;
+    }
+
     public Product(Integer id, String name,Category category ,double price, int maxPersonal) {
         this.id=Integer.valueOf(id);
         this.name=name;
         this.price=price;
         this.category = category;
         this.maxPersonal=maxPersonal;
+    }
+    public String getPersonalizationList() {
+        return personalizationList;
+    }
+
+    public void setPersonalizationList(String personalizationList) {
+        this.personalizationList = personalizationList;
     }
     public LocalDate getExpiration() {
         return expiration;

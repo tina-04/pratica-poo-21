@@ -40,11 +40,9 @@ public class ProductCommandAdd extends Command {
                 Category category = Category.valueOf(parts[0]);
                 double price= Double.parseDouble(parts[1]);
 
-
                 int max_people = (args.length > 5) ? Integer.parseInt(args[args.length - 1]) : 0;
 
-                ControlProduct.getInstance().addProduct2(id,name,category,price,max_people);
-                result = true;
+                result = ControlProduct.getInstance().addProduct2(id,name,category,price,max_people);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());

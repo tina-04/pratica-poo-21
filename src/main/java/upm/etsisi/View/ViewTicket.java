@@ -12,6 +12,9 @@ public class ViewTicket  implements View{
     public void messageOutput(String output) {
         System.out.println(output);
     }
+    public void printTicket(Ticket ticket){
+        messageOutput("Ticket:" + ticket.getId());
+    }
     public void printProduct(Product product) {
 
         if(product != null){
@@ -25,6 +28,12 @@ public class ViewTicket  implements View{
         messageOutput("{class:Product, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
                 product.getCategory() + ", price:" + product.getPrice() + "} **discount -" + discount);
     }
+    public void printProductDiscountPersonlization(Product product, double discount) {
+
+        messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
+                product.getCategory() + ", price:" + product.getPrice() +  "， personalizationList" + product.getPersonalizationList()+"} **discount -" + discount);
+    }
+
 
     public void ticketList(ArrayList<Ticket> ticketList) {
         messageOutput("Ticket List:");
@@ -38,6 +47,8 @@ public class ViewTicket  implements View{
         messageOutput("Total discount: " + ticket.getDiscount());
         messageOutput("Final Price: " + ticket.getFinalPrice());
     }
+
+    public void newOk(){messageOutput("ticket new: ok");}
     public void createOK(){
         messageOutput("ticket add: ok");
     }

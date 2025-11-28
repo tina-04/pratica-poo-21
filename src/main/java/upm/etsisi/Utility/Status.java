@@ -1,5 +1,5 @@
 package upm.etsisi.Utility;
 
 public enum Status {
-    VACIO, ACTIVO, CERRADO
+    EMPTY, OPEN, CLOSE
 }
