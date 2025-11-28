@@ -2,12 +2,6 @@ package upm.etsisi.Commands.cashier;
 
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlCashier;
-import upm.etsisi.Control.ControlProduct;
-import upm.etsisi.Model.Cashier;
-import upm.etsisi.Model.User;
-
-import java.time.LocalDate;
-import java.util.Arrays;
 
 public class CashierCommandAdd extends Command {
     public CashierCommandAdd() {

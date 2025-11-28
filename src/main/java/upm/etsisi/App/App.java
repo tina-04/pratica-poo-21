@@ -8,12 +8,6 @@ import upm.etsisi.Commands.cashier.CashierCommand;
 import upm.etsisi.Commands.client.ClientCommand;
 import upm.etsisi.Commands.product.ProductCommand;
 import upm.etsisi.Commands.ticket.TicketCommand;
-import upm.etsisi.Commands.ticket.TicketCommandAdd;
-import upm.etsisi.Control.ControlProduct;
-import upm.etsisi.Control.ControlTicket;
-import upm.etsisi.Control.ControlUser;
-import upm.etsisi.Model.Product;
-import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewApp;
 

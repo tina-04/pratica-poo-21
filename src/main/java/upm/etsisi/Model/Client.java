@@ -1,6 +1,5 @@
 package upm.etsisi.Model;
 
-import upm.etsisi.Utility.Rol;
 
 import java.util.List;
 

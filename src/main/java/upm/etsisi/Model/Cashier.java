@@ -1,7 +1,5 @@
 package upm.etsisi.Model;
 
-import upm.etsisi.Utility.Rol;
-
 public class Cashier  {
 
     private String name;

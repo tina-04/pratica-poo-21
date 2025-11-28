@@ -91,6 +91,7 @@ public class ControlCashier {
             }
             tickets.sort(Comparator.comparing(Ticket::getId));
             viewCashier.listTicket(tickets);
+
         }
         viewCashier.tickestOk();
         return false;

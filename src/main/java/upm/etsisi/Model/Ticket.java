@@ -17,18 +17,18 @@ public class Ticket {
 
     private String id;
     private String cashierId;
-    private String userId;
+    private String clientId;
     private Status  status;
     private Client client;
     private Cashier cashier;
 
-    public Ticket(String cashierId, String userId) {
+    public Ticket(String cashierId, String clientId) {
         this.products = new ArrayList<Product>();
         this.total = 0;
         this.discount = 0;
         this.finalPrice = 0;
         this.cashierId = cashierId;
-        this.userId = userId;
+        this.clientId = clientId;
         this.status=Status.VACIO;
 
         StringBuilder s1 = new StringBuilder();
@@ -81,9 +81,9 @@ public class Ticket {
 
     public String getCashierId() {return cashierId;}
 
-    public void setUserId(String userId) {this.userId = userId;}
+    public void setClientId(String clientId) {this.clientId = clientId;}
 
-    public String getUserId() {return userId;}
+    public String getClientId() {return clientId;}
 
     public Cashier getCashier() {
         return cashier;
