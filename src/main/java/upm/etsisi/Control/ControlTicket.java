@@ -148,18 +148,19 @@ public class ControlTicket {
         viewTicket.prices(ticket);
         viewTicket.listOK();
 
-        closeTicket(ticket);
-        StringBuilder s1 = new StringBuilder();
-        s1.append(ticket.getId()).append("-").append(ticket.getDateClose());
-        ticket.setId(s1.toString());
-    }
-    public void closeTicket(Ticket ticket) {
-        if (!ticket.getStatus().equals(Status.CERRADO)){
-            LocalDateTime close = LocalDateTime.now();
-            ticket.setDateClose(close);
-            ticket.setStatus(Status.CERRADO);
+        if (ticket.getStatus() != Status.CERRADO) {
+            StringBuilder s1 = new StringBuilder();
+            s1.append(ticket.getId()).append("-").append(LocalDateTime.now());
+            ticket.setId(s1.toString());
         }
     }
+
+    /*public void closeTicket(Ticket ticket) {
+        if (!ticket.getStatus().equals(Status.CERRADO)){
+            LocalDateTime close = LocalDateTime.now();
+            ticket.setStatus(Status.CERRADO);
+        }
+    }*/
 
     public void calculateTotal(List<Product> products) {
         double total = 0.0;
