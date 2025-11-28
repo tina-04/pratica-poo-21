@@ -21,6 +21,7 @@ public class Ticket {
     private Status  status;
     private Client client;
     private Cashier cashier;
+    private LocalDateTime dateClose;
 
     public Ticket(String cashierId, String clientId) {
         this.products = new ArrayList<Product>();
@@ -99,5 +100,13 @@ public class Ticket {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public LocalDateTime getDateClose() {
+        return dateClose;
+    }
+
+    public void setDateClose(LocalDateTime dateClose) {
+        this.dateClose = dateClose;
     }
 }
