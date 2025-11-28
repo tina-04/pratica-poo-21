@@ -126,6 +126,8 @@ public class ControlTicket {
             if (product != null) {
                 Category category = product.getCategory();
                 boolean hasDiscount = categoryCounter.getOrDefault(category, 0) >= 2;
+                // Aquí va a tener que dejar de usar el categoryCounter de dentro de este Controlador
+                // y usar el de dentro del Ticket que estés imprimiendo
                 double discount = hasDiscount ? calculateDiscount(product) : 0.0;
                 total += product.getPrice();
                 totalDiscount += discount;
