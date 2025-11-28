@@ -34,11 +34,11 @@ public class ControlTicket {
         this.categoryCounter = new HashMap<>(); //TODO
     }
     public void newTicket(String id, String cashierId, String userId){
-
+        //TODO
     }
 
 
-    public boolean existTicket(String id) {
+    public boolean existTikcet(String id) {
         boolean exist = false;
         for(int i = 0; i < ticketList.size(); i++) {
             if (ticketList.get(i) != null) {
@@ -83,8 +83,8 @@ public class ControlTicket {
         Collections.reverse(products);
         viewTicket.createOK();
     }
-     */
 
+     */
     public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizations) {
         // Mi sugerencia es que el comando mande el String[] tanto si hay como si no, y si está vacio simplemente no procesarlo
     }
@@ -92,12 +92,13 @@ public class ControlTicket {
     public void removeProduct(String ticketId, String cashierId, String productId) {
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
         Ticket ticket = searchTicket(ticketId);
-        if(product!=null && ticket.getCashierId().equals(cashierId)){
+        if(product!=null){
             List<Product> products = ticket.getProducts();
             int eliminated = 0;
             while (products.remove(product)) {
                 eliminated++;
             }
+
             Category category = product.getCategory();
             int count = categoryCounter.getOrDefault(category, 0);
             if (eliminated > 0) {
@@ -109,6 +110,7 @@ public class ControlTicket {
                 }
             }
         }
+
     }
 
 
@@ -148,19 +150,18 @@ public class ControlTicket {
         viewTicket.prices(ticket);
         viewTicket.listOK();
 
-        if (ticket.getStatus() != Status.CERRADO) {
-            StringBuilder s1 = new StringBuilder();
-            s1.append(ticket.getId()).append("-").append(LocalDateTime.now());
-            ticket.setId(s1.toString());
+        LocalDateTime close = LocalDateTime.now();
+        StringBuilder s1 = new StringBuilder();
+        s1.append(ticket.getId()).append("-").append(close.toString());
+        ticket.setId(s1.toString());
+
+
+    }
+    public void closeTicket(Ticket ticket) {
+        if(ticket.getStatus() == Status.CERRADO){
+
         }
     }
-
-    /*public void closeTicket(Ticket ticket) {
-        if (!ticket.getStatus().equals(Status.CERRADO)){
-            LocalDateTime close = LocalDateTime.now();
-            ticket.setStatus(Status.CERRADO);
-        }
-    }*/
 
     public void calculateTotal(List<Product> products) {
         double total = 0.0;

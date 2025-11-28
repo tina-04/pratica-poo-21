@@ -1,5 +1,6 @@
 package upm.etsisi.Model;
 
+import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.Status;
 import upm.etsisi.Utility.Utility;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 
 public class Ticket {
     private List<Product> products;
+    private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private double total;
     private double discount;
     private double finalPrice;
@@ -99,5 +101,12 @@ public class Ticket {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+    public int getCategoryCount(Category category) { // Este da cuantos tiene esa categoria
+        return categoryCounter.getOrDefault(category, 0);
+    }
+
+    public void setCategoryCounter(Category category, int variation) { // Este es para sumar o restarle a esa categoría
+        categoryCounter.put(category, categoryCounter.getOrDefault(category, 0) + variation);
     }
 }
