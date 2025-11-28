@@ -13,7 +13,7 @@ public class ControlTicket {
     private final int MAX_PRODUCT = 100;
 
     private List<Ticket> ticketList;
-    private Ticket ticket;
+
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private ViewTicket viewTicket;
     private static ControlTicket instance;
@@ -31,7 +31,10 @@ public class ControlTicket {
 
     public void newTicket(String cashierId, String userId) {
         this.ticketList = new ArrayList<>();
-        this.categoryCounter = new HashMap<>();
+        this.categoryCounter = new HashMap<>(); //TODO
+    }
+    public void newTicket(String id, String cashierId, String userId){
+        //TODO
     }
 
 
@@ -60,6 +63,7 @@ public class ControlTicket {
 
 
 
+    /*
     public void addProduct(Product product, int amount) {//TODO
         List<Product> products = ticket.getProducts();
         if (product != null && products.size() < MAX_PRODUCT) {
@@ -75,13 +79,19 @@ public class ControlTicket {
             }
         }
         Collections.reverse(products);
-        printTicket();
+        //printTicket();
         Collections.reverse(products);
         viewTicket.createOK();
     }
-    public void add(String id, String cashierId, int productId, int amount) {}
 
-    public void removeProduct(Product product, String ticketId, String cashierId) {
+     */
+    public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizations) {
+        // Mi sugerencia es que el comando mande el String[] tanto si hay como si no, y si está vacio simplemente no procesarlo
+    }
+
+    public void removeProduct(String ticketId, String cashierId, String productId) {
+        Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
+        Ticket ticket = searchTicket(ticketId);
         if(product!=null){
             List<Product> products = ticket.getProducts();
             int eliminated = 0;
@@ -104,12 +114,13 @@ public class ControlTicket {
     }
 
 
-    public void printTicket() {//TODO
+    public void printTicket(String ticketId, String cashId) {
+
+        Ticket ticket = searchTicket(ticketId);
         List<Product> products = ticket.getProducts();
 
-         double total = 0;
+        double total = 0;
         double totalDiscount = 0;
-
 
         for (Product product : products) {
             if (product != null) {
@@ -161,11 +172,11 @@ public class ControlTicket {
             discount = calculateDiscount(product);
         }
 
-        ticket.setDiscount(discount);
-        ticket.setTotal(total);
-        ticket.setFinalPrice(total - discount);
+        //ticket.setDiscount(discount);
+        //ticket.setTotal(total);
+        //ticket.setFinalPrice(total - discount);
 
-        viewTicket.prices(ticket);
+        //viewTicket.prices(ticket);
     }
 
     public double calculateDiscount(Product product) {
