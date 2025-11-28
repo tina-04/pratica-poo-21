@@ -13,7 +13,7 @@ public class TicketCommandList extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if( args[1].equals("list") && args.length == 2){
-            //ControlTicket.getInstance().orderedList(); //TODO falta el método de enlistar
+            ControlTicket.getInstance().ticketList();
             result = true;
         }
         return result;

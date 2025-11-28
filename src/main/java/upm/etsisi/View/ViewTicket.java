@@ -5,6 +5,7 @@ import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewTicket  implements View{
@@ -23,7 +24,13 @@ public class ViewTicket  implements View{
 
         messageOutput("{class:Product, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
                 product.getCategory() + ", price:" + product.getPrice() + "} **discount -" + discount);
+    }
 
+    public void ticketList(ArrayList<Ticket> ticketList) {
+        messageOutput("Ticket List:");
+        for(Ticket ticket : ticketList){
+            messageOutput(ticket.getId() + " - " + ticket.getStatus());
+        }
     }
 
     public void prices(Ticket  ticket) {
@@ -40,4 +47,9 @@ public class ViewTicket  implements View{
     public void listOK(){
         messageOutput("ticket list: ok");
     }
+
+    public void printOK(){
+        messageOutput("ticket print: ok");
+    }
+
 }

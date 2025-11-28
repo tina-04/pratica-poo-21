@@ -109,4 +109,8 @@ public class Ticket {
     public void setCategoryCounter(Category category, int variation) { // Este es para sumar o restarle a esa categoría
         categoryCounter.put(category, categoryCounter.getOrDefault(category, 0) + variation);
     }
+
+    public Map<Category, Integer> getCategoryCounter() {
+        return null;
+    }
 }

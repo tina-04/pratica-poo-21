@@ -12,7 +12,7 @@ import java.util.*;
 public class ControlTicket {
     private final int MAX_PRODUCT = 100;
 
-    private List<Ticket> ticketList;
+    private ArrayList<Ticket> ticketList;
 
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private ViewTicket viewTicket;
@@ -118,6 +118,15 @@ public class ControlTicket {
 
         Ticket ticket = searchTicket(ticketId);
         List<Product> products = ticket.getProducts();
+        Map<Category, Integer> categoryCounterACT = ticket.getCategoryCounter();
+        // Getter del mapa que se va a crear en cada Ticket y se hace con eso igual
+
+        if (ticket.getStatus() != Status.CERRADO) {
+            StringBuilder s1 = new StringBuilder();
+            s1.append(ticket.getId()).append("-").append(LocalDateTime.now());
+            ticket.setId(s1.toString());
+            ticket.setStatus(Status.CERRADO);
+        }
 
         double total = 0;
         double totalDiscount = 0;
@@ -125,7 +134,7 @@ public class ControlTicket {
         for (Product product : products) {
             if (product != null) {
                 Category category = product.getCategory();
-                boolean hasDiscount = categoryCounter.getOrDefault(category, 0) >= 2;
+                boolean hasDiscount = categoryCounterACT.getOrDefault(category, 0) >= 2;
                 // Aquí va a tener que dejar de usar el categoryCounter de dentro de este Controlador
                 // y usar el de dentro del Ticket que estés imprimiendo
                 double discount = hasDiscount ? calculateDiscount(product) : 0.0;
@@ -136,7 +145,6 @@ public class ControlTicket {
                     double discountProduct = calculateDiscount(product);
                     viewTicket.printProductDiscount(product, discountProduct);
                 } else {
-
                     viewTicket.printProduct(product);
                 }
 
@@ -146,39 +154,14 @@ public class ControlTicket {
         ticket.setTotal(total);
         ticket.setDiscount(totalDiscount);
         ticket.setFinalPrice(total - totalDiscount);
-        ticket.setStatus(Status.CERRADO);
-
 
         viewTicket.prices(ticket);
+        viewTicket.printOK();
+    }
+
+    public void ticketList(){
+        viewTicket.ticketList(ticketList);
         viewTicket.listOK();
-
-        LocalDateTime close = LocalDateTime.now();
-        StringBuilder s1 = new StringBuilder();
-        s1.append(ticket.getId()).append("-").append(close.toString());
-        ticket.setId(s1.toString());
-
-
-    }
-    public void closeTicket(Ticket ticket) {
-        if(ticket.getStatus() == Status.CERRADO){
-
-        }
-    }
-
-    public void calculateTotal(List<Product> products) {
-        double total = 0.0;
-        double discount = 0.0;
-
-        for (Product product : products) {
-            total += product.getPrice();
-            discount = calculateDiscount(product);
-        }
-
-        //ticket.setDiscount(discount);
-        //ticket.setTotal(total);
-        //ticket.setFinalPrice(total - discount);
-
-        //viewTicket.prices(ticket);
     }
 
     public double calculateDiscount(Product product) {
@@ -203,5 +186,21 @@ public class ControlTicket {
                 break;
         }
         return discount;
+    }
+
+    public void calculateTotal(List<Product> products) {
+        double total = 0.0;
+        double discount = 0.0;
+
+        for (Product product : products) {
+            total += product.getPrice();
+            discount = calculateDiscount(product);
+        }
+
+        //ticket.setDiscount(discount);
+        //ticket.setTotal(total);
+        //ticket.setFinalPrice(total - discount);
+
+        //viewTicket.prices(ticket);
     }
 }
