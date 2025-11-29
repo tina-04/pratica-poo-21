@@ -76,6 +76,7 @@ public class ControlTicket {
 
         Ticket ticket = searchTicket(ticketId); // Creo que no usa cashierId para nada si no se repiten los ticketId ni en diferentes cajeros
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
+        if(cashierId == ticket.getCashier().getCashierId()) return;
         int amountInt = Integer.parseInt(amount);
 
         if (ticket.getStatus() == Status.EMPTY) {
@@ -137,7 +138,9 @@ public class ControlTicket {
 
     public void removeProduct(String ticketId, String cashierId, String productId) {
         // Lo del cashierId lo mismo que el al añadirlo
+
         Ticket ticket = searchTicket(ticketId);
+        if(cashierId == ticket.getCashier().getCashierId()) return;
         int id = Integer.parseInt(productId);
         List<Product> products = ticket.getProducts();
 
@@ -162,9 +165,9 @@ public class ControlTicket {
     }
 
 
-    public void printTicket(String ticketId, String cashId) {
+    public void printTicket(String ticketId, String cashierId) {
         Ticket ticket = searchTicket(ticketId);
-
+        if(cashierId == ticket.getCashier().getCashierId()) return;
         if (ticket.getStatus() == Status.OPEN || ticket.getStatus() == Status.EMPTY) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
             String date = LocalDateTime.now().format(formatter);
