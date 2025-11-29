@@ -21,8 +21,7 @@ public class Ticket {
     private String cashierId;
     private String clientId;
     private Status  status;
-    private Client client;
-    private Cashier cashier;
+
 
     public Ticket(String id, String cashierId, String clientId) {
         this.products = new ArrayList<Product>();
@@ -76,29 +75,13 @@ public class Ticket {
         return finalPrice;
     }
 
-    public void setCashierId(String cashierId) {this.cashierId = cashierId;}
+    public void setCashierId(String id) {this.cashierId = id;}
 
     public String getCashierId() {return cashierId;}
 
-    public void setClientId(String clientId) {this.clientId = clientId;}
+    public void setClientId(String id) {this.clientId = id;}
 
-    public String getClientId() {return clientId;}
 
-    public Cashier getCashier() {
-        return cashier;
-    }
-
-    public void setCashier(Cashier cashier) {
-        this.cashier = cashier;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
     public int getCategoryCount(Category category) { // Este da cuantos tiene esa categoria
         return categoryCounter.getOrDefault(category, 0);
     }
