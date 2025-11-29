@@ -38,7 +38,6 @@ public class ViewProduct implements View{
                     "', price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
                     ",max people allowed:"+product.getMaxPersonal()+"}");
         }
-
     }
 
     public void listProduct(List<Product> productList){
