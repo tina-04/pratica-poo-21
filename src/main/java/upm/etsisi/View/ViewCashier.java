@@ -13,8 +13,8 @@ public class ViewCashier  implements View{
         System.out.println(output);
     }
     public void printCashier(Cashier cashier){
-        messageOutput("Cash{identifier=‘" + cashier.getCashierId()+ "’, name=''" + cashier.getName()+
-                "', email=‘" + cashier.getEmail()+ "'}");
+        messageOutput("Cash{identifier='" + cashier.getCashierId()+ "' , name='" + cashier.getName()+
+                "' , email='" + cashier.getEmail()+ "'}");
 
     }
     public void listCashier(List<Cashier> cashiers){

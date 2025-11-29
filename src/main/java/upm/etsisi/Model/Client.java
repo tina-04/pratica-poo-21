@@ -10,10 +10,10 @@ public class Client  {
     private String cashierId;
     private List<Ticket> ticketList;
 
-    public Client(String name, String email, String DNI, String cashierId) {
-        this.name = name;
-        this.email = email;
+    public Client(String name, String DNI, String email, String cashierId) {
+        this.name = name.substring(1, name.length() - 1);
         this.DNI = DNI;
+        this.email = email;
         this.cashierId = cashierId;
     }
     public String getName() {

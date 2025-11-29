@@ -35,7 +35,7 @@ public class ViewProduct implements View{
     public void printProductMeeting(Product product) {
         if(product != null){
             messageOutput("{class:Meeting, id:" + product.getId()+ ", name: '" + product.getName()+
-                    ", price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
+                    "', price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
                     ",max people allowed:"+product.getMaxPersonal()+"}");
         }
 
@@ -44,11 +44,20 @@ public class ViewProduct implements View{
     public void listProduct(List<Product> productList){
         messageOutput("Catalog:");
         for(Product product : productList){
-
-
+            switch(product.getProductType()){
+                case FOOD:
+                    printProductFood(product);
+                    break;
+                case MEETING:
+                    printProductMeeting(product);
+                    break;
+                case BASIC:
+                    printProduct(product);
+                    break;
+            }
         }
-
     }
+
     public void addFoodError(){
         messageOutput("Error processing ->prod addFood ->Error adding product");
     }

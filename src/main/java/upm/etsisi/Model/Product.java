@@ -73,6 +73,7 @@ public class Product {
         this.category = category;
         this.maxPersonal=maxPersonal;
     }
+
     public String getPersonalizationList() {
         return personalizationList;
     }

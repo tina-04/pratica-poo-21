@@ -7,6 +7,7 @@ import upm.etsisi.Utility.Category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ViewTicket  implements View{
     public void messageOutput(String output) {
@@ -23,15 +24,15 @@ public class ViewTicket  implements View{
         }
 
     }
-    public void printProductDiscount(Product product, double discount) {
+    public void printProductDiscount(Product product, double discount) { // Locale.US imprime . en vez de , para los decimales
 
         messageOutput("{class:Product, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                product.getCategory() + ", price:" + product.getPrice() + "} **discount -" + discount);
+                product.getCategory() + ", price:" + String.format(Locale.US, "%.2f", product.getPrice()) + "} **discount -" + discount);
     }
     public void printProductDiscountPersonlization(Product product, double discount) {
 
         messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                product.getCategory() + ", price:" + product.getPrice() +  "， personalizationList" + product.getPersonalizationList()+"} **discount -" + discount);
+                product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList" + product.getPersonalizationList()+"} **discount -" + discount);
     }
 
 

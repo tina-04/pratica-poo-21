@@ -90,7 +90,7 @@ public class ControlCashier {
         }
         return  resul;
     }
-    public boolean cashTicket(String id){//TODO
+    public boolean cashTicket(String id){
         if (existCashier(id)){
             ArrayList<Ticket> tickets = new ArrayList<>();
             for (Ticket ticket : ticketList) {
@@ -109,7 +109,4 @@ public class ControlCashier {
       viewCashier.listCashier(cashierList);
       viewCashier.listOk();
     }
-
-
-
 }
