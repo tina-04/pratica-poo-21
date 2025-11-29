@@ -71,7 +71,7 @@ public class ControlCashier {
         boolean result = false;
         Cashier cash = searchCashier(id);
         if(cash !=null){
-            ControlTicket.getInstance().removeTicker(ticketList);
+            ControlTicket.getInstance().removeTicket(ticketList);
             cashierList.remove(cash);
             ticketList.clear();
         }

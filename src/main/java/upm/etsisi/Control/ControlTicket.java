@@ -16,17 +16,16 @@ public class ControlTicket {
 
     private ArrayList<Ticket> ticketList;
 
-    private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private ViewTicket viewTicket;
     private static ControlTicket instance;
 
     public static ControlTicket getInstance() {
         if (instance == null) {
-            instance = new ControlTicket(null,null);
+            instance = new ControlTicket();
         }
         return instance;
     }
-    private ControlTicket(String cashierId, String userId) {
+    private ControlTicket() {
         this.ticketList = new ArrayList<>();
         this.viewTicket = new ViewTicket();
     }
@@ -70,137 +69,108 @@ public class ControlTicket {
         }
         return ticket;
     }
-    public void removeTicker(List<Ticket> ticket){
-        for(int i=0; i<ticket.size(); i++){
-            if(existTikcet(ticket.get(i).getId())){
-                ticketList.remove(ticket.get(i));
 
-            }
+
+    public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizations) {
+
+        Ticket ticket = searchTicket(ticketId); // Creo que no usa cashierId para nada si no se repiten los ticketId ni en diferentes cajeros
+        Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
+        int amountInt = Integer.parseInt(amount);
+
+        if (ticket.getStatus() == Status.EMPTY) {
+            ticket.setStatus(Status.OPEN);
         }
 
-    }
+        if (personalizations != null && personalizations.length > 0) {
+            String joinedPers = String.join(",", personalizations);
+            product = new Product(
+                    product.getId(),
+                    product.getName(),
+                    product.getCategory(),
+                    product.getPrice(),
+                    personalizations.length,
+                    joinedPers
+            );
+        }
 
-
-
-
-    /*
-    public void addProduct(Product product, int amount) {//TODO
-        List<Product> products = ticket.getProducts();
-        if (product != null && products.size() < MAX_PRODUCT) {
-            for (int i = 1; i <= amount; i++) {
-                if(products.size() < MAX_PRODUCT){
-                    products.add(product);
-                    Category category = product.getCategory();
-                    int count = categoryCounter.getOrDefault(category, 0);
-                    categoryCounter.put(category, count + 1);
-
-                }
-
+        for (int i = 0; i < amountInt; i++) {
+            if (ticket.getProducts().size() < 100){
+                ticket.getProducts().add(product);
+                ticket.setCategoryCounter(product.getCategory(), 1);
             }
         }
-        Collections.reverse(products);
-        //printTicket();
-        Collections.reverse(products);
         viewTicket.createOK();
     }
 
-     */
-  /*  public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizations) {
-       Ticket ticket = searchTicket(ticketId);
 
-
-    }*/
 
     public void removeProduct(String ticketId, String cashierId, String productId) {
-        Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
+        // Lo del cashierId lo mismo que el al añadirlo
         Ticket ticket = searchTicket(ticketId);
-        if(product!=null){
-            List<Product> products = ticket.getProducts();
-            int eliminated = 0;
-            while (products.remove(product)) {
-                eliminated++;
-            }
+        int id = Integer.parseInt(productId);
+        List<Product> products = ticket.getProducts();
 
-            Category category = product.getCategory();
-            int count = categoryCounter.getOrDefault(category, 0);
-            if (eliminated > 0) {
-                if (count > eliminated) {
-                    categoryCounter.put(category, count - eliminated);
-                    viewTicket.removeOK();
-                } else {
-                    categoryCounter.put(category, 0);
-                }
+        Product toRemove = null;
+        for (Product p : products) {
+            if (p.getId() == id) {
+                products.remove(toRemove);
+                Category cat = toRemove.getCategory();
+                ticket.setCategoryCounter(cat, -1);
             }
         }
+
+        if (products.isEmpty()) {
+            ticket.setStatus(Status.EMPTY);
+        }
+
+        viewTicket.removeOK();
 
     }
 
 
     public void printTicket(String ticketId, String cashId) {
         Ticket ticket = searchTicket(ticketId);
-        if (ticket.getStatus() == Status.OPEN) {
+
+        if (ticket.getStatus() == Status.OPEN || ticket.getStatus() == Status.EMPTY) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
-            String date =LocalDateTime.now().format(formatter).toString();
-            StringBuilder s1 = new StringBuilder();
-            s1.append(ticket.getId()).append("-").append(date);
-            ticket.setId(s1.toString());
+            String date = LocalDateTime.now().format(formatter);
+            ticket.setId(ticket.getId() + "-" + date);
             ticket.setStatus(Status.CLOSE);
         }
+
         viewTicket.printTicket(ticket);
+
         List<Product> products = ticket.getProducts();
         products.sort(Comparator.comparing(p -> p.getName().toLowerCase()));
-        double total = 0;
-        double totalDiscount = 0;
+
+        double total = 0.0;
+        double totalDiscount = 0.0;
 
         for (Product product : products) {
-            if(product !=null){
-                Category category = product.getCategory();
-                int count = categoryCounter.getOrDefault(category, 0);
-                boolean hasDiscount = count >= 2;
+            if (product == null) continue;
 
-                double price = product.getPrice();
-                double discount = hasDiscount ? calculateDiscount(product) : 0.0;
+            int categoryCount = ticket.getCategoryCount(product.getCategory());
+            boolean hasDiscount = categoryCount >= 2;
+            double discount = hasDiscount ? calculateDiscount(product) : 0.0;
+            double price = product.getPrice();
 
-                total += price;
-                totalDiscount += discount;
+            total += price;
+            totalDiscount += discount;
 
+            if (product.getPersonalizationList() != null && !product.getPersonalizationList().isEmpty()) {
                 if (hasDiscount) {
-                    double discountProduct = calculateDiscount(product);
-                    viewTicket.printProductDiscount(product, discountProduct);
+                    viewTicket.printProductDiscountPersonlization(product, discount);
+                } else {
+                    viewTicket.printProductDiscountPersonlization(product, 0.0);
+                }
+            } else {
+                if (hasDiscount) {
+                    viewTicket.printProductDiscount(product, discount);
                 } else {
                     viewTicket.printProduct(product);
                 }
             }
-
         }
-        /*List<Product> products = ticket.getProducts();
-        Map<Category, Integer> categoryCounterACT = ticket.getCategoryCounter();
-        // Getter del mapa que se va a crear en cada Ticket y se hace con eso igual
-
-
-
-        double total = 0;
-        double totalDiscount = 0;
-
-        for (Product product : products) {
-            if (product != null) {
-                Category category = product.getCategory();
-                boolean hasDiscount = categoryCounterACT.getOrDefault(category, 0) >= 2;
-                // Aquí va a tener que dejar de usar el categoryCounter de dentro de este Controlador
-                // y usar el de dentro del Ticket que estés imprimiendo
-                double discount = hasDiscount ? calculateDiscount(product) : 0.0;
-                total += product.getPrice();
-                totalDiscount += discount;
-
-                if (hasDiscount) {
-                    double discountProduct = calculateDiscount(product);
-                    viewTicket.printProductDiscount(product, discountProduct);
-                } else {
-                    viewTicket.printProduct(product);
-                }
-
-            }
-        }*/
 
         ticket.setTotal(total);
         ticket.setDiscount(totalDiscount);
@@ -209,6 +179,7 @@ public class ControlTicket {
         viewTicket.prices(ticket);
         viewTicket.printOK();
     }
+
 
     public void ticketList(){
         viewTicket.ticketList(ticketList);
