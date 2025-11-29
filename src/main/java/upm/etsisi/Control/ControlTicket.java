@@ -143,10 +143,13 @@ public class ControlTicket {
 
         Product toRemove = null;
         for (Product p : products) {
-            if (p.getId() == id) {
+            if (p.getId() == id && p.getProductType() != ProductType.BASIC) {
                 products.remove(toRemove);
                 Category cat = toRemove.getCategory();
                 ticket.setCategoryCounter(cat, -1);
+            }
+            else if (p.getId() == id && p.getProductType() == ProductType.BASIC){
+                products.remove(toRemove);
             }
         }
 
