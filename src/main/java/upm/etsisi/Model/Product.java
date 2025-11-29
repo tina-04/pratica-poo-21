@@ -1,6 +1,7 @@
 package upm.etsisi.Model;
 
 import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.ProductType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +17,8 @@ public class Product {
     private int maxPersonal;
 
 
+
+    private ProductType productType;
 
     private String personalizationList;
 
@@ -116,5 +119,12 @@ public class Product {
         this.maxPersonal = maxPersonal;
     }
 
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
 
 }

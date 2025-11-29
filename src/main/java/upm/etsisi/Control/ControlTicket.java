@@ -3,6 +3,7 @@ package upm.etsisi.Control;
 import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.ProductType;
 import upm.etsisi.Utility.Status;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewTicket;
@@ -81,28 +82,58 @@ public class ControlTicket {
             ticket.setStatus(Status.OPEN);
         }
 
-        if (personalizations != null && personalizations.length > 0) {
-            String joinedPers = String.join(",", personalizations);
-            product = new Product(
+        if(product.getProductType() == ProductType.BASIC){
+            if (personalizations != null && personalizations.length > 0) {
+                String joinedPers = String.join(",", personalizations);
+                product = new Product(
+                        product.getId(),
+                        product.getName(),
+                        product.getCategory(),
+                        product.getPrice(),
+                        personalizations.length,
+                        joinedPers
+                );
+            }
+
+            for (int i = 0; i < amountInt; i++) {
+                if (ticket.getProducts().size() < 100){
+                    ticket.getProducts().add(product);
+                    ticket.setCategoryCounter(product.getCategory(), 1);
+                }
+            }
+        } else {
+            for (Product p : ticket.getProducts()) {
+                if (p.getId() == (product.getId())) {
+                    return;
+                }
+            }
+            if (ticket.getProducts().size() < 100
+                    || amountInt <= 0
+                    || amountInt > product.getMaxPersonal()){
+                return;
+            }
+            Product productToAdd = new Product(
                     product.getId(),
                     product.getName(),
-                    product.getCategory(),
                     product.getPrice(),
-                    personalizations.length,
-                    joinedPers
-            );
+                    product.getExpiration(),
+                    amountInt);
+            productToAdd.setProductType(product.getProductType());
+
+            ticket.getProducts().add(productToAdd);
         }
 
-        for (int i = 0; i < amountInt; i++) {
-            if (ticket.getProducts().size() < 100){
-                ticket.getProducts().add(product);
-                ticket.setCategoryCounter(product.getCategory(), 1);
-            }
-        }
         viewTicket.createOK();
     }
 
+    public void removeTicker(List<Ticket> ticket){
+        for(int i=0; i<ticket.size(); i++){
+            if(existTikcet(ticket.get(i).getId())){
+                ticketList.remove(ticket.get(i));
 
+            }
+        }
+    }
 
     public void removeProduct(String ticketId, String cashierId, String productId) {
         // Lo del cashierId lo mismo que el al añadirlo

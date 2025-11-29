@@ -2,6 +2,7 @@ package upm.etsisi.Control;
 
 import upm.etsisi.Model.Product;
 import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.ProductType;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewProduct;
 
@@ -64,6 +65,7 @@ public class ControlProduct {
             if (productList.size() < MAX_PRODUCT) {
                 if (!existProduct(Integer.valueOf(id))) {
                     Product product = new Product(id, name, category, price);
+                    product.setProductType(ProductType.BASIC);
                     productList.add(product);
                     numProducts++;
                     result = true;
@@ -75,6 +77,7 @@ public class ControlProduct {
             if (productList.size() < MAX_PRODUCT) {
                 if (!existProduct(Integer.valueOf(id))) {
                     Product product = new Product(id, name, category, price, max_people,null);
+                    product.setProductType(ProductType.BASIC);
                     productList.add(product);
                     numProducts++;
                     result = true;
@@ -97,6 +100,7 @@ public class ControlProduct {
             if (max_people <= MAX_PEOPLE) {
                 double newPrice = max_people*price;
                 Product product = new Product(id, name, newPrice, expiration, max_people);
+                product.setProductType(ProductType.FOOD);
                 viewProduct.printProductFood(product);
                 productList.add(product);
                 viewProduct.addFoodOk();
@@ -118,6 +122,7 @@ public class ControlProduct {
             if (max_people <= MAX_PEOPLE) {
                 double newPrice = max_people*price;
                 Product product = new Product(id, name, newPrice, expiration, max_people);
+                product.setProductType(ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);
                 viewProduct.addMeetingOk();
