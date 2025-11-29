@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 
 public class Product {
-    private int id;
+    private Integer id;
     private Category category;
     private String name;
     private double price;
@@ -46,21 +46,22 @@ public class Product {
         this.maxPersonal = maxPersonal;
         this.personalizationList=personalizationList;
         this.expiration = expiration;
+        this.productType=null;
     }
 
     public String getPersonalizationList() {
         return personalizationList;
     }
 
-    public void setPersonalizationList(String personalizationList) {
-        this.personalizationList = personalizationList;
+    public void setPersonalizationList(String list) {
+        this.personalizationList = list;
     }
     public LocalDate getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(LocalDate expiration) {
-        this.expiration = expiration;
+    public void setExpiration(LocalDate date) {
+        this.expiration = date;
     }
     public Category getCategory() {
         return category;
@@ -80,17 +81,17 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-    public int getMaxPersonal() {
+    public Integer getMaxPersonal() {
         return maxPersonal;
     }
 
-    public void setMaxPersonal(int maxPersonal) {
+    public void setMaxPersonal(Integer maxPersonal) {
         this.maxPersonal = maxPersonal;
     }
 
@@ -98,8 +99,8 @@ public class Product {
         return productType;
     }
 
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
+    public void setProductType(ProductType type) {
+        this.productType = type;
     }
 
 }
