@@ -18,7 +18,7 @@ public class ClientCommandAdd extends Command {
                 String DNI = args[3];
                 String email = args[4];
                 String cashierId = args[5];
-                result = ControlClient.getInstance().addClient(name,DNI,email, cashierId);
+                result = ControlClient.getInstance().addClient(name.substring(1, name.length()-1),DNI,email, cashierId);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

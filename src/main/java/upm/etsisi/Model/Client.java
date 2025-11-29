@@ -11,7 +11,7 @@ public class Client  {
     private List<Ticket> ticketList;
 
     public Client(String name, String DNI, String email, String cashierId) {
-        this.name = name.substring(1, name.length() - 1);
+        this.name = name;
         this.DNI = DNI;
         this.email = email;
         this.cashierId = cashierId;

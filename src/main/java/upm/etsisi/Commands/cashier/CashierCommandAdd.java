@@ -16,11 +16,11 @@ public class CashierCommandAdd extends Command {
                     String id = args[2];
                     String username = args[3];
                     String email = args[4];
-                    result = ControlCashier.getInstance().addCashier(id, username, email);
+                    result = ControlCashier.getInstance().addCashier(id, username.substring(1, username.length()-1), email);
                 } else if (args.length == 4) {
                     String username = args[2];
                     String email = args[3];
-                    result = ControlCashier.getInstance().addCashier(username, email);
+                    result = ControlCashier.getInstance().addCashier(username.substring(1, username.length()-1), email);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
