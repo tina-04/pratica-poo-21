@@ -24,7 +24,7 @@ public class ControlClient {
     private ControlClient() {
         this.clientsList = new ArrayList<>();
         this.viewClient = new ViewClient();
-        this.ticketList = new ArrayList<>()
+        this.ticketList = new ArrayList<>();
     }
 
     public boolean addTicket(String clienId,Ticket ticket){
