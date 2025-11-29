@@ -47,6 +47,15 @@ public class ControlTicket {
 
         return resul;
     }
+    public void removeTicket(List<Ticket> ticket){
+        for(int i=0; i<ticket.size(); i++){
+            if(existTikcet(ticket.get(i).getId())){
+                ticketList.remove(ticket.get(i));
+
+            }
+        }
+
+    }
 
 
     public boolean existTikcet(String id) {
@@ -73,27 +82,18 @@ public class ControlTicket {
 
 
     public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizations) {
-
-        Ticket ticket = searchTicket(ticketId); // Creo que no usa cashierId para nada si no se repiten los ticketId ni en diferentes cajeros
+        Ticket ticket = searchTicket(ticketId);
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
-        if(cashierId == ticket.getCashier().getCashierId()) return;
+        if(cashierId == ticket.getCashierId()) return;
         int amountInt = Integer.parseInt(amount);
 
         if (ticket.getStatus() == Status.EMPTY) {
             ticket.setStatus(Status.OPEN);
         }
-
         if(product.getProductType() == ProductType.BASIC){
             if (personalizations != null && personalizations.length > 0) {
                 String joinedPers = String.join(",", personalizations);
-                product = new Product(
-                        product.getId(),
-                        product.getName(),
-                        product.getCategory(),
-                        product.getPrice(),
-                        personalizations.length,
-                        joinedPers
-                );
+                product = new Product(product.getId(), product.getName(), product.getCategory(), product.getPrice(),product.getExpiration(), personalizations.length, joinedPers);
             }
 
             for (int i = 0; i < amountInt; i++) {
@@ -108,22 +108,13 @@ public class ControlTicket {
                     return;
                 }
             }
-            if (ticket.getProducts().size() < 100
-                    || amountInt <= 0
-                    || amountInt > product.getMaxPersonal()){
+            if (ticket.getProducts().size() < 100 || amountInt <= 0 || amountInt > product.getMaxPersonal()){
                 return;
             }
-            Product productToAdd = new Product(
-                    product.getId(),
-                    product.getName(),
-                    product.getPrice(),
-                    product.getExpiration(),
-                    amountInt);
+            Product productToAdd = new Product(product.getId(), product.getName(), null,product.getPrice(), product.getExpiration(), amountInt,null);
             productToAdd.setProductType(product.getProductType());
-
             ticket.getProducts().add(productToAdd);
         }
-
         viewTicket.createOK();
     }
 
@@ -140,7 +131,7 @@ public class ControlTicket {
         // Lo del cashierId lo mismo que el al añadirlo
 
         Ticket ticket = searchTicket(ticketId);
-        if(cashierId == ticket.getCashier().getCashierId()) return;
+        if(cashierId == ticket.getCashierId()) return;
         int id = Integer.parseInt(productId);
         List<Product> products = ticket.getProducts();
 
@@ -167,7 +158,7 @@ public class ControlTicket {
 
     public void printTicket(String ticketId, String cashierId) {
         Ticket ticket = searchTicket(ticketId);
-        if(cashierId == ticket.getCashier().getCashierId()) return;
+        if(cashierId == ticket.getCashierId()) return;
         if (ticket.getStatus() == Status.OPEN || ticket.getStatus() == Status.EMPTY) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
             String date = LocalDateTime.now().format(formatter);

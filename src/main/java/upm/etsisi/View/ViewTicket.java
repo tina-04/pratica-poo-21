@@ -17,7 +17,6 @@ public class ViewTicket  implements View{
         messageOutput("Ticket:" + ticket.getId());
     }
     public void printProduct(Product product) {
-
         if(product != null){
             messageOutput("{class:Product, id:" + product.getId()+ ", name:'" + product.getName()+
                     "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");

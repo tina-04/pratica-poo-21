@@ -20,7 +20,6 @@ public class ControlProduct {
     private int numProducts;
     private final int MAX_PRODUCT = 200;
     private final int MAX_PEOPLE = 100;
-    private final int MAX_TEXT = 100;
     private ViewProduct viewProduct;
     private static ControlProduct instance;
 
@@ -59,7 +58,7 @@ public class ControlProduct {
         return product;
     }
 
-    public boolean addProduct2(Integer id, String name, Category category, double price, Integer max_people) {
+    public boolean addProduct(Integer id, String name, Category category, double price, Integer max_people) {
         boolean result = false;
         if (max_people == null) {
             if (productList.size() < MAX_PRODUCT) {
@@ -76,7 +75,7 @@ public class ControlProduct {
         } else {
             if (productList.size() < MAX_PRODUCT) {
                 if (!existProduct(Integer.valueOf(id))) {
-                    Product product = new Product(id, name, category, price, max_people,null);
+                    Product product = new Product(id, name, category, price,null, max_people,null);
                     product.setProductType(ProductType.BASIC);
                     productList.add(product);
                     numProducts++;
@@ -99,7 +98,7 @@ public class ControlProduct {
         if (expiration.isBefore(twelve)) {
             if (max_people <= MAX_PEOPLE) {
                 double newPrice = max_people*price;
-                Product product = new Product(id, name, newPrice, expiration, max_people);
+                Product product = new Product(id, name, null,newPrice, expiration, max_people,null);
                 product.setProductType(ProductType.FOOD);
                 viewProduct.printProductFood(product);
                 productList.add(product);
@@ -121,7 +120,7 @@ public class ControlProduct {
         if (expiration.isBefore(ChronoLocalDate.from(twelve))) {
             if (max_people <= MAX_PEOPLE) {
                 double newPrice = max_people*price;
-                Product product = new Product(id, name, newPrice, expiration, max_people);
+                Product product = new Product(id, name,null, newPrice, expiration, max_people,null);
                 product.setProductType(ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);
