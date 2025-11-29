@@ -7,9 +7,7 @@ public class ViewApp  implements View {
     public  void errorInfo(){
         messageOutput("We need more information .");
     }
-    public void close(){
-        messageOutput("Closing application.");
-    }
+
     public void print(String output){
         messageOutput(output);
     }
@@ -17,9 +15,7 @@ public class ViewApp  implements View {
    public void error(){
         messageOutput("Unknown command. Type 'help' for list of commands.");
    }
-   public void errorCommand(){
-        messageOutput("Error: invalid command.");
-   }
+
     public static void printHelp() {
         System.out.println("Commands:");
         System.out.println("  prod add <id> \"<name>\" <category> <price>");

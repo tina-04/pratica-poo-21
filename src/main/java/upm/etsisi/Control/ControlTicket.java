@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ControlTicket {
-    private final int MAX_PRODUCT = 100;
 
     private ArrayList<Ticket> ticketList;
 
@@ -41,21 +40,14 @@ public class ControlTicket {
            ticketList.add(ticket);
            viewTicket.newOk();
            ControlCashier.getInstance().addTicket(cashierId, ticket);
+           ControlClient.getInstance().addTicket(userId,ticket);
            resul=true;
        }
 
 
         return resul;
     }
-    public void removeTicket(List<Ticket> ticket){
-        for(int i=0; i<ticket.size(); i++){
-            if(existTikcet(ticket.get(i).getId())){
-                ticketList.remove(ticket.get(i));
 
-            }
-        }
-
-    }
 
 
     public boolean existTikcet(String id) {
@@ -238,19 +230,5 @@ public class ControlTicket {
         return discount;
     }
 
-    /*public void calculateTotal(List<Product> products) {
-        double total = 0.0;
-        double discount = 0.0;
 
-        for (Product product : products) {
-            total += product.getPrice();
-            discount = calculateDiscount(product);
-        }
-
-        //ticket.setDiscount(discount);
-        //ticket.setTotal(total);
-        //ticket.setFinalPrice(total - discount);
-
-        //viewTicket.prices(ticket);
-    }*/
 }

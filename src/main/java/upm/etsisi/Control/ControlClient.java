@@ -10,6 +10,7 @@ import java.util.List;
 
 public class ControlClient {
     private List<Client> clientsList;
+    private List<Ticket> ticketList;
     private ViewClient viewClient;
     private static ControlClient instance;
 
@@ -23,8 +24,20 @@ public class ControlClient {
     private ControlClient() {
         this.clientsList = new ArrayList<>();
         this.viewClient = new ViewClient();
+        this.ticketList = new ArrayList<>()
     }
 
+    public boolean addTicket(String clienId,Ticket ticket){
+        boolean resul =false;
+        if(existClient(clienId)){
+            for(int i =0; i<clientsList.size(); i++){
+                if(clientsList.get(i).getCashierId().equals(clienId)){
+                    ticketList.add(ticket);
+                }
+            }
+        }
+        return  resul;
+    }
     public boolean addClient(String name, String DNI, String email, String cashierId) {
         boolean resul = false;
         if (!existClient(DNI) && ControlCashier.getInstance().existCashier(cashierId)) {

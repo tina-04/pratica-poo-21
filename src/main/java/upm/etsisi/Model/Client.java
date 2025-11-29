@@ -1,6 +1,7 @@
 package upm.etsisi.Model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client  {
@@ -15,6 +16,7 @@ public class Client  {
         this.DNI = DNI;
         this.email = email;
         this.cashierId = cashierId;
+        this.ticketList=new ArrayList<>();
     }
     public String getName() {
         return name;
@@ -49,7 +51,7 @@ public class Client  {
     public String getCashierId() {
         return cashierId;
     }
-    public void setCashierId(String cashierId) {
-        this.cashierId = cashierId;
+    public void setCashierId(String id) {
+        this.cashierId = id;
     }
 }
