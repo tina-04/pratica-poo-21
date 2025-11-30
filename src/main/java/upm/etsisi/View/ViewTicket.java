@@ -59,7 +59,6 @@ public class ViewTicket  implements View{
                     "', price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
                     ",max people allowed:"+product.getMaxPersonal()+ ", actual people in event:" + actualPeople+"}");
         }
-
     }
 
     public void ticketList(ArrayList<Ticket> ticketList) {
