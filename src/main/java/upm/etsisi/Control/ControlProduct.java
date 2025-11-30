@@ -99,7 +99,7 @@ public class ControlProduct {
         if (expiration.isBefore(twelve)) {
             if (max_people <= MAX_PEOPLE) {
 
-                Product product = new Product(id, name, null,0.0, expiration, max_people,null);
+                Product product = new Product(id, name, null,price, expiration, max_people,null);
                 product.setProductType(ProductType.FOOD);
                 viewProduct.printProductFood(product);
                 productList.add(product);
@@ -120,7 +120,7 @@ public class ControlProduct {
         LocalDateTime twelve = now.plusHours(12);
         if (expiration.isBefore(ChronoLocalDate.from(twelve))) {
             if (max_people <= MAX_PEOPLE) {
-                double newPrice = max_people*price;   Product product = new Product(id, name,null, 0.0, expiration, max_people,null);
+                double newPrice = max_people*price;   Product product = new Product(id, name,null, price, expiration, max_people,null);
                 product.setProductType(ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);

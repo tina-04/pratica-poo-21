@@ -27,7 +27,7 @@ public class ViewProduct implements View{
     public void printProductFood(Product product) {
         if(product != null){
             messageOutput("{class:Food, id:" + product.getId()+ ", name: '" + product.getName()+
-                   ", price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
+                   ", price: 0.0"  +  ", date of Event:"+product.getExpiration()+
                     ",max people allowed:"+product.getMaxPersonal()+"}");
         }
 
@@ -35,7 +35,7 @@ public class ViewProduct implements View{
     public void printProductMeeting(Product product) {
         if(product != null){
             messageOutput("{class:Meeting, id:" + product.getId()+ ", name: '" + product.getName()+
-                    "', price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
+                    "', price: 0.0" +  ", date of Event:"+product.getExpiration()+
                     ",max people allowed:"+product.getMaxPersonal()+"}");
         }
 

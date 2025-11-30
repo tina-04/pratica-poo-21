@@ -32,7 +32,7 @@ public class ViewTicket  implements View{
     public void printProductDiscountPersonlization(Product product, double discount) {
 
         messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList" + product.getPersonalizationList()+"} **discount -" + String.format(Locale.US, "%.2f", discount));
+                product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList:[" + product.getPersonalizationList()+"]} **discount -" + String.format(Locale.US, "%.2f", discount));
     }
     public void printProductPersonalization(Product product) {
         if(product.getPersonalizationList() ==null){
@@ -40,7 +40,7 @@ public class ViewTicket  implements View{
                     product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +"}");
         }else{
             messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList" + product.getPersonalizationList()+"}");
+                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList：[" + product.getPersonalizationList()+"]}");
         }
 
 
