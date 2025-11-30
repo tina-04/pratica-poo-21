@@ -25,14 +25,16 @@ public class ViewTicket  implements View{
 
     }
     public void printProductDiscount(Product product, double discount) { // Locale.US imprime . en vez de , para los decimales
-
         messageOutput("{class:Product, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                product.getCategory() + ", price:" + String.format(Locale.US, "%.2f", product.getPrice()) + "} **discount -" + String.format(Locale.US, "%.2f", discount));
+                product.getCategory() + ", price:" + String.format(Locale.US, "%.2f", product.getPrice()) + "} **discount -" +
+                String.format(Locale.US, "%.2f", discount));
     }
     public void printProductDiscountPersonlization(Product product, double discount) {
 
         messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList:[" + product.getPersonalizationList()+"]} **discount -" + String.format(Locale.US, "%.2f", discount));
+                product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) + "，maxPersonal:" +
+                product.getMaxPersonal()+ "， personalizationList:[" + product.getPersonalizationList()+"]} **discount -" +
+                String.format(Locale.US, "%.2f", discount));
     }
     public void printProductPersonalization(Product product) {
         if(product.getPersonalizationList() ==null){

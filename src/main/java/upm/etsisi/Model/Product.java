@@ -4,7 +4,6 @@ import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.ProductType;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 public class Product {
@@ -57,11 +56,11 @@ public class Product {
         this.maxPersonal = maxPersonal;
     }
 
-    public int getAcutalPeople() {
+    public int getActualPeople() {
         return acutalPeople;
     }
 
-    public void setAcutalPeople(int acutalPeople) {
+    public void setActualPeople(int acutalPeople) {
         this.acutalPeople = acutalPeople;
     }
     public String getPersonalizationList() {
