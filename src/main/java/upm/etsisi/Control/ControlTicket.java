@@ -113,9 +113,8 @@ public class ControlTicket {
 
                        ticket.getProducts().add(product);
 
-
                        viewTicket.createOK();
-                       product.setMaxPersonal((product.getMaxPersonal()-amountInt));
+                       product.setMaxPersonal((product.getMaxPersonal()));
                    }
                 }else {
                     for (int i = 0; i < amountInt; i++) {
