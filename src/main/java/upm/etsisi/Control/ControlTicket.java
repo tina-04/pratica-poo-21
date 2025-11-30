@@ -120,27 +120,25 @@ public class ControlTicket {
     }
 
     public void removeProduct(String ticketId, String cashierId, String productId) {
-        // Lo del cashierId lo mismo que el al añadirlo
-
         Ticket ticket = searchTicket(ticketId);
-        if(cashierId == ticket.getCashierId()) return;
-        int id = Integer.parseInt(productId);
-        List<Product> products = ticket.getProducts();
+        if(cashierId.equals(ticket.getCashierId())) {
+            int id = Integer.parseInt(productId);
+            List<Product> products = ticket.getProducts();
 
-        Product toRemove = null;
-        for (Product p : products) {
-            if (p.getId() == id && p.getProductType() != ProductType.BASIC) {
-                products.remove(toRemove);
-                Category cat = toRemove.getCategory();
-                ticket.setCategoryCounter(cat, -1);
+            Product toRemove = null;
+            for (Product p : products) {
+                if (p.getId() == id && p.getProductType() != ProductType.BASIC) {
+                    products.remove(toRemove);
+                    Category cat = toRemove.getCategory();
+                    ticket.setCategoryCounter(cat, -1);
+                } else if (p.getId() == id && p.getProductType() == ProductType.BASIC) {
+                    products.remove(toRemove);
+                }
             }
-            else if (p.getId() == id && p.getProductType() == ProductType.BASIC){
-                products.remove(toRemove);
-            }
-        }
 
-        if (products.isEmpty()) {
-            ticket.setStatus(Status.EMPTY);
+            if (products.isEmpty()) {
+                ticket.setStatus(Status.EMPTY);
+            }
         }
 
         viewTicket.removeOK();

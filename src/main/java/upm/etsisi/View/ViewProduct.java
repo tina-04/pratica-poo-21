@@ -52,7 +52,11 @@ public class ViewProduct implements View{
                     printProductMeeting(product);
                     break;
                 case BASIC:
-                    printProduct(product);
+                    if (product.getPersonalizationList()!= null){
+                        printProductP(product);
+                    }else{
+                        printProduct(product);
+                    }
                     break;
             }
         }
