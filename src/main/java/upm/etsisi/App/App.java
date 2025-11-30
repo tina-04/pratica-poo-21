@@ -35,6 +35,7 @@ public class App {
         list.add(new ClientCommand("client"));
         list.add(new ExitCommand("exit"));
 
+
         Scanner sc = new Scanner(System.in);
         boolean continuar = true;
         while (continuar) {
