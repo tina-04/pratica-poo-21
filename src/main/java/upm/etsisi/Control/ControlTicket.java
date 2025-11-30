@@ -5,7 +5,6 @@ import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.ProductType;
 import upm.etsisi.Utility.Status;
-import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewTicket;
 
 import java.time.LocalDateTime;
@@ -34,7 +33,7 @@ public class ControlTicket {
 
     public boolean newTicket(String id, String cashierId, String userId) {
         boolean resul = false;
-        if (!existTikcet(id)) {
+        if (!existTicket(id)) {
             Ticket ticket = new Ticket(id, cashierId, userId);
             viewTicket.printTicket(ticket);
             viewTicket.prices(ticket);
@@ -49,7 +48,7 @@ public class ControlTicket {
     }
 
 
-    public boolean existTikcet(String id) {
+    public boolean existTicket(String id) {
         boolean exist = false;
         for (int i = 0; i < ticketList.size(); i++) {
             if (ticketList.get(i) != null) {
@@ -73,13 +72,10 @@ public class ControlTicket {
     }
 
 
-    public void add(String ticketId, String cashierId, String productId, String amount, String[] personalizationsList) {
+    public void addProduct(String ticketId, String cashierId, String productId, String amount, String[] personalizationsList) {
         Ticket ticket = searchTicket(ticketId);
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
         int amountInt = Integer.parseInt(amount);
-
-
-
 
         if (ticket != null) {
             if (ticket.getCashierId().equals(cashierId)) {
@@ -140,7 +136,7 @@ public class ControlTicket {
 
     public void removeTicker(List<Ticket> ticket) {
         for (int i = 0; i < ticket.size(); i++) {
-            if (existTikcet(ticket.get(i).getId())) {
+            if (existTicket(ticket.get(i).getId())) {
                 ticketList.remove(ticket.get(i));
 
             }
@@ -191,34 +187,35 @@ public class ControlTicket {
                 double total = 0.0;
                 double totalDiscount = 0.0;
                 for (Product product : products) {
-                    if (product == null) continue;
-                    int categoryCount = ticket.getCategoryCount(product.getCategory());
-                    boolean hasDiscount = categoryCount >= 2;
-                    double discount = hasDiscount ? calculateDiscount(product) : 0.0;
-                    double price = product.getPrice();
-                    total += price;
-                    totalDiscount += discount;
-                    if (product.getPersonalizationList() != null && !product.getPersonalizationList().isEmpty()) {
-                        if (hasDiscount) {
-                            viewTicket.printProductDiscountPersonlization(product, discount);
+                    if (product != null) {
+                        int categoryCount = ticket.getCategoryCount(product.getCategory());
+                        boolean hasDiscount = categoryCount >= 2;
+                        double discount = hasDiscount ? calculateDiscount(product) : 0.0;
+                        double price = product.getPrice();
+                        total += price;
+                        totalDiscount += discount;
+                        if (product.getPersonalizationList() != null && !product.getPersonalizationList().isEmpty()) {
+                            if (hasDiscount) {
+                                viewTicket.printProductDiscountPersonlization(product, discount);
+                            } else {
+                                viewTicket.printProductPersonalization(product);
+                            }
+                        } else if (product.getProductType() == ProductType.FOOD) {
+                            viewTicket.printProductFood(product, product.getAcutalPeople());
+                        } else if (product.getProductType() == ProductType.MEETING) {
+                            viewTicket.printProductMeeting(product, product.getAcutalPeople());
                         } else {
-                            viewTicket.printProductPersonalization(product);
-                        }
-                    } else if (product.getProductType() == ProductType.FOOD) {
-                        viewTicket.printProductFood(product,product.getAcutalPeople());
-                    } else if (product.getProductType() == ProductType.MEETING) {
-                        viewTicket.printProductMeeting(product, product.getAcutalPeople());
-                    } else {
-                        if (hasDiscount) {
-                            viewTicket.printProductDiscount(product, discount);
-                        } else {
-                            viewTicket.printProductBasic(product);
-                        }
+                            if (hasDiscount) {
+                                viewTicket.printProductDiscount(product, discount);
+                            } else {
+                                viewTicket.printProductBasic(product);
+                            }
 
+                        }
+                        ticket.setTotal(total);
+                        ticket.setDiscount(totalDiscount);
+                        ticket.setFinalPrice(total - totalDiscount);
                     }
-                    ticket.setTotal(total);
-                    ticket.setDiscount(totalDiscount);
-                    ticket.setFinalPrice(total - totalDiscount);
                 }
             }
             viewTicket.prices(ticket);
