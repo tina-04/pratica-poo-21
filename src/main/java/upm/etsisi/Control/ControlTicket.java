@@ -85,7 +85,7 @@ public class ControlTicket {
                 if (personalizations != null && personalizations.length > 0) {
                     if (product.getProductType() == ProductType.PERSONLIZATION) {
                         String joinedPers = String.join(",", personalizations);
-                        double newPrice =( (product.getPrice()*0.1) * amountInt )+product.getPrice() ;
+                        double newPrice =( (product.getPrice()*0.1) * personalizations.length )+product.getPrice() ;
                         product = new Product(product.getId(), product.getName(), product.getCategory(), newPrice, product.getExpiration(), personalizations.length, joinedPers);
                     }
                     for (int i = 0; i < amountInt; i++) {
