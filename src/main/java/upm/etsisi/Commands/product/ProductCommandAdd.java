@@ -24,15 +24,21 @@ public class ProductCommandAdd extends Command {
         boolean result = false;
         if (args[1].equals("add") && args.length > 5) {
             try {
-                int id = Integer.parseInt(args[2]);
+                Integer id = null;
+                int indexNameStart = 0;
 
-                String rest = String.join(" ", Arrays.copyOfRange(args, 3, args.length ));
+                try {
+                    id = Integer.parseInt(args[2]);
+                    indexNameStart = 3;
+                } catch (NumberFormatException e) {
+                    id = Integer.valueOf(Utility.generateId());
+                    indexNameStart = 2;
+                }
+
+                String rest = String.join(" ", Arrays.copyOfRange(args, indexNameStart, args.length ));
                 int firstQuote = rest.indexOf('"');
                 int lastQuote = rest.lastIndexOf('"');
-                if (firstQuote < 0 || lastQuote <= firstQuote) {
-                    viewApp.errorInfo();
-                    return true;
-                }
+
                 String name = rest.substring(firstQuote + 1, lastQuote);
                 String afterName = rest.substring(lastQuote + 1).trim();
                 String[] parts = afterName.split(" ");

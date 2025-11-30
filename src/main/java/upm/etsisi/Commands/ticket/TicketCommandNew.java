@@ -21,7 +21,7 @@ public class TicketCommandNew extends Command {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
                         String date =LocalDateTime.now().format(formatter).toString();
                         StringBuilder s1 = new StringBuilder();
-                        s1.append( date).append(Utility.ticketId());
+                        s1.append( date).append(Utility.generateId());
                         result =ControlTicket.getInstance().newTicket(s1.toString(),args[2],args[3] );
                     }
                 }else{
@@ -32,7 +32,6 @@ public class TicketCommandNew extends Command {
             }catch(Exception e ){
                 System.out.println(e.getMessage());
             }
-
         }
         return result;
     }

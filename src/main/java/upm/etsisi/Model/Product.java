@@ -19,6 +19,10 @@ public class Product {
     private ProductType productType;
 
 
+
+    private int acutalPeople;
+
+
     public Product(Integer id, String name, Category category, double price) {
         this.id = id;
         if(name.length() < 100 && !name.isEmpty()){
@@ -47,8 +51,19 @@ public class Product {
         this.personalizationList=personalizationList;
         this.expiration = expiration;
         this.productType=null;
+        this.acutalPeople = 0;
+    }
+    public void setMaxPersonal(int maxPersonal) {
+        this.maxPersonal = maxPersonal;
     }
 
+    public int getAcutalPeople() {
+        return acutalPeople;
+    }
+
+    public void setAcutalPeople(int acutalPeople) {
+        this.acutalPeople = acutalPeople;
+    }
     public String getPersonalizationList() {
         return personalizationList;
     }

@@ -4,6 +4,7 @@ import upm.etsisi.Control.ControlTicket;
 import upm.etsisi.Model.Product;
 import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
+import upm.etsisi.Utility.ProductType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ViewTicket  implements View{
     public void printTicket(Ticket ticket){
         messageOutput("Ticket:" + ticket.getId());
     }
-    public void printProduct(Product product) {
+    public void printProductBasic(Product product) {
         if(product != null){
             messageOutput("{class:Product, id:" + product.getId()+ ", name:'" + product.getName()+
                     "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
@@ -33,7 +34,33 @@ public class ViewTicket  implements View{
         messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
                 product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList" + product.getPersonalizationList()+"} **discount -" + discount);
     }
+    public void printProductPersonalization(Product product) {
+        if(product.getPersonalizationList() ==null){
+            messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
+                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +"}");
+        }else{
+            messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
+                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList" + product.getPersonalizationList()+"}");
+        }
 
+
+    }
+    public void printProductFood(Product product, int acutalPeople) {
+        if(product != null){
+            messageOutput("{class:Food, id:" + product.getId()+ ", name: '" + product.getName()+
+                    ", price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
+                    ",max people allowed:"+product.getMaxPersonal()+",actual people in event;"+ acutalPeople+"}");
+        }
+
+    }
+    public void printProductMeeting(Product product, int actualPeople) {
+        if(product != null){
+            messageOutput("{class:Meeting, id:" + product.getId()+ ", name: '" + product.getName()+
+                    "', price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
+                    ",max people allowed:"+product.getMaxPersonal()+ ", actual people in event:" + actualPeople+"}");
+        }
+
+    }
 
     public void ticketList(ArrayList<Ticket> ticketList) {
         messageOutput("Ticket List:");

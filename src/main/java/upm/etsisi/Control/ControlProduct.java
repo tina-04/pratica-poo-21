@@ -39,7 +39,7 @@ public class ControlProduct {
         boolean exist = false;
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i) != null) {
-                if (productList.get(i).getId() == id) {
+                if (productList.get(i).getId().equals(id)) {
                     exist = true;
                 }
             }
@@ -51,7 +51,7 @@ public class ControlProduct {
     public Product searchProduct(int id) {
         Product product = null;
         for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getId() == id) {
+            if (productList.get(i).getId().equals(id)) {
                 product = productList.get(i);
             }
         }
@@ -76,12 +76,13 @@ public class ControlProduct {
             if (productList.size() < MAX_PRODUCT) {
                 if (!existProduct(Integer.valueOf(id))) {
                     Product product = new Product(id, name, category, price,null, max_people,null);
-                    product.setProductType(ProductType.BASIC);
+                    product.setProductType(ProductType.PERSONLIZATION);
                     productList.add(product);
                     numProducts++;
                     result = true;
                     viewProduct.printProductP(product);
                     viewProduct.createOK();
+
                 }
             }
 
@@ -97,8 +98,8 @@ public class ControlProduct {
         LocalDate twelve =now.plusDays(3);
         if (expiration.isBefore(twelve)) {
             if (max_people <= MAX_PEOPLE) {
-                double newPrice = max_people*price;
-                Product product = new Product(id, name, null,newPrice, expiration, max_people,null);
+
+                Product product = new Product(id, name, null,0.0, expiration, max_people,null);
                 product.setProductType(ProductType.FOOD);
                 viewProduct.printProductFood(product);
                 productList.add(product);
@@ -119,8 +120,7 @@ public class ControlProduct {
         LocalDateTime twelve = now.plusHours(12);
         if (expiration.isBefore(ChronoLocalDate.from(twelve))) {
             if (max_people <= MAX_PEOPLE) {
-                double newPrice = max_people*price;
-                Product product = new Product(id, name,null, newPrice, expiration, max_people,null);
+                double newPrice = max_people*price;   Product product = new Product(id, name,null, 0.0, expiration, max_people,null);
                 product.setProductType(ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);

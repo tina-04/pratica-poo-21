@@ -4,7 +4,6 @@ import upm.etsisi.Commands.Command;
 import upm.etsisi.View.ViewApp;
 
 public class HelpCommand extends Command {
-    private ViewApp viewApp;
     public HelpCommand(String name){
         super(name);
     }
