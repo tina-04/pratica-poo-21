@@ -27,12 +27,12 @@ public class ViewTicket  implements View{
     public void printProductDiscount(Product product, double discount) { // Locale.US imprime . en vez de , para los decimales
 
         messageOutput("{class:Product, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                product.getCategory() + ", price:" + String.format(Locale.US, "%.2f", product.getPrice()) + "} **discount -" + discount);
+                product.getCategory() + ", price:" + String.format(Locale.US, "%.2f", product.getPrice()) + "} **discount -" + String.format(Locale.US, "%.2f", discount));
     }
     public void printProductDiscountPersonlization(Product product, double discount) {
 
         messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList" + product.getPersonalizationList()+"} **discount -" + discount);
+                product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList" + product.getPersonalizationList()+"} **discount -" + String.format(Locale.US, "%.2f", discount));
     }
     public void printProductPersonalization(Product product) {
         if(product.getPersonalizationList() ==null){
@@ -45,11 +45,11 @@ public class ViewTicket  implements View{
 
 
     }
-    public void printProductFood(Product product, int acutalPeople) {
+    public void printProductFood(Product product, int actualPeople) {
         if(product != null){
             messageOutput("{class:Food, id:" + product.getId()+ ", name: '" + product.getName()+
                     ", price:" + product.getPrice() +  ", date of Event:"+product.getExpiration()+
-                    ",max people allowed:"+product.getMaxPersonal()+",actual people in event;"+ acutalPeople+"}");
+                    ",max people allowed:"+product.getMaxPersonal()+",actual people in event;"+ actualPeople+"}");
         }
 
     }
@@ -71,7 +71,7 @@ public class ViewTicket  implements View{
 
     public void prices(Ticket  ticket) {
         messageOutput("Total price: " + ticket.getTotal());
-        messageOutput("Total discount: " + ticket.getDiscount());
+        messageOutput("Total discount: " + String.format(Locale.US, "%.2f", ticket.getDiscount()));
         messageOutput("Final Price: " + ticket.getFinalPrice());
     }
 
