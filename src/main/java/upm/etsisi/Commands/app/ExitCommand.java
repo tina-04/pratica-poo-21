@@ -12,7 +12,6 @@ public class ExitCommand extends Command {
         boolean result = false;
         if(args[0].equals("exit")){
             result = true;
-
         }
         return result;
     }

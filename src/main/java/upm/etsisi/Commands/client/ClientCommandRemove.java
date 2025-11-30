@@ -13,8 +13,7 @@ public class ClientCommandRemove extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if (args[1].equals("remove")) {
-            ControlClient.getInstance().removeClient((args[2]));
-            result= true;
+            result = ControlClient.getInstance().removeClient((args[2]));
         }
         return result;
     }

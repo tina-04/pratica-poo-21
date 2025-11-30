@@ -137,36 +137,36 @@ public class ControlTicket {
         for (int i = 0; i < ticket.size(); i++) {
             if (existTicket(ticket.get(i).getId())) {
                 ticketList.remove(ticket.get(i));
-
             }
         }
     }
 
-    public void removeProduct(String ticketId, String cashierId, String productId) {
+    public boolean removeProduct(String ticketId, String cashierId, String productId) {
+        boolean resul = false;
         Ticket ticket = searchTicket(ticketId);
         if (ticket != null) {
             if (ticket.getCashierId().equals(cashierId)) {
                 int id = Integer.parseInt(productId);
                 List<Product> products = ticket.getProducts();
-                Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
+                Product product = ControlProduct.getInstance().searchProduct(id);
                 if(products.contains(product)){
                     if ( product.getProductType() == ProductType.BASIC) {
                         products.remove(product);
-                        Category cat = product.getCategory();
-                        ticket.setCategoryCounter(cat, -1);
+                        Category category = product.getCategory();
+                        ticket.setCategoryCounter(category, -1);
                     } else {
                         products.remove(product);
-
                     }
                 }
                 printTicketP(ticketId,cashierId);
                 if (products.isEmpty()) {
                     ticket.setStatus(Status.EMPTY);
                 }
-
+                resul = true;
                 viewTicket.removeOK();
             }
         }
+        return resul;
     }
 
 
