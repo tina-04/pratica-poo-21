@@ -13,7 +13,8 @@ public class TicketCommandRemove extends Command {
     public boolean apply(String[] args) {
         boolean result=false;
         if (args[1].equals("remove") && args.length == 5) {
-            result = ControlTicket.getInstance().removeProduct(args[2], args[3], args[4]);
+            ControlTicket.getInstance().removeProduct(args[2], args[3], args[4]);
+            result = true;
         }
         return result;
     }
