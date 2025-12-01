@@ -109,4 +109,5 @@ public class ControlCashier {
       viewCashier.listCashier(cashierList);
       viewCashier.listOk();
     }
+
 }

@@ -180,5 +180,4 @@ public class ControlProduct {
         viewProduct.listProduct(productList);
         viewProduct.listOK();
     }
-
 }
