@@ -19,7 +19,7 @@ public class Product {
 
 
 
-    private int acutalPeople;
+    private int actualPeople;
 
 
     public Product(Integer id, String name, Category category, double price) {
@@ -50,18 +50,18 @@ public class Product {
         this.personalizationList=personalizationList;
         this.expiration = expiration;
         this.productType=null;
-        this.acutalPeople = 0;
+        this.actualPeople = 0;
     }
     public void setMaxPersonal(int maxPersonal) {
         this.maxPersonal = maxPersonal;
     }
 
     public int getActualPeople() {
-        return acutalPeople;
+        return actualPeople;
     }
 
     public void setActualPeople(int acutalPeople) {
-        this.acutalPeople = acutalPeople;
+        this.actualPeople = acutalPeople;
     }
     public String getPersonalizationList() {
         return personalizationList;
