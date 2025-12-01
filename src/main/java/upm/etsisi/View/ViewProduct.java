@@ -1,6 +1,8 @@
 package upm.etsisi.View;
 
+import upm.etsisi.Model.BasicProduct;
 import upm.etsisi.Model.Product;
+import upm.etsisi.Model.TimedProduct;
 
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -11,56 +13,65 @@ public class ViewProduct implements View{
         System.out.println(output);
     }
     public void printProduct(Product product) {
-        if(product != null){
-            messageOutput("{class:Product, id:" + product.getId()+ ", name: '" + product.getName()+
-                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() + "}");
+        if(product instanceof BasicProduct){
+            BasicProduct basicProd = (BasicProduct) product;
+            messageOutput("{class:Product, id:" + basicProd.getId()+ ", name: '" + basicProd.getName()+
+                    "', category:" + basicProd.getCategory()+ ", price:" + basicProd.getPrice() + "}");
         }
-
     }
     public void printProductP(Product product) {
-        if(product != null){
-            messageOutput("{class:Product, id:" + product.getId()+ ", name: '" + product.getName()+
-                    "', category:" + product.getCategory()+ ", price:" + product.getPrice() +" ,maxpersonal:"+ product.getMaxPersonal()+ "}");
+        if(product instanceof BasicProduct){
+            BasicProduct basicProd = (BasicProduct) product;
+            messageOutput("{class:Product, id:" + basicProd.getId()+ ", name: '" + basicProd.getName()+
+                    "', category:" + basicProd.getCategory()+ ", price:" + basicProd.getPrice() +" ,maxpersonal:"+ basicProd.getMaxPersonal()+ "}");
         }
-
     }
     public void printProductFood(Product product) {
-        if(product != null){
-            messageOutput("{class:Food, id:" + product.getId()+ ", name: '" + product.getName()+
-                   ", price: 0.0"  +  ", date of Event:"+product.getExpiration()+
-                    ",max people allowed:"+product.getMaxPersonal()+"}");
+        if(product instanceof TimedProduct){
+            TimedProduct timedProd = (TimedProduct) product;
+            messageOutput("{class:Food, id:" + timedProd.getId()+ ", name: '" + timedProd.getName()+
+                    ", price: 0.0"  +  ", date of Event:"+timedProd.getExpiration()+
+                    ",max people allowed:"+timedProd.getMaxPersonal()+"}");
         }
-
     }
     public void printProductMeeting(Product product) {
-        if(product != null){
-            messageOutput("{class:Meeting, id:" + product.getId()+ ", name: '" + product.getName()+
-                    "', price: 0.0" +  ", date of Event:"+product.getExpiration()+
-                    ",max people allowed:"+product.getMaxPersonal()+"}");
+        if(product instanceof TimedProduct){
+            TimedProduct timedProd = (TimedProduct) product;
+            messageOutput("{class:Meeting, id:" + timedProd.getId()+ ", name: '" + timedProd.getName()+
+                    "', price: 0.0" +  ", date of Event:"+timedProd.getExpiration()+
+                    ",max people allowed:"+timedProd.getMaxPersonal()+"}");
         }
-
     }
 
     public void listProduct(List<Product> productList){
         messageOutput("Catalog:");
         for(Product product : productList){
-            switch(product.getProductType()){
-                case FOOD:
-                    printProductFood(product);
-                    break;
-                case MEETING:
-                    printProductMeeting(product);
-                    break;
-                case BASIC:
-                    if (product.getPersonalizationList()!= null){
-                        printProductP(product);
-                    }else{
-                        printProduct(product);
-                    }
-                    break;
+            if(product instanceof BasicProduct){
+                BasicProduct basicProd = (BasicProduct) product;
+                switch(basicProd.getProductType()){
+                    case BASIC:
+                        if (basicProd.getPersonalizationList()!= null){
+                            printProductP(basicProd);
+                        }else{
+                            printProduct(basicProd);
+                        }
+                        break;
+                    case PERSONLIZATION:
+                        printProductP(basicProd);
+                        break;
+                }
+            } else if(product instanceof TimedProduct){
+                TimedProduct timedProd = (TimedProduct) product;
+                switch(timedProd.getProductType()){
+                    case FOOD:
+                        printProductFood(timedProd);
+                        break;
+                    case MEETING:
+                        printProductMeeting(timedProd);
+                        break;
+                }
             }
         }
-
     }
     public void addFoodError(){
         messageOutput("Error processing ->prod addFood ->Error adding product");
