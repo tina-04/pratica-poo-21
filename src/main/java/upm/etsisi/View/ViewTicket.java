@@ -28,7 +28,7 @@ public class ViewTicket  implements View{
         }
 
     }
-    public void printProductDiscount(Product product, double discount) {
+    public void printProductDiscount(Product product, double discount) { // Locale.US imprime . en vez de , para los decimales
         BasicProduct basicProd = (BasicProduct) product;
 
         messageOutput("{class:Product, id:" + basicProd.getId() + ", name:'" + basicProd.getName() + "', category:" +
@@ -38,7 +38,7 @@ public class ViewTicket  implements View{
         BasicProduct basicProd = (BasicProduct) product;
 
         messageOutput("{class:ProductPersonalized, id:" + basicProd.getId() + ", name:'" + basicProd.getName() + "', category:" +
-                basicProd.getCategory() + ", price:" + String.format(Locale.US,"%.2f", basicProd.getPrice()) + ", maxPersonal:"+((BasicProduct) product).getMaxPersonal()+ ", personalizationList:[" + basicProd.getPersonalizationList()+"]} **discount -" + String.format(Locale.US, "%.2f", discount));
+                basicProd.getCategory() + ", price:" + String.format(Locale.US,"%.2f", basicProd.getPrice()) +  "， personalizationList:[" + basicProd.getPersonalizationList()+"]} **discount -" + String.format(Locale.US, "%.2f", discount));
     }
     public void printProductPersonalization(Product product) {
         if (product instanceof BasicProduct) {
@@ -49,14 +49,12 @@ public class ViewTicket  implements View{
                         ", name:'" + basicProduct.getName() +
                         "', category:" + basicProduct.getCategory() +
                         ", price:" + String.format(Locale.US, "%.2f", basicProduct.getPrice()) +
-                        ", maxPersonal:"+((BasicProduct) product).getMaxPersonal()+
                         "}");
             } else {
                 messageOutput("{class:ProductPersonalized, id:" + basicProduct.getId() +
                         ", name:'" + basicProduct.getName() +
                         "', category:" + basicProduct.getCategory() +
                         ", price:" + String.format(Locale.US, "%.2f", basicProduct.getPrice()) +
-                        ", maxPersonal:" + ((BasicProduct) product).getMaxPersonal()+
                         ", personalizationList:[" + basicProduct.getPersonalizationList() + "]" +
                         "}");
             }
