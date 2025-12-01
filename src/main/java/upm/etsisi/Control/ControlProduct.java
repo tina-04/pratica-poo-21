@@ -1,6 +1,8 @@
 package upm.etsisi.Control;
 
 import upm.etsisi.Model.Product;
+import upm.etsisi.Model.BasicProduct;
+import upm.etsisi.Model.TimedProduct;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.ProductType;
 import upm.etsisi.Utility.Utility;
@@ -35,6 +37,7 @@ public class ControlProduct {
         this.numProducts = 0;
         this.viewProduct = new ViewProduct();
     }
+
     public boolean existProduct(int id) {
         boolean exist = false;
         for (int i = 0; i < productList.size(); i++) {
@@ -62,9 +65,8 @@ public class ControlProduct {
         boolean result = false;
         if (max_people == null) {
             if (productList.size() < MAX_PRODUCT) {
-                if (!existProduct(id)) {
-                    Product product = new Product(id, name, category, price);
-                    product.setProductType(ProductType.BASIC);
+                if (!existProduct(Integer.valueOf(id))) {
+                    BasicProduct product = new BasicProduct(id, name, category, price);
                     productList.add(product);
                     numProducts++;
                     result = true;
@@ -74,9 +76,8 @@ public class ControlProduct {
             }
         } else {
             if (productList.size() < MAX_PRODUCT) {
-                if (!existProduct(id)) {
-                    Product product = new Product(id, name, category, price,null, max_people,null);
-                    product.setProductType(ProductType.PERSONLIZATION);
+                if (!existProduct(Integer.valueOf(id))) {
+                    BasicProduct product = new BasicProduct(id, name, category, price, max_people, null);
                     productList.add(product);
                     numProducts++;
                     result = true;
@@ -94,13 +95,12 @@ public class ControlProduct {
 
     public boolean addFood(Integer id, String name, double price, LocalDate expiration, int max_people) {
         boolean resul = false;
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime preparation = now.plusDays(3);
-        LocalDateTime exp = expiration.atStartOfDay();
-        if (preparation.isBefore(exp)) {
+        LocalDate now = LocalDate.now();
+        LocalDate twelve =now.plusDays(3);
+        if (expiration.isBefore(twelve)) {
             if (max_people <= MAX_PEOPLE) {
-                Product product = new Product(id, name, null,price, expiration, max_people,null);
-                product.setProductType(ProductType.FOOD);
+
+                TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.FOOD);
                 viewProduct.printProductFood(product);
                 productList.add(product);
                 viewProduct.addFoodOk();
@@ -108,22 +108,20 @@ public class ControlProduct {
             }else{
                 viewProduct.addFoodError();
             }
-        }else {
-            viewProduct.addFoodError();
+
         }
         return resul;
+
     }
 
     public boolean addMeeting(Integer id, String name, double price, LocalDate expiration, int max_people) {
         boolean resul = false;
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime preparation = now.plusHours(12);
-        LocalDateTime exp = expiration.atStartOfDay();
-        if (preparation.isBefore(exp)) {
+        LocalDateTime twelve = now.plusHours(12);
+        if (expiration.isBefore(ChronoLocalDate.from(twelve))) {
             if (max_people <= MAX_PEOPLE) {
                 double newPrice = max_people*price;
-                Product product = new Product(id, name,null, price, expiration, max_people,null);
-                product.setProductType(ProductType.MEETING);
+                TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);
                 viewProduct.addMeetingOk();
@@ -131,8 +129,7 @@ public class ControlProduct {
             }else{
                 viewProduct.addMeetingError();
             }
-        }else {
-            viewProduct.addMeetingError();
+
         }
         return resul;
     }
@@ -157,19 +154,22 @@ public class ControlProduct {
         boolean result = false;
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getId() == id) {
+                Product product = productList.get(i);
                 switch (objetive) {
                     case "NAME":
-                        productList.get(i).setName(newValue);
+                        product.setName(newValue);
                         break;
                     case "PRICE":
-                        productList.get(i).setPrice(Double.parseDouble(newValue));
+                        product.setPrice(Double.parseDouble(newValue));
                         break;
                     case "CATEGORY":
-                        productList.get(i).setCategory(Category.valueOf(newValue.toUpperCase()));
+                        if (product instanceof BasicProduct) {
+                            ((BasicProduct) product).setCategory(Category.valueOf(newValue.toUpperCase()));
+                        }
                         break;
                 }
                 result = true;
-                viewProduct.printProduct(productList.get(i));
+                viewProduct.printProduct(product);
                 viewProduct.updateOk();
             }
         }
