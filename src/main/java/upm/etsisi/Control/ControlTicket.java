@@ -108,7 +108,7 @@ public class ControlTicket {
 
                 } else if (product.getProductType() == ProductType.FOOD || product.getProductType() == ProductType.MEETING) {
                     if (!ticket.getProducts().contains(product)) {
-                        product.setAcutalPeople(amountInt);
+                        product.setActualPeople(amountInt);
                         double newPrice = amountInt * product.getPrice();
                         product.setPrice(newPrice);
 
@@ -248,9 +248,9 @@ public class ControlTicket {
                                 viewTicket.printProductPersonalization(product);
                             }
                         } else if (product.getProductType() == ProductType.FOOD) {
-                            viewTicket.printProductFood(product, product.getAcutalPeople());
+                            viewTicket.printProductFood(product, product.getActualPeople());
                         } else if (product.getProductType() == ProductType.MEETING) {
-                            viewTicket.printProductMeeting(product, product.getAcutalPeople());
+                            viewTicket.printProductMeeting(product, product.getActualPeople());
                         } else {
                             if (hasDiscount) {
                                 viewTicket.printProductDiscount(product, discount);
