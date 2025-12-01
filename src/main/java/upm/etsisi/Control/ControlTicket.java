@@ -5,6 +5,7 @@ import upm.etsisi.Model.Ticket;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.ProductType;
 import upm.etsisi.Utility.Status;
+import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewTicket;
 
 import java.time.LocalDateTime;
@@ -77,7 +78,7 @@ public class ControlTicket {
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
         int amountInt = Integer.parseInt(amount);
 
-        if (ticket != null && product!= null) {
+        if (ticket != null) {
             if (ticket.getCashierId().equals(cashierId)) {
                 if (ticket.getStatus() == Status.EMPTY) {
                     ticket.setStatus(Status.OPEN);
@@ -105,18 +106,18 @@ public class ControlTicket {
                     }
                     viewTicket.createOK();
 
-                }else if (product.getProductType() == ProductType.FOOD || product.getProductType() == ProductType.MEETING) {
-                   if(!ticket.getProducts().contains(product)){
-                       product.setActualPeople(amountInt);
-                       double newPrice = amountInt*product.getPrice();
-                       product.setPrice(newPrice);
+                } else if (product.getProductType() == ProductType.FOOD || product.getProductType() == ProductType.MEETING) {
+                    if (!ticket.getProducts().contains(product)) {
+                        product.setAcutalPeople(amountInt);
+                        double newPrice = amountInt * product.getPrice();
+                        product.setPrice(newPrice);
 
-                       ticket.getProducts().add(product);
+                        ticket.getProducts().add(product);
 
-                       viewTicket.createOK();
-                       product.setMaxPersonal((product.getMaxPersonal()));
-                   }
-                }else {
+                        viewTicket.createOK();
+                        product.setMaxPersonal((product.getMaxPersonal()));
+                    }
+                } else {
                     for (int i = 0; i < amountInt; i++) {
                         if (ticket.getProducts().size() < 100) {
                             ticket.getProducts().add(product);
@@ -125,10 +126,10 @@ public class ControlTicket {
                         }
                     }
                 }
+
             }
         }
-        printTicketP(ticketId,cashierId);
-
+        printTicketP(ticketId, cashierId);
         viewTicket.createOK();
 
     }
@@ -137,6 +138,7 @@ public class ControlTicket {
         for (int i = 0; i < ticket.size(); i++) {
             if (existTicket(ticket.get(i).getId())) {
                 ticketList.remove(ticket.get(i));
+
             }
         }
     }
@@ -216,57 +218,57 @@ public class ControlTicket {
                         ticket.setFinalPrice(total - totalDiscount);
                     }
                 }
+                viewTicket.prices(ticket);
+                viewTicket.printOK();
             }
-            viewTicket.prices(ticket);
-            viewTicket.printOK();
+
         }
-
     }
-    public void printTicketP(String ticketId, String cashierId) {
-        Ticket ticket = searchTicket(ticketId);
-        if (ticket != null) {
-            if (ticket.getCashierId().equals(cashierId)) {
-                viewTicket.printTicket(ticket);
-                List<Product> products = ticket.getProducts();
-                products.sort(Comparator.comparing(p -> p.getName().toLowerCase()));
-                double total = 0.0;
-                double totalDiscount = 0.0;
-                for (Product product : products) {
-                    if (product == null) continue;
-                    int categoryCount = ticket.getCategoryCount(product.getCategory());
-                    boolean hasDiscount = categoryCount >= 2;
-                    double discount = hasDiscount ? calculateDiscount(product) : 0.0;
-                    double price = product.getPrice();
-                    total += price;
-                    totalDiscount += discount;
-                    if (product.getPersonalizationList() != null && !product.getPersonalizationList().isEmpty()) {
-                        if (hasDiscount) {
-                            viewTicket.printProductDiscountPersonlization(product, discount);
+        public void printTicketP (String ticketId, String cashierId){
+            Ticket ticket = searchTicket(ticketId);
+            if (ticket != null) {
+                if (ticket.getCashierId().equals(cashierId)) {
+                    viewTicket.printTicket(ticket);
+                    List<Product> products = ticket.getProducts();
+                    products.sort(Comparator.comparing(p -> p.getName().toLowerCase()));
+                    double total = 0.0;
+                    double totalDiscount = 0.0;
+                    for (Product product : products) {
+                        if (product == null) continue;
+                        int categoryCount = ticket.getCategoryCount(product.getCategory());
+                        boolean hasDiscount = categoryCount >= 2;
+                        double discount = hasDiscount ? calculateDiscount(product) : 0.0;
+                        double price = product.getPrice();
+                        total += price;
+                        totalDiscount += discount;
+                        if (product.getPersonalizationList() != null && !product.getPersonalizationList().isEmpty()) {
+                            if (hasDiscount) {
+                                viewTicket.printProductDiscountPersonlization(product, discount);
+                            } else {
+                                viewTicket.printProductPersonalization(product);
+                            }
+                        } else if (product.getProductType() == ProductType.FOOD) {
+                            viewTicket.printProductFood(product, product.getAcutalPeople());
+                        } else if (product.getProductType() == ProductType.MEETING) {
+                            viewTicket.printProductMeeting(product, product.getAcutalPeople());
                         } else {
-                            viewTicket.printProductPersonalization(product);
-                        }
-                    } else if (product.getProductType() == ProductType.FOOD) {
-                        viewTicket.printProductFood(product,product.getActualPeople());
-                    } else if (product.getProductType() == ProductType.MEETING) {
-                        viewTicket.printProductMeeting(product, product.getActualPeople());
-                    } else {
-                        if (hasDiscount) {
-                            viewTicket.printProductDiscount(product, discount);
-                        } else {
-                            viewTicket.printProductBasic(product);
-                        }
+                            if (hasDiscount) {
+                                viewTicket.printProductDiscount(product, discount);
+                            } else {
+                                viewTicket.printProductBasic(product);
+                            }
 
+                        }
+                        ticket.setTotal(total);
+                        ticket.setDiscount(totalDiscount);
+                        ticket.setFinalPrice(total - totalDiscount);
                     }
-                    ticket.setTotal(total);
-                    ticket.setDiscount(totalDiscount);
-                    ticket.setFinalPrice(total - totalDiscount);
                 }
+                viewTicket.prices(ticket);
+
             }
-            viewTicket.prices(ticket);
 
         }
-
-    }
 
         public void ticketList () {
             viewTicket.ticketList(ticketList);
@@ -274,7 +276,6 @@ public class ControlTicket {
         }
 
         public double calculateDiscount (Product product){
-
             double discount = 0.0;
             Category category = product.getCategory();
             switch (category) {
@@ -298,4 +299,5 @@ public class ControlTicket {
         }
 
 
-    }
+
+}

@@ -95,8 +95,8 @@ public class ControlProduct {
     public boolean addFood(Integer id, String name, double price, LocalDate expiration, int max_people) {
         boolean resul = false;
         LocalDate now = LocalDate.now();
-        LocalDate twelve =now.plusDays(3);
-        if (expiration.isBefore(twelve)) {
+        LocalDate three =now.plusDays(3);
+        if (expiration.isBefore(three)) {
             if (max_people <= MAX_PEOPLE) {
 
                 Product product = new Product(id, name, null,price, expiration, max_people,null);

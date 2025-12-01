@@ -25,6 +25,7 @@ public class ViewTicket  implements View{
 
     }
     public void printProductDiscount(Product product, double discount) { // Locale.US imprime . en vez de , para los decimales
+
         messageOutput("{class:Product, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
                 product.getCategory() + ", price:" + String.format(Locale.US, "%.2f", product.getPrice()) + "} **discount -" +
                 String.format(Locale.US, "%.2f", discount));
@@ -35,14 +36,15 @@ public class ViewTicket  implements View{
                 product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) + "，maxPersonal:" +
                 product.getMaxPersonal()+ "， personalizationList:[" + product.getPersonalizationList()+"]} **discount -" +
                 String.format(Locale.US, "%.2f", discount));
+
     }
     public void printProductPersonalization(Product product) {
         if(product.getPersonalizationList() ==null){
             messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +"}");
+                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) + ", maxPersonal:" + product.getMaxPersonal()+"}");
         }else{
             messageOutput("{class:ProductPersonalized, id:" + product.getId() + ", name:'" + product.getName() + "', category:" +
-                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +  "， personalizationList：[" + product.getPersonalizationList()+"]}");
+                    product.getCategory() + ", price:" + String.format(Locale.US,"%.2f", product.getPrice()) +", maxPersonal:"+ product.getMaxPersonal()+  ", personalizationList：[" + product.getPersonalizationList()+"]}");
         }
 
 
