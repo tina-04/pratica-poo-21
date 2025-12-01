@@ -77,7 +77,7 @@ public class ControlTicket {
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
         int amountInt = Integer.parseInt(amount);
 
-        if (ticket != null) {
+        if (ticket != null && product!= null) {
             if (ticket.getCashierId().equals(cashierId)) {
                 if (ticket.getStatus() == Status.EMPTY) {
                     ticket.setStatus(Status.OPEN);
