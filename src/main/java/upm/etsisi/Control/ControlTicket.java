@@ -95,7 +95,7 @@ public class ControlTicket {
                         String[] personalizations = pers.toArray(new String[0]);
                         String joinedPers = String.join(",", personalizations);
                         double newPrice =( (product.getPrice()*0.1) * personalizations.length )+product.getPrice() ;
-                        product = new Product(product.getId(), product.getName(), product.getCategory(), newPrice, product.getExpiration(), personalizations.length, joinedPers);
+                        product = new Product(product.getId(), product.getName(), product.getCategory(), newPrice, product.getExpiration(), product.getMaxPersonal(), joinedPers);
                     }
                     for (int i = 0; i < amountInt; i++) {
                         if (ticket.getProducts().size() < 100) {
