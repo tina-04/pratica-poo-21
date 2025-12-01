@@ -79,7 +79,7 @@ public class ControlTicket {
         Product product = ControlProduct.getInstance().searchProduct(Integer.parseInt(productId));
         int amountInt = Integer.parseInt(amount);
 
-        if (ticket != null) {
+        if (ticket != null && product != null) {
             if (ticket.getCashierId().equals(cashierId)) {
                 if (ticket.getStatus() == Status.EMPTY) {
                     ticket.setStatus(Status.OPEN);
@@ -259,7 +259,7 @@ public class ControlTicket {
                 double total = 0.0;
                 double totalDiscount = 0.0;
                 for (Product product : products) {
-                    if (product == null) continue;
+                    if (product != null){
 
                     Category category = null;
                     if (product instanceof BasicProduct) {
@@ -299,6 +299,7 @@ public class ControlTicket {
                     ticket.setTotal(total);
                     ticket.setDiscount(totalDiscount);
                     ticket.setFinalPrice(total - totalDiscount);
+                    }
                 }
             }
             viewTicket.prices(ticket);
