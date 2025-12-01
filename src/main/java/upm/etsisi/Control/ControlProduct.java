@@ -65,7 +65,7 @@ public class ControlProduct {
         boolean result = false;
         if (max_people == null) {
             if (productList.size() < MAX_PRODUCT) {
-                if (!existProduct(Integer.valueOf(id))) {
+                if (!existProduct(id)) {
                     BasicProduct product = new BasicProduct(id, name, category, price);
                     productList.add(product);
                     numProducts++;
@@ -76,7 +76,7 @@ public class ControlProduct {
             }
         } else {
             if (productList.size() < MAX_PRODUCT) {
-                if (!existProduct(Integer.valueOf(id))) {
+                if (!existProduct(id)) {
                     BasicProduct product = new BasicProduct(id, name, category, price, max_people, null);
                     productList.add(product);
                     numProducts++;
@@ -95,9 +95,10 @@ public class ControlProduct {
 
     public boolean addFood(Integer id, String name, double price, LocalDate expiration, int max_people) {
         boolean resul = false;
-        LocalDate now = LocalDate.now();
-        LocalDate twelve =now.plusDays(3);
-        if (expiration.isBefore(twelve)) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime preparation = now.plusDays(3);
+        LocalDateTime exp = expiration.atStartOfDay();
+        if (preparation.isBefore(exp)) {
             if (max_people <= MAX_PEOPLE) {
 
                 TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.FOOD);
@@ -108,7 +109,8 @@ public class ControlProduct {
             }else{
                 viewProduct.addFoodError();
             }
-
+        }else {
+            viewProduct.addFoodError();
         }
         return resul;
 
@@ -117,8 +119,9 @@ public class ControlProduct {
     public boolean addMeeting(Integer id, String name, double price, LocalDate expiration, int max_people) {
         boolean resul = false;
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime twelve = now.plusHours(12);
-        if (expiration.isBefore(ChronoLocalDate.from(twelve))) {
+        LocalDateTime preparation = now.plusHours(12);
+        LocalDateTime exp = expiration.atStartOfDay();
+        if (preparation.isBefore(exp)) {
             if (max_people <= MAX_PEOPLE) {
                 double newPrice = max_people*price;
                 TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.MEETING);
@@ -129,7 +132,8 @@ public class ControlProduct {
             }else{
                 viewProduct.addMeetingError();
             }
-
+        }else {
+            viewProduct.addMeetingError();
         }
         return resul;
     }

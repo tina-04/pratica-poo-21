@@ -98,7 +98,7 @@ public class ControlTicket {
                             String[] personalizations = pers.toArray(new String[0]);
                             String joinedPers = String.join(",", personalizations);
                             double newPrice = ((basicProd.getPrice() * 0.1) * personalizations.length) + basicProd.getPrice();
-                            product = new BasicProduct(basicProd.getId(), basicProd.getName(), basicProd.getCategory(), newPrice, personalizations.length, joinedPers);
+                            product = new BasicProduct(basicProd.getId(), basicProd.getName(), basicProd.getCategory(), newPrice, basicProd.getMaxPersonal(), joinedPers);
                         }
                     }
                     for (int i = 0; i < amountInt; i++) {
@@ -116,7 +116,7 @@ public class ControlTicket {
                     TimedProduct timedProd = (TimedProduct) product;
                     if (timedProd.getProductType() == ProductType.FOOD || timedProd.getProductType() == ProductType.MEETING) {
                         if (!ticket.getProducts().contains(timedProd)) {
-                            timedProd.setAcutalPeople(amountInt);
+                            timedProd.setActualPeople(amountInt);
                             double newPrice = amountInt * timedProd.getPrice();
                             timedProd.setPrice(newPrice);
 
@@ -231,9 +231,9 @@ public class ControlTicket {
                         } else if (product instanceof TimedProduct) {
                             TimedProduct timedProd = (TimedProduct) product;
                             if (timedProd.getProductType() == ProductType.FOOD) {
-                                viewTicket.printProductFood(product, timedProd.getAcutalPeople());
+                                viewTicket.printProductFood(product, timedProd.getActualPeople());
                             } else if (timedProd.getProductType() == ProductType.MEETING) {
-                                viewTicket.printProductMeeting(product, timedProd.getAcutalPeople());
+                                viewTicket.printProductMeeting(product, timedProd.getActualPeople());
                             }
                         }
 
@@ -290,9 +290,9 @@ public class ControlTicket {
                     } else if (product instanceof TimedProduct) {
                         TimedProduct timedProd = (TimedProduct) product;
                         if (timedProd.getProductType() == ProductType.FOOD) {
-                            viewTicket.printProductFood(product, timedProd.getAcutalPeople());
+                            viewTicket.printProductFood(product, timedProd.getActualPeople());
                         } else if (timedProd.getProductType() == ProductType.MEETING) {
-                            viewTicket.printProductMeeting(product, timedProd.getAcutalPeople());
+                            viewTicket.printProductMeeting(product, timedProd.getActualPeople());
                         }
                     }
 

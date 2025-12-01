@@ -7,14 +7,14 @@ public class TimedProduct extends Product {
     private LocalDate expiration;
     private int maxPersonal;
     private ProductType productType;
-    private int acutalPeople;
+    private int actualPeople;
 
     public TimedProduct(Integer id, String name, double price, LocalDate expiration, int maxPersonal, ProductType productType) {
         super(id, name, price);
         this.expiration = expiration;
         this.maxPersonal = maxPersonal;
         this.productType = productType;
-        this.acutalPeople = 0;
+        this.actualPeople = 0;
     }
 
     @Override
@@ -46,11 +46,11 @@ public class TimedProduct extends Product {
         this.productType = productType;
     }
 
-    public int getAcutalPeople() {
-        return acutalPeople;
+    public int getActualPeople() {
+        return actualPeople;
     }
 
-    public void setAcutalPeople(int acutalPeople) {
-        this.acutalPeople = acutalPeople;
+    public void setActualPeople(int actualPeople) {
+        this.actualPeople = actualPeople;
     }
 }
