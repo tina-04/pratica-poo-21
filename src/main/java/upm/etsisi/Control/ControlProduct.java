@@ -86,17 +86,18 @@ public class ControlProduct {
 
                 }
             }
+
         }
+
+
         return result;
     }
 
     public boolean addFood(Integer id, String name, double price, LocalDate expiration, int max_people) {
         boolean resul = false;
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime preparation = now.plusDays(3);
-        LocalDateTime exp = expiration.atStartOfDay();
-        if (preparation.isBefore(exp)) {
+        if (validDateFood(expiration)) {
             if (max_people <= MAX_PEOPLE) {
+
                 TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.FOOD);
                 viewProduct.printProductFood(product);
                 productList.add(product);
@@ -111,13 +112,18 @@ public class ControlProduct {
         return resul;
     }
 
+    public boolean validDateFood(LocalDate expiration){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime preparation = now.plusDays(3);
+        LocalDateTime exp = expiration.atStartOfDay();
+        return preparation.isBefore(exp);
+    }
+
     public boolean addMeeting(Integer id, String name, double price, LocalDate expiration, int max_people) {
         boolean resul = false;
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime preparation = now.plusHours(12);
-        LocalDateTime exp = expiration.atStartOfDay();
-        if (preparation.isBefore(exp)) {
+        if (validDateMeeting(expiration)) {
             if (max_people <= MAX_PEOPLE) {
+                double newPrice = max_people*price;
                 TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);
@@ -130,6 +136,13 @@ public class ControlProduct {
             viewProduct.addMeetingError();
         }
         return resul;
+    }
+
+    public boolean validDateMeeting(LocalDate expiration){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime preparation = now.plusHours(12);
+        LocalDateTime exp = expiration.atStartOfDay();
+        return preparation.isBefore(exp);
     }
 
     public boolean removeProduct(int id) {
