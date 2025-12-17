@@ -84,7 +84,28 @@ public class ControlTicket {
                 if (ticket.getStatus() == Status.EMPTY) {
                     ticket.setStatus(Status.OPEN);
                 }
-                if (personalizationsList != null && personalizationsList.length > 0) {
+
+                if (product instanceof TimedProduct) {
+                    TimedProduct timedProd = (TimedProduct) product;
+                    if (timedProd.getProductType() == ProductType.FOOD || timedProd.getProductType() == ProductType.MEETING) {
+                        if (!ticket.getProducts().contains(timedProd)) {
+                            timedProd.setActualPeople(amountInt);
+                            double newPrice = amountInt * timedProd.getPrice();
+                            timedProd.setPrice(newPrice);
+
+                            if (timedProd.getProductType() ==  ProductType.FOOD) {
+                                if (ControlProduct.getInstance().validDateFood(timedProd.getExpiration())){
+                                    ticket.getProducts().add(timedProd);
+                                }
+                            }else if (ControlProduct.getInstance().validDateMeeting(timedProd.getExpiration())) {
+                                ticket.getProducts().add(timedProd);
+                            }
+
+                            viewTicket.createOK();
+                            timedProd.setMaxPersonal((timedProd.getMaxPersonal()));
+                        }
+                    }
+                } else if (personalizationsList != null && personalizationsList.length > 0) {
                     if (product instanceof BasicProduct) {
                         BasicProduct basicProd = (BasicProduct) product;
                         if (basicProd.getProductType() == ProductType.PERSONLIZATION) {
@@ -111,21 +132,6 @@ public class ControlTicket {
 
                     }
                     viewTicket.createOK();
-
-                } else if (product instanceof TimedProduct) {
-                    TimedProduct timedProd = (TimedProduct) product;
-                    if (timedProd.getProductType() == ProductType.FOOD || timedProd.getProductType() == ProductType.MEETING) {
-                        if (!ticket.getProducts().contains(timedProd)) {
-                            timedProd.setActualPeople(amountInt);
-                            double newPrice = amountInt * timedProd.getPrice();
-                            timedProd.setPrice(newPrice);
-
-                            ticket.getProducts().add(timedProd);
-
-                            viewTicket.createOK();
-                            timedProd.setMaxPersonal((timedProd.getMaxPersonal()));
-                        }
-                    }
                 } else {
                     for (int i = 0; i < amountInt; i++) {
                         if (ticket.getProducts().size() < 100) {
