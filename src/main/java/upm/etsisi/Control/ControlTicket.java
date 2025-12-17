@@ -110,20 +110,18 @@ public class ControlTicket {
                         }
 
                     }
-                    viewTicket.createOK();
 
-                } else if (product instanceof TimedProduct) {
+
+                } else if (product instanceof  TimedProduct) {
                     TimedProduct timedProd = (TimedProduct) product;
                     if (timedProd.getProductType() == ProductType.FOOD || timedProd.getProductType() == ProductType.MEETING) {
                         if (!ticket.getProducts().contains(timedProd)) {
-                            timedProd.setActualPeople(amountInt);
-                            double newPrice = amountInt * timedProd.getPrice();
-                            timedProd.setPrice(newPrice);
-
-                            ticket.getProducts().add(timedProd);
-
-                            viewTicket.createOK();
-                            timedProd.setMaxPersonal((timedProd.getMaxPersonal()));
+                                timedProd.setActualPeople(amountInt);
+                                double newPrice = amountInt * timedProd.getPrice();
+                                timedProd.setPrice(newPrice);
+                                ticket.getProducts().add(timedProd);
+                                viewTicket.createOK();
+                                timedProd.setMaxPersonal((timedProd.getMaxPersonal()));
                         }
                     }
                 } else {

@@ -86,10 +86,7 @@ public class ControlProduct {
 
                 }
             }
-
         }
-
-
         return result;
     }
 
@@ -100,7 +97,6 @@ public class ControlProduct {
         LocalDateTime exp = expiration.atStartOfDay();
         if (preparation.isBefore(exp)) {
             if (max_people <= MAX_PEOPLE) {
-
                 TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.FOOD);
                 viewProduct.printProductFood(product);
                 productList.add(product);
@@ -113,7 +109,6 @@ public class ControlProduct {
             viewProduct.addFoodError();
         }
         return resul;
-
     }
 
     public boolean addMeeting(Integer id, String name, double price, LocalDate expiration, int max_people) {
@@ -123,7 +118,6 @@ public class ControlProduct {
         LocalDateTime exp = expiration.atStartOfDay();
         if (preparation.isBefore(exp)) {
             if (max_people <= MAX_PEOPLE) {
-                double newPrice = max_people*price;
                 TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
                 productList.add(product);

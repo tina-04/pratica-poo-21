@@ -12,7 +12,6 @@ public class TicketCommandAdd extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if (args[1].equals("add")){
-            //String[] personalization = (args.length > 6) ? java.util.Arrays.stream(args, 6, args.length).toArray(String[]::new) : null;
 
             String[] personalization = null;
             if (args.length > 6) {
