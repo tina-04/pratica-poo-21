@@ -17,6 +17,7 @@ public class App {
     public static void main(String[] args) {
         InputStream is = null;
 
+
         try {
             is = new FileInputStream(args[0]);
         } catch (FileNotFoundException e) {
