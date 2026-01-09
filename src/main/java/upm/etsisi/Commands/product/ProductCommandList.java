@@ -14,6 +14,7 @@ public class ProductCommandList extends Command {
         boolean result = false;
         if(args.length == 2 && args[1].equals("list")){
             ControlProduct.getInstance().list();
+            ControlProduct.getInstance().listPS();
             result = true;
         }
         return result;

@@ -9,7 +9,7 @@ public class TimedProduct extends Product {
     private ProductType productType;
     private int actualPeople;
 
-    public TimedProduct(Integer id, String name, double price, LocalDate expiration, int maxPersonal, ProductType productType) {
+    public TimedProduct(String id, String name, double price, LocalDate expiration, int maxPersonal, ProductType productType) {
         super(id, name, price);
         this.expiration = expiration;
         this.maxPersonal = maxPersonal;

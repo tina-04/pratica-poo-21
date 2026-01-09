@@ -11,7 +11,7 @@ public class BasicProduct extends Product {
     private String personalizationList;
     private ProductType productType;
 
-    public BasicProduct(Integer id, String name, Category category, double price) {
+    public BasicProduct(String id, String name, Category category, double price) {
         super(id, name, price);
         this.category = category;
         this.maxPersonal = null;
@@ -19,7 +19,7 @@ public class BasicProduct extends Product {
         this.productType = ProductType.BASIC;
     }
 
-    public BasicProduct(Integer id, String name, Category category, double price, Integer maxPersonal, String personalizationList) {
+    public BasicProduct(String id, String name, Category category, double price, Integer maxPersonal, String personalizationList) {
         super(id, name, price);
         this.category = category;
         this.maxPersonal = maxPersonal;

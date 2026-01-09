@@ -1,10 +1,14 @@
 package upm.etsisi.View;
 
-import upm.etsisi.Model.BasicProduct;
-import upm.etsisi.Model.Product;
-import upm.etsisi.Model.TimedProduct;
+import upm.etsisi.Model.*;
 
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class ViewProduct implements View{
@@ -42,6 +46,17 @@ public class ViewProduct implements View{
                     ",max people allowed:"+timedProd.getMaxPersonal()+"}");
         }
     }
+    private Date toDate(LocalDate date) {
+        return Date.from(
+                date.atStartOfDay(ZoneId.systemDefault()).toInstant()
+        );
+    }
+
+    public void printProductService(ProductService product) {
+        Date expiration = toDate(product.getExpiration());
+            messageOutput("{class:ProductService, id:" + product.getId()+ ", category:" + product.getCategory()+ ", expiration:" + expiration.toString()+ "}");
+
+    }
 
     public void listProduct(List<Product> productList){
         messageOutput("Catalog:");
@@ -73,6 +88,41 @@ public class ViewProduct implements View{
             }
         }
     }
+    public void printAll(Collection<ProductsAndService> list) {
+        for (ProductsAndService ps : list) {
+            if (ps instanceof BasicProduct) {
+                BasicProduct basicProd = (BasicProduct) ps;
+                switch (basicProd.getProductType()) {
+                    case BASIC:
+                        if (basicProd.getPersonalizationList() != null) {
+                            printProductP(basicProd);
+                        } else {
+                            printProduct(basicProd);
+                        }
+                        break;
+                    case PERSONLIZATION:
+                        printProductP(basicProd);
+                        break;
+                }
+            } else if (ps instanceof TimedProduct) {
+                TimedProduct timedProd = (TimedProduct) ps;
+                switch (timedProd.getProductType()) {
+                    case FOOD:
+                        printProductFood(timedProd);
+                        break;
+                    case MEETING:
+                        printProductMeeting(timedProd);
+                        break;
+                }
+            } else if (ps instanceof ProductService) {
+                ProductService service = (ProductService) ps;
+                printProductService(service);
+            }
+        }
+    }
+
+
+
     public void addFoodError(){
         messageOutput("Error processing ->prod addFood ->Error adding product");
     }

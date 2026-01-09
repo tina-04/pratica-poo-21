@@ -8,6 +8,8 @@ import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewApp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class ProductCommandAdd extends Command {
@@ -56,6 +58,10 @@ public class ProductCommandAdd extends Command {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+        }else if(args[1].equals("add")){
+            LocalDate expiration = LocalDate.parse(args[2]);
+            Category category = Category.valueOf(args[3]);
+            result= ControlProduct.getInstance().addService(expiration,category);
         }
 
         return result;

@@ -24,7 +24,7 @@ public class App {
             throw new RuntimeException(e);
         }
 
-        is = App.class.getResourceAsStream("/input2.txt");
+        is = App.class.getResourceAsStream("/input3.txt");
             ViewApp.init();
             try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
                 List<Command> list = new ArrayList<Command>();

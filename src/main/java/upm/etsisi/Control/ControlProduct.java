@@ -1,24 +1,20 @@
 package upm.etsisi.Control;
 
-import upm.etsisi.Model.Product;
-import upm.etsisi.Model.BasicProduct;
-import upm.etsisi.Model.TimedProduct;
+import upm.etsisi.Model.*;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.ProductType;
-import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewProduct;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDate;
-import java.time.chrono.ChronoLocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ControlProduct {
     private List<Product> productList;
+    private Map<String, ProductsAndService> ps = new HashMap<>();
+    private int serviceCounter = 1;
+    Map<String, ProductsAndService> productsList = new HashMap<>();
+
     private int numProducts;
     private final int MAX_PRODUCT = 200;
     private final int MAX_PEOPLE = 100;
@@ -40,9 +36,10 @@ public class ControlProduct {
 
     public boolean existProduct(int id) {
         boolean exist = false;
+        String idP  = String.valueOf(id);
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i) != null) {
-                if (productList.get(i).getId().equals(id)) {
+                if (productsList.get(idP)!=null) {
                     exist = true;
                 }
             }
@@ -66,8 +63,8 @@ public class ControlProduct {
         if (max_people == null) {
             if (productList.size() < MAX_PRODUCT) {
                 if (!existProduct(id)) {
-                    BasicProduct product = new BasicProduct(id, name, category, price);
-                    productList.add(product);
+                    BasicProduct product = new BasicProduct(String.valueOf(id), name, category, price);
+                    ps.put(product.getId(), product);
                     numProducts++;
                     result = true;
                     viewProduct.printProduct(product);
@@ -77,8 +74,8 @@ public class ControlProduct {
         } else {
             if (productList.size() < MAX_PRODUCT) {
                 if (!existProduct(id)) {
-                    BasicProduct product = new BasicProduct(id, name, category, price, max_people, null);
-                    productList.add(product);
+                    BasicProduct product = new BasicProduct(String.valueOf(id), name, category, price, max_people, null);
+                    ps.put(product.getId(), product);
                     numProducts++;
                     result = true;
                     viewProduct.printProductP(product);
@@ -97,10 +94,9 @@ public class ControlProduct {
         boolean resul = false;
         if (validDateFood(expiration)) {
             if (max_people <= MAX_PEOPLE) {
-
-                TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.FOOD);
+                TimedProduct product = new TimedProduct(String.valueOf(id), name, price, expiration, max_people, ProductType.FOOD);
                 viewProduct.printProductFood(product);
-                productList.add(product);
+                ps.put(product.getId(), product);
                 viewProduct.addFoodOk();
                 resul = true;
             }else{
@@ -111,6 +107,7 @@ public class ControlProduct {
         }
         return resul;
     }
+
 
     public boolean validDateFood(LocalDate expiration){
         LocalDateTime now = LocalDateTime.now();
@@ -123,10 +120,9 @@ public class ControlProduct {
         boolean resul = false;
         if (validDateMeeting(expiration)) {
             if (max_people <= MAX_PEOPLE) {
-                double newPrice = max_people*price;
-                TimedProduct product = new TimedProduct(id, name, price, expiration, max_people, ProductType.MEETING);
+                TimedProduct product = new TimedProduct(String.valueOf(id), name, price, expiration, max_people, ProductType.MEETING);
                 viewProduct.printProductMeeting(product);
-                productList.add(product);
+                ps.put(product.getId(), product);
                 viewProduct.addMeetingOk();
                 resul = true;
             }else{
@@ -148,7 +144,7 @@ public class ControlProduct {
     public boolean removeProduct(int id) {
         boolean result = false;
         for (int i = 0; i < numProducts; i++) {
-            if (productList.get(i).getId() == id) {
+            if (productList.get(i).getId() == String.valueOf(id)) {
                 viewProduct.printProduct(productList.get(i));
                 productList.remove(productList.get(i));
                 numProducts--;
@@ -164,7 +160,7 @@ public class ControlProduct {
     public boolean updateProduct(int id, String objetive, String newValue) {
         boolean result = false;
         for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getId() == id) {
+            if (productList.get(i).getId() == String.valueOf(id)) {
                 Product product = productList.get(i);
                 switch (objetive) {
                     case "NAME":
@@ -191,5 +187,35 @@ public class ControlProduct {
         viewProduct.listProduct(productList);
         viewProduct.listOK();
     }
+    public void listPS(){
+        viewProduct.printAll(ps.values());
+        viewProduct.listOK();
+    }
+    public boolean addService(LocalDate expiration, Category category) {
+        boolean result = true;
+
+        String id = serviceCounter++ + "S";
+        ProductService service = new ProductService(category, expiration);
+        service.setId(id);
+        ps.put(id, service);
+        viewProduct.printProductService(service);
+        viewProduct.createOK();
+
+
+        return result;
+    }
+    public Product getProduct(String id) {
+        ProductsAndService item = ps.get(id);
+        return (item instanceof Product) ? (Product) item : null;
+    }
+    public ProductService getService(String id) {
+        ProductsAndService item = ps.get(id);
+        return (item instanceof ProductService) ? (ProductService) item : null;
+    }
+    public boolean exists(String id) {
+        return ps.containsKey(id);
+    }
+
+
 
 }

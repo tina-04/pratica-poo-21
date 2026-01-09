@@ -1,11 +1,12 @@
 package upm.etsisi.Model;
 
-public abstract class Product {
-    protected Integer id;
+public abstract class Product implements ProductsAndService {
+    protected String id;
     protected String name;
     protected double price;
 
-    public Product(Integer id, String name, double price) {
+    public Product(String id, String name, double price) {
+
         this.id = id;
         if (name != null && name.length() < 100 && !name.isEmpty()) {
             this.name = name;
@@ -19,11 +20,11 @@ public abstract class Product {
 
     public abstract double calculatePrice(int quantity);
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return String.valueOf(id);
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
