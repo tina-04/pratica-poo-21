@@ -1,15 +1,17 @@
 package upm.etsisi.Control;
 
-import upm.etsisi.Model.Client;
-import upm.etsisi.Model.Ticket;
+import upm.etsisi.Model.*;
 import upm.etsisi.View.ViewClient;
 import upm.etsisi.View.ViewTicket;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ControlClient {
     private List<Client> clientsList;
+    private Map<String, ClientAndCompany> cc = new HashMap<>();
     private List<Ticket> ticketList;
     private ViewClient viewClient;
     private static ControlClient instance;
@@ -42,8 +44,20 @@ public class ControlClient {
         boolean resul = false;
         if (!existClient(DNI) && ControlCashier.getInstance().existCashier(cashierId)) {
             Client client = new Client(name, DNI, email, cashierId);
-            clientsList.add(client);
+            cc.put(DNI, client);
             viewClient.printClient(client);
+            viewClient.createOK();
+            resul = true;
+        }
+
+        return resul;
+    }
+    public boolean addCompany(String name, String NIF, String email, String cashierId) {
+        boolean resul = false;
+        if (!existClient(NIF) && ControlCashier.getInstance().existCashier(cashierId)) {
+            ClientCompany client = new ClientCompany(name, NIF, email, cashierId);
+            cc.put(NIF,client);
+            viewClient.printCompany(client);
             viewClient.createOK();
             resul = true;
         }
@@ -84,6 +98,10 @@ public class ControlClient {
 
     public void clientList() {
         viewClient.listClient(clientsList);
+        viewClient.listOK();
+    }
+    public void listPS(){
+        viewClient.printAll(cc.values());
         viewClient.listOK();
     }
 

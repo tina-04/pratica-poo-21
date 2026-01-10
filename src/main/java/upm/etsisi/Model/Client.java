@@ -1,6 +1,6 @@
 package upm.etsisi.Model;
 
-public class Client extends User {
+public class Client extends User implements ClientAndCompany {
     private String DNI;
     private String cashierId;
 
@@ -15,7 +15,6 @@ public class Client extends User {
 
     public void setDNI(String DNI) {
         this.DNI = DNI;
-        this.id = DNI;
     }
 
     public String getCashierId() {

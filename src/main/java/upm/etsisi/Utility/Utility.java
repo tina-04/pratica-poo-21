@@ -63,7 +63,7 @@ public class Utility {
         return true;
     }
 
-    public static boolean correctEmail(String email){//hacer do-while en app
+    public static boolean correctEmail(String email){
         boolean resul = true;
         String [] correct = email.split("@");
         if (correct.length != 2) resul= false;
@@ -77,6 +77,27 @@ public class Utility {
         String extension = parts[parts.length - 1];
         if (!extension.matches("[a-zA-Z]{2,}")) return false;
         return resul;
+    }
+    public static boolean isNifNumValid(String nif){
+        //Si el largo del NIF es diferente a 9, acaba el método.
+        if (nif.length()!=9){
+            return false;
+        }
+
+        String secuenciaLetrasNIF = "TRWAGMYFPDXBNJZSQVHLCKE";
+        nif = nif.toUpperCase();
+
+        //Posición inicial: 0 (primero en la cadena de texto).
+        //Longitud: cadena de texto menos última posición. Así obtenemos solo el número.
+        String numeroNIF = nif.substring(0, nif.length()-1);
+
+        //Si es un NIE reemplazamos letra inicial por su valor numérico.
+        numeroNIF = numeroNIF.replace("X", "0").replace("Y", "1").replace("Z", "2");
+
+        //Obtenemos la letra con un char que nos servirá también para el índice de las secuenciaLetrasNIF
+        char letraNIF = nif.charAt(8);
+        int i = Integer.parseInt(numeroNIF) % 23;
+        return letraNIF == secuenciaLetrasNIF.charAt(i);
     }
 
 }
