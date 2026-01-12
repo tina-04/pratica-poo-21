@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Ticket {
-    private List<Product> products;
+
+    private Map<String, ProductsAndService> ps = new HashMap<>();
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private double total;
     private double discount;
@@ -24,7 +25,7 @@ public class Ticket {
 
 
     public Ticket(String id, String cashierId, String clientId) {
-        this.products = new ArrayList<Product>();
+        this.ps = new HashMap<>();
         this.total = 0;
         this.discount = 0;
         this.finalPrice = 0;
@@ -33,6 +34,14 @@ public class Ticket {
         this.status=Status.EMPTY;
         this.id =id;
     }
+    public Map<String, ProductsAndService> getPs() {
+        return ps;
+    }
+
+    public void setPs(Map<String, ProductsAndService> ps) {
+        this.ps = ps;
+    }
+
 
     public Status getStatus() {
         return status;
@@ -51,7 +60,7 @@ public class Ticket {
         this.id = id;
     }
 
-    public List<Product> getProducts() {return products;}
+
 
     public void setTotal(double total) {
         this.total = total;

@@ -1,14 +1,12 @@
 package upm.etsisi.View;
 
 import upm.etsisi.Control.ControlTicket;
-import upm.etsisi.Model.BasicProduct;
-import upm.etsisi.Model.Product;
-import upm.etsisi.Model.Ticket;
-import upm.etsisi.Model.TimedProduct;
+import upm.etsisi.Model.*;
 import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.ProductType;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,6 +17,16 @@ public class ViewTicket  implements View{
     public void printTicket(Ticket ticket){
         messageOutput("Ticket:" + ticket.getId());
     }
+    public void printAll(ProductsAndService productsAndService){
+        if(productsAndService instanceof Product){
+            Product product = (Product) productsAndService;
+            printProductBasic(product);
+
+        }else if(productsAndService instanceof ProductService){
+            ProductService service = (ProductService)  productsAndService;
+            printProductService(service);
+        }
+    }
     public void printProductBasic(Product product) {
         if(product instanceof BasicProduct){
             BasicProduct basicProd = (BasicProduct) product;
@@ -28,7 +36,7 @@ public class ViewTicket  implements View{
         }
 
     }
-    public void printProductDiscount(Product product, double discount) { // Locale.US imprime . en vez de , para los decimales
+    public void printProductDiscount(Product product, double discount) {
         BasicProduct basicProd = (BasicProduct) product;
 
         messageOutput("{class:Product, id:" + basicProd.getId() + ", name:'" + basicProd.getName() + "', category:" +
@@ -92,7 +100,13 @@ public class ViewTicket  implements View{
         messageOutput("Total discount: " + String.format(Locale.US, "%.2f", ticket.getDiscount()));
         messageOutput("Final Price: " + ticket.getFinalPrice());
     }
+    public void printProductService(ProductService product) {
 
+        messageOutput("{class:ProductService, id:" + product.getId()+ ", category:" + product.getCategory()+ ", expiration:" + product.getExpiration()+ "}");
+
+    }
+    public void product(){messageOutput("Product Incluede:\n");}
+    public void service(){messageOutput("Service Incluede:\n");}
     public void newOk(){messageOutput("ticket new: ok");}
     public void createOK(){
         messageOutput("ticket add: ok");

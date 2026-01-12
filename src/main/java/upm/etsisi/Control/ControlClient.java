@@ -1,6 +1,7 @@
 package upm.etsisi.Control;
 
 import upm.etsisi.Model.*;
+import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewClient;
 import upm.etsisi.View.ViewTicket;
 
@@ -28,6 +29,9 @@ public class ControlClient {
         this.viewClient = new ViewClient();
         this.ticketList = new ArrayList<>();
     }
+    public boolean exists(String id) {
+        return cc.containsKey(id);
+    }
 
     public boolean addTicket(String clienId,Ticket ticket){
         boolean resul =false;
@@ -40,26 +44,23 @@ public class ControlClient {
         }
         return  resul;
     }
-    public boolean addClient(String name, String DNI, String email, String cashierId) {
+    public boolean addClient(String name, String id, String email, String cashierId) {
         boolean resul = false;
-        if (!existClient(DNI) && ControlCashier.getInstance().existCashier(cashierId)) {
-            Client client = new Client(name, DNI, email, cashierId);
-            cc.put(DNI, client);
-            viewClient.printClient(client);
-            viewClient.createOK();
-            resul = true;
-        }
+        if (!exists(id) && ControlCashier.getInstance().existCashier(cashierId)) {
+            if(Utility.correctDNI(id)){
+                Client client = new Client(name, id, email, cashierId);
+                cc.put(id, client);
+                viewClient.printClient(client);
+                viewClient.createOK();
+                resul = true;
+            }else if(Utility.isNifNumValid(id)){
+                ClientCompany client = new ClientCompany(name, id, email, cashierId);
+                cc.put(id,client);
+                viewClient.printCompany(client);
+                viewClient.createOK();
+                resul = true;
+            }
 
-        return resul;
-    }
-    public boolean addCompany(String name, String NIF, String email, String cashierId) {
-        boolean resul = false;
-        if (!existClient(NIF) && ControlCashier.getInstance().existCashier(cashierId)) {
-            ClientCompany client = new ClientCompany(name, NIF, email, cashierId);
-            cc.put(NIF,client);
-            viewClient.printCompany(client);
-            viewClient.createOK();
-            resul = true;
         }
 
         return resul;

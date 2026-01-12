@@ -16,6 +16,7 @@ public class ViewProduct implements View{
     public void messageOutput(String output) {
         System.out.println(output);
     }
+
     public void printProduct(Product product) {
         if(product instanceof BasicProduct){
             BasicProduct basicProd = (BasicProduct) product;
@@ -55,6 +56,7 @@ public class ViewProduct implements View{
     public void printProductService(ProductService product) {
         Date expiration = toDate(product.getExpiration());
             messageOutput("{class:ProductService, id:" + product.getId()+ ", category:" + product.getCategory()+ ", expiration:" + expiration.toString()+ "}");
+
 
     }
 

@@ -20,13 +20,19 @@ public class TicketCommandAdd extends Command {
                     personalization[i] = args[i + 6];
                 }
             }
+            if(args .length > 5){
+                if(Utility.correctCashierId(args[3])){
+                    ControlTicket.getInstance().addProduct(args[2], args[3], args[4], args[5], personalization);
+                    result = true;
+                }
+            }else{
 
-            if(Utility.correctCashierId(args[3])){
-                ControlTicket.getInstance().addProduct(args[2], args[3], args[4], args[5], personalization);
-                result = true;
+                ControlTicket.getInstance().addProduct(args[2], args[3], args[4], null, personalization);
             }
 
+
         }
+
         return result;
     }
 }

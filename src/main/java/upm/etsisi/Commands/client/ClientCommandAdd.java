@@ -19,11 +19,7 @@ public class ClientCommandAdd extends Command {
                 String id = args[3];
                 String email = args[4];
                 String cashierId = args[5];
-                if(Utility.correctDNI(id)){
-                    result = ControlClient.getInstance().addClient(name.substring(1, name.length()-1),id,email, cashierId);
-                }else if (Utility.isNifNumValid(id)){
-                    result = ControlClient.getInstance().addCompany(name.substring(1, name.length()-1),id,email, cashierId);
-                }
+                result = ControlClient.getInstance().addClient(name.substring(1, name.length()-1),id,email, cashierId);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
