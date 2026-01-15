@@ -13,8 +13,8 @@ public class ProductCommand extends Command {
         listCommands.add(new ProductCommandAdd());
         listCommands.add(new ProductCommandList());
         listCommands.add(new ProductCommandAddFood());
-        listCommands.add(new ProdcutCommandAddMeeting());
-        listCommands.add(new ProdcutCommandRemove());
+        listCommands.add(new ProductCommandAddMeeting());
+        listCommands.add(new ProductCommandRemove());
         listCommands.add(new ProductCommandUpdate());
 
     }

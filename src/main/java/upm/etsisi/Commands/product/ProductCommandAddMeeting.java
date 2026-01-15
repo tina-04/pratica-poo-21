@@ -1,15 +1,13 @@
 package upm.etsisi.Commands.product;
 
 import upm.etsisi.Commands.Command;
-import upm.etsisi.Control.ControlClient;
 import upm.etsisi.Control.ControlProduct;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
-public class ProdcutCommandAddMeeting extends Command {
-    public ProdcutCommandAddMeeting() {
+public class ProductCommandAddMeeting extends Command {
+    public ProductCommandAddMeeting() {
         super("addMeeting");
     }
 

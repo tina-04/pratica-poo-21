@@ -3,8 +3,8 @@ package upm.etsisi.Commands.product;
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlProduct;
 
-public class ProdcutCommandRemove extends Command {
-    public ProdcutCommandRemove() {
+public class ProductCommandRemove extends Command {
+    public ProductCommandRemove() {
         super("remove");
     }
     @Override

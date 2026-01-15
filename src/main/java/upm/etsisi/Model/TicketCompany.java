@@ -1,6 +1,6 @@
 package upm.etsisi.Model;
 
-public class TicketCompany extends Ticket{
+public class TicketCompany extends Ticket<ProductsAndService>{
 
     private String type;
 

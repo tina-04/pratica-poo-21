@@ -72,6 +72,7 @@ public class PrinterTicket  implements IPrinter{
         }
 
     }
+
     public double calculateDiscount(Product product) {
         if (!(product instanceof BasicProduct)) {
             return 0.0;

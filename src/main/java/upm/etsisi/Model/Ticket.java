@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Ticket {
+public class Ticket<T extends ProductsAndService> {
 
-    private Map<String, ProductsAndService> ps = new HashMap<>();
+    private Map<String, T> ps = new HashMap<>();
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private double total;
     private double discount;
@@ -34,14 +34,13 @@ public class Ticket {
         this.status=Status.EMPTY;
         this.id =id;
     }
-    public Map<String, ProductsAndService> getPs() {
+    public Map<String, T> getPs() {
         return ps;
     }
 
-    public void setPs(Map<String, ProductsAndService> ps) {
+    /*public void setPs(Map<String, ProductsAndService> ps) {
         this.ps = ps;
-    }
-
+    }*/
 
     public Status getStatus() {
         return status;
