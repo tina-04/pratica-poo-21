@@ -110,4 +110,12 @@ public class ControlCashier {
       viewCashier.listOk();
     }
 
+    public void saveCashiers(String route){
+        //TODO
+    }
+
+    public void loadCashiers(String route){
+        //TODO
+    }
+
 }

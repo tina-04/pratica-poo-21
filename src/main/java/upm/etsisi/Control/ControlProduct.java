@@ -9,6 +9,7 @@ import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.io.*;
 
 public class ControlProduct {
     private List<Product> productList;
@@ -21,6 +22,8 @@ public class ControlProduct {
     private final int MAX_PEOPLE = 100;
     private ViewProduct viewProduct;
     private static ControlProduct instance;
+
+    private static final String RUTA = "src/main/java/upm/etsisi/Persistence/Products.csv";
 
     public static ControlProduct getInstance() {
         if (instance == null) {
@@ -217,5 +220,64 @@ public class ControlProduct {
         return ps.containsKey(id);
     }
 
+    public void saveProducts() {
 
+        // Solo es un esqueleto de Gémini para ver la estructura
+        // ni considera aún los Services ni está completo
+        File file = new File(RUTA);
+
+        try {
+            if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (ProductsAndService item : ps.values()) {
+                    StringBuilder sb = new StringBuilder();
+
+                    if (item instanceof BasicProduct) {
+                        BasicProduct bp = (BasicProduct) item;
+                        sb.append(bp.getProductType()).append(";")
+                                .append(bp.getId()).append(";")
+                                .append(bp.getName()).append(";")
+                                .append(bp.getPrice()).append(";")
+                                .append(bp.getCategory());
+
+                        if (bp.getProductType() == ProductType.PERSONALIZATION) {
+                            sb.append(";").append(bp.getMaxPersonal())
+                                    .append(";").append(bp.getPersonalizationList());
+                        }
+
+                    } else if (item instanceof TimedProduct) {
+                        TimedProduct tp = (TimedProduct) item;
+                        sb.append("TIMED").append(";")
+                                .append(tp.getId()).append(";")
+                                .append(tp.getName()).append(";")
+                                .append(tp.getPrice()).append(";")
+                                .append(tp.getExpiration()).append(";")
+                                .append(tp.getMaxPersonal()).append(";")
+                                .append(tp.getProductType()).append(";")
+                                .append(tp.getActualPeople());
+
+                    } else if (item instanceof ProductService) {
+                        ProductService s = (ProductService) item;
+                        sb.append("SERVICE").append(";")
+                                .append(s.getId()).append(";")
+                                .append(s.getExpiration()).append(";")
+                                .append(s.getCategory());
+                    }
+
+                    writer.write(sb.toString());
+                    writer.newLine();
+                }
+                System.out.println("Datos guardados en: " + RUTA);
+            }
+        } catch (IOException ignored) {
+
+        }
+    }
+
+    public void loadProducts(String path){
+        // TODO
+    }
 }

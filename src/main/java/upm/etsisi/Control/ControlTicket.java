@@ -142,7 +142,7 @@ public class ControlTicket {
                         } else if (personalizationsList != null && personalizationsList.length > 0) {
                             if (ps instanceof BasicProduct) {
                                 BasicProduct basicProd = (BasicProduct) ps;
-                                if (basicProd.getProductType() == ProductType.PERSONLIZATION) {
+                                if (basicProd.getProductType() == ProductType.PERSONALIZATION) {
                                     List<String> pers = new ArrayList<>();
 
                                     for (String arg : personalizationsList) {
@@ -215,7 +215,7 @@ public class ControlTicket {
                     } else if (personalizationsList != null && personalizationsList.length > 0) {
                         if (product instanceof BasicProduct) {
                             BasicProduct basicProd = (BasicProduct) product;
-                            if (basicProd.getProductType() == ProductType.PERSONLIZATION) {
+                            if (basicProd.getProductType() == ProductType.PERSONALIZATION) {
                                 List<String> pers = new ArrayList<>();
 
                                 for (String arg : personalizationsList) {
@@ -457,5 +457,11 @@ public class ControlTicket {
         return discount;
     }
 
+    public void saveTickets(String route){
+        //TODO
+    }
 
+    public void loadTickets(String route){
+        //TODO
+    }
 }

@@ -2,8 +2,6 @@ package upm.etsisi.Model;
 
 import upm.etsisi.Utility.Category;
 import upm.etsisi.Utility.ProductType;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BasicProduct extends Product {
     private Category category;
@@ -24,7 +22,7 @@ public class BasicProduct extends Product {
         this.category = category;
         this.maxPersonal = maxPersonal;
         this.personalizationList = personalizationList;
-        this.productType = ProductType.PERSONLIZATION;
+        this.productType = ProductType.PERSONALIZATION;
     }
 
     @Override

@@ -106,4 +106,11 @@ public class ControlClient {
         viewClient.listOK();
     }
 
+    public void saveClients(String route){
+        //TODO
+    }
+
+    public void loadClientes(String route){
+        //TODO
+    }
 }

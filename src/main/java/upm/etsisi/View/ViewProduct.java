@@ -2,13 +2,10 @@ package upm.etsisi.View;
 
 import upm.etsisi.Model.*;
 
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class ViewProduct implements View{
@@ -73,7 +70,7 @@ public class ViewProduct implements View{
                             printProduct(basicProd);
                         }
                         break;
-                    case PERSONLIZATION:
+                    case PERSONALIZATION:
                         printProductP(basicProd);
                         break;
                 }
@@ -102,7 +99,7 @@ public class ViewProduct implements View{
                             printProduct(basicProd);
                         }
                         break;
-                    case PERSONLIZATION:
+                    case PERSONALIZATION:
                         printProductP(basicProd);
                         break;
                 }
