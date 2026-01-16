@@ -18,6 +18,9 @@ public class ControlTicket {
     private static ControlTicket instance;
     private Map<String, Ticket> list = new HashMap<>();
 
+    private IPrinter printer;
+
+
     public static ControlTicket getInstance() {
         if (instance == null) {
             instance = new ControlTicket();
@@ -30,6 +33,9 @@ public class ControlTicket {
         this.viewTicket = new ViewTicket();
     }
 
+    public void setPrinter(IPrinter printer) {
+        this.printer = printer;
+    }
 
     public boolean newTicket(String id, String cashierId, String userId, String type) {
         boolean resul = false;
@@ -301,7 +307,7 @@ public class ControlTicket {
     }
 
 
-    public void printTicket(String ticketId, String cashierId) {
+    /*public void printTicket(String ticketId, String cashierId) {
         Ticket ticket = searchTicket(ticketId);
         if (ticket != null) {
             if (ticket.getCashierId().equals(cashierId)) {
@@ -363,7 +369,32 @@ public class ControlTicket {
             viewTicket.printOK();
         }
 
+    }*/
+
+    public void printTicket(String ticketId, String cashierId) {
+        Ticket ticket = list.get(ticketId);
+
+        if (ticket != null && ticket.getCashierId().equals(cashierId)) {
+
+            if (ticket.getStatus() == Status.OPEN || ticket.getStatus() == Status.EMPTY) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm-");
+                String date = LocalDateTime.now().format(formatter);
+                ticket.setId(ticket.getId() + "-" + date);
+                ticket.setStatus(Status.CLOSE);
+            }
+
+            if (printer != null) {
+                printer.print(ticket, cashierId);
+            } else {
+                viewTicket.printTicket(ticket);
+                viewTicket.prices(ticket);
+            }
+
+            viewTicket.printOK();
+        }
     }
+
+
 
     public void printTicketP(String ticketId, String cashierId) {
         Ticket ticket = searchTicket(ticketId);

@@ -11,12 +11,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PrinterTicket  implements IPrinter{
-    private ViewTicket viewTicket;
+    private final ViewTicket viewTicket = new ViewTicket();
 
     @Override
     public void print(Ticket ticket,String cashierId) {
         if (ticket != null) {
-            if (ticket.getCashierId().equals(cashierId)) {
+            if (!(ticket instanceof TicketCompany) && ticket.getCashierId().equals(cashierId)) {
                 viewTicket.printTicket(ticket);
                 viewTicket.product();
                 List<Product> products = (List<Product>) ticket.getPs();
@@ -97,6 +97,8 @@ public class PrinterTicket  implements IPrinter{
             case ELECTRONICS:
                 discount = 0.03 * basicProd.getPrice();
                 break;
+            default:
+                return 0.0;
         }
         return discount;
     }

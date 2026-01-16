@@ -7,8 +7,8 @@ import upm.etsisi.Model.Ticket;
 
 import java.util.Collection;
 
-public interface IPrinter<T extends Ticket<?>> {
-    void print(T ticket, String cashierId);
+public interface IPrinter {
+    void print(Ticket ticket, String cashierId);
 
 
 }
