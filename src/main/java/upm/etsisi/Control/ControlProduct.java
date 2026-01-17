@@ -36,6 +36,7 @@ public class ControlProduct {
         this.productList = new ArrayList<>();
         this.numProducts = 0;
         this.viewProduct = new ViewProduct();
+        loadProducts();
     }
 
     public boolean existProduct(int id) {
@@ -221,9 +222,6 @@ public class ControlProduct {
     }
 
     public void saveProducts() {
-
-        // Solo es un esqueleto de Gémini para ver la estructura
-        // ni considera aún los Services ni está completo
         File file = new File(RUTA);
 
         try {
@@ -232,6 +230,7 @@ public class ControlProduct {
             }
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                // Apuntar línea por línea -----------------------------------
                 for (ProductsAndService item : ps.values()) {
                     StringBuilder sb = new StringBuilder();
 
@@ -270,6 +269,8 @@ public class ControlProduct {
                     writer.write(sb.toString());
                     writer.newLine();
                 }
+                // --------------------------------------------------------
+                // Version final dependiendo de los atributos de cada uno
                 System.out.println("Datos guardados en: " + RUTA);
             }
         } catch (IOException ignored) {
@@ -277,7 +278,64 @@ public class ControlProduct {
         }
     }
 
-    public void loadProducts(String path){
-        // TODO
+    public void loadProducts() {
+        File file = new File(RUTA);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            ps.clear();
+            int maxServiceId = 0;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+
+                String[] data = line.split(";");
+                String type = data[0];
+
+                try {
+                    switch (type) {
+                        case "BASIC":
+                            BasicProduct bp = new BasicProduct(data[1], data[2], Category.valueOf(data[4]), Double.parseDouble(data[3]));
+                            bp.setProductType(ProductType.BASIC);
+                            ps.put(bp.getId(), bp);
+                            break;
+
+                        case "PERSONALIZATION":
+                            BasicProduct pp = new BasicProduct(data[1], data[2], Category.valueOf(data[4]), Double.parseDouble(data[3]), Integer.parseInt(data[5]), data.length > 6 ? data[6] : "");
+                            pp.setProductType(ProductType.PERSONALIZATION);
+                            ps.put(pp.getId(), pp);
+                            break;
+
+                        case "TIMED":
+                            TimedProduct tp = new TimedProduct(data[1], data[2], Double.parseDouble(data[3]), LocalDate.parse(data[4]), Integer.parseInt(data[5]), ProductType.valueOf(data[6]));
+                            tp.setActualPeople(Integer.parseInt(data[7]));
+                            ps.put(tp.getId(), tp);
+                            break;
+
+                        case "SERVICE":
+                            ProductService s = new ProductService(Category.valueOf(data[3]), LocalDate.parse(data[2]));
+                            s.setId(data[1]);
+                            ps.put(s.getId(), s);
+
+                            try {
+                                String numberPart = data[1].replace("S", "");
+                                int idNum = Integer.parseInt(numberPart);
+                                if (idNum > maxServiceId) {
+                                    maxServiceId = idNum;
+                                }
+                            } catch (NumberFormatException ignored) {}
+                            break;
+                    }
+                } catch (Exception ignored) {}
+            }
+
+            this.numProducts = ps.size();
+            this.serviceCounter = maxServiceId + 1;
+
+        } catch (IOException e) {}
     }
 }

@@ -1,13 +1,19 @@
 package upm.etsisi.Control;
 
-import upm.etsisi.Model.Cashier;
-import upm.etsisi.Model.Ticket;
+import upm.etsisi.Model.*;
+import upm.etsisi.Utility.ProductType;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewCashier;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.io.*;
+
 
 public class ControlCashier {
 
@@ -15,6 +21,9 @@ public class ControlCashier {
     private List<Ticket> ticketList;
     private ViewCashier viewCashier;
     private static ControlCashier instance;
+
+    private static final String RUTA = "src/main/java/upm/etsisi/Persistence/Cashiers.csv";
+
     public static ControlCashier getInstance() {
         if (instance == null) {
             instance = new ControlCashier();
@@ -25,6 +34,7 @@ public class ControlCashier {
         this.cashierList = new ArrayList<>();
         this.viewCashier = new ViewCashier();
         this.ticketList = new ArrayList<>();
+        loadCashiers();
     }
 
     public boolean addCashier(String id, String name, String email) {
@@ -110,12 +120,63 @@ public class ControlCashier {
       viewCashier.listOk();
     }
 
-    public void saveCashiers(String route){
-        //TODO
+    public void saveCashiers() {
+        File file = new File(RUTA);
+
+        try {
+            if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                // Apuntar línea por línea -----------------------------------
+                for (Cashier cashier : cashierList) {
+                    StringBuilder sb = new StringBuilder();
+
+                    // Formato: ID;NOMBRE;EMAIL
+                    sb.append(cashier.getCashierId()).append(";")
+                            .append(cashier.getName()).append(";")
+                            .append(cashier.getEmail());
+
+                    writer.write(sb.toString());
+                    writer.newLine();
+                }
+                // --------------------------------------------------------
+                // Version final dependiendo de los atributos de cada uno
+                System.out.println("Datos guardados en: " + RUTA);
+            }
+        } catch (IOException ignored) {
+
+        }
     }
 
-    public void loadCashiers(String route){
-        //TODO
+
+    public void loadCashiers(){
+        File file = new File(RUTA);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            cashierList.clear();
+
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+
+                String[] data = line.split(";");
+
+                try {
+                    // Lógica idéntica al bloque de Product, pero directa
+                    // data[0]=ID, data[1]=Name, data[2]=Email
+                    if (data.length >= 3) {
+                        Cashier cashier = new Cashier(data[0], data[1], data[2]);
+                        cashierList.add(cashier);
+                    }
+                } catch (Exception ignored) {}
+            }
+        } catch (IOException e) {}
     }
 
 }
