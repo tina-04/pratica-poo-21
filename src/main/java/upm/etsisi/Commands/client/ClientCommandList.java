@@ -11,7 +11,7 @@ public class ClientCommandList extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if (args[1].equals("list")) {
-            ControlClient.getInstance().listPS();
+            ControlClient.getInstance().listClient();
             result =true;
         }
         return result;

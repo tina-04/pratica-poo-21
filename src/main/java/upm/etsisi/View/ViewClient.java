@@ -1,9 +1,8 @@
 package upm.etsisi.View;
 
 import upm.etsisi.Model.Client;
-import upm.etsisi.Model.ClientAndCompany;
+import upm.etsisi.Model.IClientCompany;
 import upm.etsisi.Model.ClientCompany;
-import upm.etsisi.Model.ProductsAndService;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -27,14 +26,9 @@ public class ViewClient implements View{
         }
 
     }
-    public void listClient(List<Client> clientList){
-        clientList.sort(Comparator.comparing(Client::getName));
-        for(Client c : clientList){
-           printClient(c);
-        }
-    }
-    public void printAll(Collection<ClientAndCompany> list) {
-        for (ClientAndCompany cc : list) {
+
+    public void printAll(Collection<IClientCompany> list) {
+        for (IClientCompany cc : list) {
             if(cc instanceof  Client){
                 Client client = (Client) cc;
                 printClient(client);

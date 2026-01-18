@@ -1,5 +1,5 @@
 package upm.etsisi.Model;
 
-public interface ClientAndCompany {
+public interface IClientCompany {
     String getCashierId();
 }

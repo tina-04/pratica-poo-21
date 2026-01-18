@@ -22,7 +22,9 @@ public class CashierCommandAdd extends Command {
                     String email = args[3];
                     result = ControlCashier.getInstance().addCashier(username.substring(1, username.length()-1), email);
                 }
-            } catch (Exception e) {
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+            }catch(Exception e){
                 System.out.println(e.getMessage());
             }
         }

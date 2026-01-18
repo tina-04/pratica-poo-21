@@ -11,7 +11,12 @@ public class ProductCommandRemove extends Command {
     public boolean apply(String[] args) {
         boolean result=false;
         if (args[1].equals("remove")) {
-            result=ControlProduct.getInstance().removeProduct(Integer.parseInt(args[2]));
+            try{
+                Integer prodId= Integer.valueOf(args[2]);
+                result=ControlProduct.getInstance().removeProduct(prodId);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
 
         }
         return result;

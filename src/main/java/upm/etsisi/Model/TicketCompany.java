@@ -7,6 +7,7 @@ public class TicketCompany extends Ticket<ProductsAndService>{
     public TicketCompany(String id, String cashierId, String clientId, String type) {
         super(id, cashierId, clientId);
         this.type=type;
+
     }
     public String getType() {
         return type;

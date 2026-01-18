@@ -13,7 +13,7 @@ public class ProductCommandList extends Command {
     public boolean apply(String[] args) {
         boolean result = false;
         if(args.length == 2 && args[1].equals("list")){
-            ControlProduct.getInstance().list();
+
             ControlProduct.getInstance().listPS();
             result = true;
         }

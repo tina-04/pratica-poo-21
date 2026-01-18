@@ -3,7 +3,6 @@ package upm.etsisi.Control;
 import upm.etsisi.Model.*;
 import upm.etsisi.Utility.Utility;
 import upm.etsisi.View.ViewClient;
-import upm.etsisi.View.ViewTicket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +13,7 @@ import java.io.*;
 
 public class ControlClient {
     private List<Client> clientsList;
-    private Map<String, ClientAndCompany> cc = new HashMap<>();
+    private Map<String, IClientCompany> cc = new HashMap<>();
     private List<Ticket> ticketList;
     private ViewClient viewClient;
     private static ControlClient instance;
@@ -34,33 +33,35 @@ public class ControlClient {
         this.ticketList = new ArrayList<>();
         loadClients();
     }
+
     public boolean exists(String id) {
         return cc.containsKey(id);
     }
 
-    public boolean addTicket(String clienId,Ticket ticket){
-        boolean resul =false;
-        if(existClient(clienId)){
-            for(int i =0; i<clientsList.size(); i++){
-                if(clientsList.get(i).getCashierId().equals(clienId)){
+    public boolean addTicket(String clienId, Ticket ticket) {
+        boolean resul = false;
+        if (cc.get(clienId) !=null) {
+            for (int i = 0; i < clientsList.size(); i++) {
+                if (clientsList.get(i).getCashierId().equals(clienId)) {
                     ticketList.add(ticket);
                 }
             }
         }
-        return  resul;
+        return resul;
     }
+
     public boolean addClient(String name, String id, String email, String cashierId) {
         boolean resul = false;
         if (!exists(id) && ControlCashier.getInstance().existCashier(cashierId)) {
-            if(Utility.correctDNI(id)){
+            if (Utility.correctDNI(id)) {
                 Client client = new Client(name, id, email, cashierId);
                 cc.put(id, client);
                 viewClient.printClient(client);
                 viewClient.createOK();
                 resul = true;
-            }else if(Utility.isNifNumValid(id)){
+            } else if (Utility.isNifNumValid(id)) {
                 ClientCompany client = new ClientCompany(name, id, email, cashierId);
-                cc.put(id,client);
+                cc.put(id, client);
                 viewClient.printCompany(client);
                 viewClient.createOK();
                 resul = true;
@@ -71,47 +72,21 @@ public class ControlClient {
         return resul;
     }
 
-    public boolean existClient(String DNI) {
-        boolean result = false;
-        for (Client c : clientsList) {
-            if (c.getDNI().equals(DNI))
-                result = true;
-        }
-        return result;
-    }
-
-    public Client searchClient(String DNI) {
-        Client client = null;
-        for (int i = 0; i < clientsList.size(); i++) {
-            if (clientsList.get(i).getDNI().equals(DNI)) {
-                client = clientsList.get(i);
-            }
-
-        }
-        return client;
-    }
-
     public boolean removeClient(String DNI) {
         boolean result = false;
-        if (existClient(DNI)) {
-            Client client = searchClient(DNI);
-            clientsList.remove(client);
+        if (exists(DNI)) {
+            cc.remove(DNI);
             viewClient.removeOK();
             result = true;
         }
         return result;
     }
-
-    public void clientList() {
-        viewClient.listClient(clientsList);
-        viewClient.listOK();
-    }
-    public void listPS(){
+    public void listClient() {
         viewClient.printAll(cc.values());
         viewClient.listOK();
     }
 
-    public void saveClients(){
+    public void saveClients() {
         File file = new File(RUTA);
 
         try {
@@ -120,8 +95,8 @@ public class ControlClient {
             }
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                for (ClientAndCompany item : cc.values()) { // No tengo ni idea de los datos guardados
-                                                            // pero eso creo que tiene todos los clientes
+                for (IClientCompany item : cc.values()) { // No tengo ni idea de los datos guardados
+                    // pero eso creo que tiene todos los clientes
                     StringBuilder sb = new StringBuilder();
 
                     if (item instanceof Client) {
@@ -146,10 +121,11 @@ public class ControlClient {
                 }
                 System.out.println("Datos guardados en: " + RUTA);
             }
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 
-    public void loadClients(){
+    public void loadClients() {
         File file = new File(RUTA);
 
         if (!file.exists()) {
@@ -184,8 +160,10 @@ public class ControlClient {
                             cc.put(cp.getId(), cp);
                             break;
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 }

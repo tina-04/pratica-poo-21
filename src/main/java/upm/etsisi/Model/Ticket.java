@@ -5,14 +5,13 @@ import upm.etsisi.Utility.Status;
 import upm.etsisi.Utility.Utility;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Ticket<T extends ProductsAndService> {
 
-    private Map<String, T> ps = new HashMap<>();
+
+    private List<TicketItem<ProductsAndService>> items = new ArrayList<>();
+
     private HashMap<Category, Integer> categoryCounter = new HashMap<>();
     private double total;
     private double discount;
@@ -25,7 +24,6 @@ public class Ticket<T extends ProductsAndService> {
 
 
     public Ticket(String id, String cashierId, String clientId) {
-        this.ps = new HashMap<>();
         this.total = 0;
         this.discount = 0;
         this.finalPrice = 0;
@@ -34,13 +32,56 @@ public class Ticket<T extends ProductsAndService> {
         this.status=Status.EMPTY;
         this.id =id;
     }
-    public Map<String, T> getPs() {
-        return ps;
+    public void addItem(ProductsAndService item, int quantity, boolean canRepeat) {
+        if (canRepeat) {
+            // Si es repetible (BasicProduct), agregar como cantidad
+            TicketItem<ProductsAndService> existing = findItemById(item);
+            if (existing != null) {
+                existing.addQuantity(quantity);
+            } else {
+                items.add(new TicketItem<>(item, quantity));
+            }
+        } else {
+            // No repetible: agregar solo una vez
+            if (findItemById(item) == null) {
+                items.add(new TicketItem<>(item, 1));
+            }
+        }
     }
 
-    /*public void setPs(Map<String, ProductsAndService> ps) {
-        this.ps = ps;
-    }*/
+    private TicketItem<ProductsAndService> findItemById(ProductsAndService item) {
+        for (TicketItem<ProductsAndService> ti : items) {
+            ProductsAndService existingItem = ti.getItem();
+            // Si ambos son BasicProduct
+            if (existingItem instanceof BasicProduct && item instanceof BasicProduct) {
+                BasicProduct existingBP = (BasicProduct) existingItem;
+                BasicProduct newBP = (BasicProduct) item;
+
+                boolean bothPersonalized = existingBP.getPersonalizationList() != null && !existingBP.getPersonalizationList().isEmpty()
+                        && newBP.getPersonalizationList() != null && !newBP.getPersonalizationList().isEmpty();
+
+                boolean bothNormal = (existingBP.getPersonalizationList() == null || existingBP.getPersonalizationList().isEmpty())
+                        && (newBP.getPersonalizationList() == null || newBP.getPersonalizationList().isEmpty());
+
+                // Solo si son el mismo tipo (ambos normales o ambos mismo personalizado)
+                if ((bothNormal || bothPersonalized)
+                        && existingBP.getId().equals(newBP.getId())
+                        && Objects.equals(existingBP.getPersonalizationList(), newBP.getPersonalizationList())) {
+                    return ti;
+                }
+            } else {
+                // Otros tipos: ProductService o TimedProduct
+                if (existingItem.getId().equals(item.getId())) {
+                    return ti;
+                }
+            }
+        }
+        return null;
+
+    }
+    public List<TicketItem<ProductsAndService>> getItems() {
+        return items;
+    }
 
     public Status getStatus() {
         return status;

@@ -14,7 +14,11 @@ public class CashierCommandRemove extends Command {
         boolean result = false;
         if(args[1].equals("remove")){
             if (args[2] != null) {
-                result = ControlCashier.getInstance().removeCashier(args[2]);
+                try{
+                    result = ControlCashier.getInstance().removeCashier(args[2]);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
         return result;

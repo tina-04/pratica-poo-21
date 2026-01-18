@@ -57,36 +57,7 @@ public class ViewProduct implements View{
 
     }
 
-    public void listProduct(List<Product> productList){
-        messageOutput("Catalog:");
-        for(Product product : productList){
-            if(product instanceof BasicProduct){
-                BasicProduct basicProd = (BasicProduct) product;
-                switch(basicProd.getProductType()){
-                    case BASIC:
-                        if (basicProd.getPersonalizationList()!= null){
-                            printProductP(basicProd);
-                        }else{
-                            printProduct(basicProd);
-                        }
-                        break;
-                    case PERSONALIZATION:
-                        printProductP(basicProd);
-                        break;
-                }
-            } else if(product instanceof TimedProduct){
-                TimedProduct timedProd = (TimedProduct) product;
-                switch(timedProd.getProductType()){
-                    case FOOD:
-                        printProductFood(timedProd);
-                        break;
-                    case MEETING:
-                        printProductMeeting(timedProd);
-                        break;
-                }
-            }
-        }
-    }
+
     public void printAll(Collection<ProductsAndService> list) {
         for (ProductsAndService ps : list) {
             if (ps instanceof BasicProduct) {

@@ -1,6 +1,6 @@
 package upm.etsisi.Model;
 
-public class Client extends User implements ClientAndCompany {
+public class Client extends User implements IClientCompany {
     private String DNI;
     private String cashierId;
 

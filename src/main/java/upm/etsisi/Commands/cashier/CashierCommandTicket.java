@@ -12,7 +12,11 @@ public class CashierCommandTicket extends Command {
         boolean result = false;
         if(args[1].equals("tickets")){
             if (args[2] != null) {
-                result = ControlCashier.getInstance().cashTicket(args[2]);
+                try{
+                    result = ControlCashier.getInstance().cashTicket(args[2]);
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
         return result;

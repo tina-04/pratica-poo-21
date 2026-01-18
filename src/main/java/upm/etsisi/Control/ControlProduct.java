@@ -12,10 +12,8 @@ import java.util.*;
 import java.io.*;
 
 public class ControlProduct {
-    private List<Product> productList;
     private Map<String, ProductsAndService> ps = new HashMap<>();
     private int serviceCounter = 1;
-    Map<String, ProductsAndService> productsList = new HashMap<>();
 
     private int numProducts;
     private final int MAX_PRODUCT = 200;
@@ -33,41 +31,19 @@ public class ControlProduct {
     }
 
     private ControlProduct() {
-        this.productList = new ArrayList<>();
         this.numProducts = 0;
         this.viewProduct = new ViewProduct();
         loadProducts();
     }
 
-    public boolean existProduct(int id) {
-        boolean exist = false;
-        String idP = String.valueOf(id);
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i) != null) {
-                if (productsList.get(idP) != null) {
-                    exist = true;
-                }
-            }
-        }
 
-        return exist;
-    }
 
-    public Product searchProduct(int id) {
-        Product product = null;
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getId().equals(id)) {
-                product = productList.get(i);
-            }
-        }
-        return product;
-    }
 
     public boolean addProduct(Integer id, String name, Category category, double price, Integer max_people) {
         boolean result = false;
         if (max_people == null) {
-            if (productList.size() < MAX_PRODUCT) {
-                if (!existProduct(id)) {
+            if (ps.size() < MAX_PRODUCT) {
+                if (ps.get(id) == null) {
                     BasicProduct product = new BasicProduct(String.valueOf(id), name, category, price);
                     ps.put(product.getId(), product);
                     numProducts++;
@@ -77,8 +53,8 @@ public class ControlProduct {
                 }
             }
         } else {
-            if (productList.size() < MAX_PRODUCT) {
-                if (!existProduct(id)) {
+            if (ps.size() < MAX_PRODUCT) {
+                if (ps.get(id) == null) {
                     BasicProduct product = new BasicProduct(String.valueOf(id), name, category, price, max_people, null);
                     ps.put(product.getId(), product);
                     numProducts++;
@@ -148,7 +124,7 @@ public class ControlProduct {
 
     public boolean removeProduct(int id) {
         boolean result = false;
-        if (ps.containsKey(id)) {
+        if (ps.get(String.valueOf(id)) !=null) {
             Product product = (Product) ps.get(String.valueOf(id));
             viewProduct.printProduct(product);
             ps.remove(String.valueOf(id));
@@ -183,10 +159,7 @@ public class ControlProduct {
         return result;
     }
 
-    public void list() {
-        viewProduct.listProduct(productList);
-        viewProduct.listOK();
-    }
+
 
     public void listPS() {
         viewProduct.printAll(ps.values());

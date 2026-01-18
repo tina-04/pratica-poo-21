@@ -26,7 +26,7 @@ public class ProductCommandAddFood extends Command {
                 int lastQuote = line.lastIndexOf('"');
                 if (firstQuote == -1 || lastQuote == -1 || lastQuote <= firstQuote) {
                     System.out.println("Error: El nombre debe ir entre comillas.");
-                    return true;
+                    return false;
                 }
 
                 String name = line.substring(firstQuote + 1, lastQuote);
@@ -35,7 +35,7 @@ public class ProductCommandAddFood extends Command {
 
                 if (rest.length < 3) {
                     System.out.println("Error: faltan argumentos.");
-                    return true;
+                    return false;
                 }
 
                 double price = Double.parseDouble(rest[0]);
@@ -45,7 +45,7 @@ public class ProductCommandAddFood extends Command {
                 result= ControlProduct.getInstance().addFood(id, name, price, expiration, max_people);
 
 
-            } catch (Exception e) {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
             }
         }

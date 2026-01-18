@@ -17,16 +17,7 @@ public class ViewTicket  implements View{
     public void printTicket(Ticket ticket){
         messageOutput("Ticket:" + ticket.getId());
     }
-    public void printAll(ProductsAndService productsAndService){
-        if(productsAndService instanceof Product){
-            Product product = (Product) productsAndService;
-            printProductBasic(product);
 
-        }else if(productsAndService instanceof ProductService){
-            ProductService service = (ProductService)  productsAndService;
-            printProductService(service);
-        }
-    }
     public void printProductBasic(Product product) {
         if(product instanceof BasicProduct){
             BasicProduct basicProd = (BasicProduct) product;
@@ -100,13 +91,18 @@ public class ViewTicket  implements View{
         messageOutput("Total discount: " + String.format(Locale.US, "%.2f", ticket.getDiscount()));
         messageOutput("Final Price: " + ticket.getFinalPrice());
     }
-    public void printProductService(ProductService product) {
+    public void pricesWithService(TicketCompany ticket) {
+        messageOutput("Total price: " + ticket.getTotal());
+        messageOutput("Extra Discount from services: " + ticket.getDiscount() + " **discount -"+ticket.getDiscount());
+        messageOutput("Total discount: " + String.format(Locale.US, "%.2f", ticket.getDiscount()));
+        messageOutput("Final Price: " + ticket.getFinalPrice());
+    }
+    public void printProductService(ProductService service) {
 
-        messageOutput("{class:ProductService, id:" + product.getId()+ ", category:" + product.getCategory()+ ", expiration:" + product.getExpiration()+ "}");
+        messageOutput("{class:ProductService, id:" + service.getId()+ ", category:" + service.getCategory()+ ", expiration:" + service.getExpiration()+ "}");
 
     }
-    public void product(){messageOutput("Product Incluede:\n");}
-    public void service(){messageOutput("Service Incluede:\n");}
+
     public void newOk(){messageOutput("ticket new: ok");}
     public void createOK(){
         messageOutput("ticket add: ok");
@@ -121,5 +117,7 @@ public class ViewTicket  implements View{
     public void printOK(){
         messageOutput("ticket print: ok");
     }
+    public void productIncluded(){messageOutput("Product Included:");}
+    public void serviceIncluded(){messageOutput("Service Included:");}
 
 }
