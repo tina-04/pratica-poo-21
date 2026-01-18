@@ -1,11 +1,9 @@
 package upm.etsisi.Commands.client;
 
-import com.sun.jdi.InvalidLineNumberException;
+
 import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlClient;
-import upm.etsisi.Utility.Utility;
 
-import javax.naming.InvalidNameException;
 
 public class ClientCommandAdd extends Command {
 
