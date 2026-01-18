@@ -4,6 +4,7 @@ import upm.etsisi.Commands.Command;
 import upm.etsisi.Control.ControlCashier;
 import upm.etsisi.Control.ControlClient;
 import upm.etsisi.Control.ControlProduct;
+import upm.etsisi.Control.ControlTicket;
 
 public class ExitCommand extends Command {
     public ExitCommand(String name) {
@@ -17,6 +18,7 @@ public class ExitCommand extends Command {
             ControlProduct.getInstance().saveProducts();
             ControlCashier.getInstance().saveCashiers();
             ControlClient.getInstance().saveClients();
+            ControlTicket.getInstance().saveTickets();
             result = true;
         }
         return result;

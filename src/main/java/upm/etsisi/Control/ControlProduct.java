@@ -230,7 +230,6 @@ public class ControlProduct {
             }
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                // Apuntar línea por línea -----------------------------------
                 for (ProductsAndService item : ps.values()) {
                     StringBuilder sb = new StringBuilder();
 
@@ -269,8 +268,6 @@ public class ControlProduct {
                     writer.write(sb.toString());
                     writer.newLine();
                 }
-                // --------------------------------------------------------
-                // Version final dependiendo de los atributos de cada uno
                 System.out.println("Datos guardados en: " + RUTA);
             }
         } catch (IOException ignored) {

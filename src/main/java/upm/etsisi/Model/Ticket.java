@@ -87,6 +87,8 @@ public class Ticket<T extends ProductsAndService> {
 
     public String getCashierId() {return cashierId;}
 
+    public String getClientId(){return clientId;}
+
     public void setClientId(String id) {this.clientId = id;}
 
 

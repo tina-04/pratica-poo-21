@@ -6,6 +6,7 @@ import upm.etsisi.Utility.ProductType;
 import upm.etsisi.Utility.Status;
 import upm.etsisi.View.ViewTicket;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -20,6 +21,8 @@ public class ControlTicket {
 
     private IPrinter printer;
 
+    private static final String RUTA = "src/main/java/upm/etsisi/Persistence/Tickets.csv";
+
 
     public static ControlTicket getInstance() {
         if (instance == null) {
@@ -31,6 +34,7 @@ public class ControlTicket {
     private ControlTicket() {
         this.ticketList = new ArrayList<>();
         this.viewTicket = new ViewTicket();
+        loadTickets();
     }
 
     public void setPrinter(IPrinter printer) {
@@ -488,11 +492,122 @@ public class ControlTicket {
         return discount;
     }
 
-    public void saveTickets(String route){
-        //TODO
+    public void saveTickets(){
+        File file = new File(RUTA);
+
+        try {
+            if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                for (Ticket ticket : list.values()) {
+                    StringBuilder sb = new StringBuilder();
+
+                    StringBuilder productsSb = new StringBuilder();
+                    Map<String, ProductsAndService> psMap = ticket.getPs();
+
+                    for (String prodId : psMap.keySet()) {
+                        productsSb.append(prodId).append(",");
+                    }
+                    String productIds = productsSb.length() > 0 ?
+                            productsSb.substring(0, productsSb.length() - 1) : "NONE";
+
+                    if (ticket instanceof TicketCompany) {
+                        TicketCompany tc = (TicketCompany) ticket;
+                        // TICKET_COMPANY;ID;CASHIER;CLIENT;STATUS;TYPE;PRODUCTOS
+                        sb.append("TICKET_COMPANY").append(";")
+                                .append(tc.getId()).append(";")
+                                .append(tc.getCashierId()).append(";")
+                                .append(tc.getClientId() != null ? tc.getClientId() : "null").append(";") // Safety check
+                                .append(tc.getStatus()).append(";")
+                                .append(tc.getType()).append(";") // "s" o "c"
+                                .append(productIds);
+
+                    } else {
+                        // TICKET;ID;CASHIER;CLIENT;STATUS;PRODUCTOS
+                        sb.append("TICKET").append(";")
+                                .append(ticket.getId()).append(";")
+                                .append(ticket.getCashierId()).append(";")
+                                .append(ticket.getClientId() != null ? ticket.getClientId() : "null").append(";")
+                                .append(ticket.getStatus()).append(";")
+                                .append(productIds);
+                    }
+
+                    writer.write(sb.toString());
+                    writer.newLine();
+                }
+                System.out.println("Datos guardados en: " + RUTA);
+            }
+        } catch (IOException ignored) {}
     }
 
-    public void loadTickets(String route){
-        //TODO
+    public void loadTickets(){
+        File file = new File(RUTA);
+        if (!file.exists()) return;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            list.clear();
+            ticketList.clear();
+
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+
+                String[] data = line.split(";");
+                String rowType = data[0];
+
+                try {
+                    Ticket ticket = null;
+                    String productsString = "";
+
+                    if (rowType.equals("TICKET_COMPANY")) {
+                        String id = data[1];
+                        String cashierId = data[2];
+                        String clientId = data[3].equals("null") ? null : data[3];
+                        Status status = Status.valueOf(data[4]);
+                        String type = data[5]; // "s" o "c"
+                        productsString = (data.length > 6) ? data[6] : "NONE";
+
+                        TicketCompany tc = new TicketCompany(id, cashierId, clientId, type);
+                        tc.setStatus(status);
+                        ticket = tc;
+
+                    } else if (rowType.equals("TICKET")) {
+                        String id = data[1];
+                        String cashierId = data[2];
+                        String clientId = data[3].equals("null") ? null : data[3];
+                        Status status = Status.valueOf(data[4]);
+                        productsString = (data.length > 5) ? data[5] : "NONE";
+
+                        ticket = new Ticket(id, cashierId, clientId);
+                        ticket.setStatus(status);
+                    }
+
+                    if (ticket != null && !productsString.equals("NONE") && !productsString.isEmpty()) {
+                        String[] prodIds = productsString.split(",");
+
+                        for (String prodId : prodIds) {
+                            ProductsAndService item = ControlProduct.getInstance().getProductOrService(prodId);
+
+                            if (item != null) {
+                                ticket.getPs().put(item.getId(), item);
+                            }
+                        }
+
+                        list.put(ticket.getId(), ticket);
+                        ticketList.add(ticket);
+
+                        ControlCashier.getInstance().addTicket(ticket.getCashierId(), ticket);
+                        if (ticket.getClientId() != null) {
+                            ControlClient.getInstance().addTicket(ticket.getClientId(), ticket); // Revisa que este método acepte (id, ticket)
+                        }
+                    }
+
+                } catch (Exception e) {
+                    System.err.println("Error cargando ticket: " + line + " -> " + e.getMessage());
+                }
+            }
+        } catch (IOException ignored) {}
     }
 }
